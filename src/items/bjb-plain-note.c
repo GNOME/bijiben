@@ -115,8 +115,6 @@ bjb_plain_note_class_init (BjbPlainNoteClass *klass)
 
   note_class->get_text_content = bjb_plain_note_get_text_content;
   note_class->set_text_content = bjb_plain_note_set_text_content;
-  note_class->get_raw_content = bjb_plain_note_get_text_content;
-  note_class->set_raw_content = bjb_plain_note_set_text_content;
 }
 
 static void

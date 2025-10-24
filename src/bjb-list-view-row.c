@@ -86,10 +86,7 @@ note_content_changed_cb (BjbListViewRow *self)
 
   g_assert (BJB_IS_LIST_VIEW_ROW (self));
 
-  content = bjb_note_get_raw_content (BJB_NOTE (self->note));
-
-  if (!content)
-    content = bjb_note_get_text_content (BJB_NOTE (self->note));
+  content = bjb_note_get_text_content (BJB_NOTE (self->note));
 
   if (!content)
     return;

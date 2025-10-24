@@ -55,20 +55,6 @@ bjb_note_real_set_text_content (BjbNote    *self,
 {
 }
 
-static char *
-bjb_note_real_get_raw_content (BjbNote *self)
-{
-  g_assert (BJB_IS_NOTE (self));
-
-  return NULL;
-}
-
-static void
-bjb_note_real_set_raw_content (BjbNote    *self,
-                               const char *content)
-{
-}
-
 static BjbItem *
 bjb_note_real_get_notebook (BjbNote *self)
 {
@@ -99,8 +85,6 @@ bjb_note_class_init (BjbNoteClass *klass)
 
   klass->get_text_content = bjb_note_real_get_text_content;
   klass->set_text_content = bjb_note_real_set_text_content;
-  klass->get_raw_content = bjb_note_real_get_raw_content;
-  klass->set_raw_content = bjb_note_real_set_raw_content;
 
   klass->get_notebook = bjb_note_real_get_notebook;
 }
@@ -146,40 +130,6 @@ bjb_note_set_text_content (BjbNote    *self,
   g_return_if_fail (BJB_IS_NOTE (self));
 
   BJB_NOTE_GET_CLASS (self)->set_text_content (self, content);
-}
-
-/**
- * bjb_note_get_raw_content:
- * @self: a #BjbNote
- *
- * Get the raw content, may contain XML tags, or
- * whatever is used for formatting.
- *
- * Returns (transfer full) (nullable): the raw text
- * content of the note.
- */
-char *
-bjb_note_get_raw_content (BjbNote *self)
-{
-  g_return_val_if_fail (BJB_IS_NOTE (self), NULL);
-
-  return BJB_NOTE_GET_CLASS (self)->get_raw_content (self);
-}
-
-/**
- * bjb_note_set_raw_content:
- * @self: a #BjbNote
- * @content: The text to set as content
- *
- * Set the raw text content of the note.
- */
-void
-bjb_note_set_raw_content (BjbNote    *self,
-                          const char *content)
-{
-  g_return_if_fail (BJB_IS_NOTE (self));
-
-  BJB_NOTE_GET_CLASS (self)->set_raw_content (self, content);
 }
 
 char *

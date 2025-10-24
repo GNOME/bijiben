@@ -434,7 +434,7 @@ bjb_memo_provider_save_item_async (BjbProvider         *provider,
   summary = e_cal_component_text_new (bjb_item_get_title (item), NULL);
   e_cal_component_set_summary (component, summary);
 
-  content = bjb_note_get_raw_content (BJB_NOTE (item));
+  content = bjb_note_get_text_content (BJB_NOTE (item));
   description = e_cal_component_text_new (content, NULL);
   descriptions.data = description;
   descriptions.next = NULL;

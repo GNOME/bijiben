@@ -54,8 +54,6 @@ struct _BjbXmlNote
 {
   BjbNote       parent_instance;
 
-  char        *raw_xml;     /* full XML data to be saved to file */
-  char        *content_xml; /* pointer to the beginning of content */
   char        *text_content; /* pointer to the beginning of content */
   GString     *markup;
   char        *title;
@@ -68,29 +66,6 @@ struct _BjbXmlNote
 
 G_DEFINE_TYPE (BjbXmlNote, bjb_xml_note, BJB_TYPE_NOTE)
 
-static char *
-bjb_xml_note_get_raw_content (BjbNote *note)
-{
-  BjbXmlNote *self = BJB_XML_NOTE (note);
-
-  g_assert (BJB_IS_NOTE (note));
-
-  return g_strdup (self->raw_xml);
-}
-
-static void
-bjb_xml_note_set_raw_content (BjbNote    *note,
-                              const char *content)
-{
-  BjbXmlNote *self = BJB_XML_NOTE (note);
-
-  g_assert (BJB_IS_XML_NOTE (self));
-
-  g_free (self->raw_xml);
-  self->raw_xml = g_strdup (content);
-  bjb_item_set_modified (BJB_ITEM (note));
-}
-
 static void
 bjb_xml_note_set_text_content (BjbNote    *note,
                                const char *content)
@@ -101,6 +76,16 @@ bjb_xml_note_set_text_content (BjbNote    *note,
 
   g_free (self->text_content);
   self->text_content = g_strdup (content);
+}
+
+static char *
+bjb_xml_note_get_text_content (BjbNote *note)
+{
+  BjbXmlNote *self = BJB_XML_NOTE (note);
+
+  g_assert (BJB_IS_NOTE (note));
+
+  return g_strdup (self->text_content);
 }
 
 static BjbTagStore *
@@ -132,8 +117,7 @@ bjb_xml_note_class_init (BjbXmlNoteClass *klass)
 
   object_class->finalize = bjb_xml_note_finalize;
 
-  note_class->get_raw_content = bjb_xml_note_get_raw_content;
-  note_class->set_raw_content = bjb_xml_note_set_raw_content;
+  note_class->get_text_content = bjb_xml_note_get_text_content;
   note_class->set_text_content = bjb_xml_note_set_text_content;
   note_class->get_tag_store = bjb_xml_note_get_tag_store;
 }

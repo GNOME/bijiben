@@ -288,7 +288,7 @@ biji_webkit_editor_content_changed (BijiWebkitEditor *self,
   BjbNote *note = self->note;
 
   bjb_note_set_html (note, (char *)html);
-  bjb_note_set_raw_content (note, (char *)text);
+  bjb_note_set_text_content (note, (char *)text);
 
   g_signal_emit (self, biji_editor_signals[CONTENT_CHANGED], 0, NULL);
 

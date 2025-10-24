@@ -39,11 +39,7 @@ on_email_note_callback (BjbNote *note)
   GVariant *dict;
 
   title_mail = mail_str (bjb_item_get_title (BJB_ITEM (note)));
-
-  content = bjb_note_get_raw_content (note);
-
-  if (!content)
-    content = bjb_note_get_text_content (note);
+  content = bjb_note_get_text_content (note);
 
   text_mail = mail_str (content);
 

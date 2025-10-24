@@ -240,7 +240,7 @@ process_tomboy_xml_content (BijiLazyDeserializer *self)
 
   /* Now the inner content is known, we can
    * assign note values and let deserialization work on last elements*/
-  bjb_note_set_raw_content (BJB_NOTE (self->note), self->raw_text->str);
+  bjb_note_set_text_content (BJB_NOTE (self->note), self->raw_text->str);
 
   revamped_html = biji_str_replace (self->html->str, "\n", "<br/>");
   bjb_note_set_html (BJB_NOTE (self->note), revamped_html);
@@ -368,7 +368,7 @@ process_bijiben_html_content (BijiLazyDeserializer *self,
     ret = xmlTextReaderRead (self->inner);
   }
 
-  bjb_note_set_raw_content (BJB_NOTE (self->note), self->raw_text->str);
+  bjb_note_set_text_content (BJB_NOTE (self->note), self->raw_text->str);
   bjb_note_set_html (BJB_NOTE (self->note), sane_html);
 
   xmlFree (BAD_CAST sane_html);

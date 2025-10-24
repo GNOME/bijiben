@@ -41,19 +41,12 @@ struct _BjbNoteClass
   char        *(*get_text_content)        (BjbNote        *self);
   void         (*set_text_content)        (BjbNote        *self,
                                           const char     *content);
-  char        *(*get_raw_content)         (BjbNote        *self);
-  void         (*set_raw_content)         (BjbNote        *self,
-                                          const char     *content);
-
   BjbTagStore *(*get_tag_store)           (BjbNote        *self);
   BjbItem     *(*get_notebook)            (BjbNote        *self);
 };
 
 char         *bjb_note_get_text_content        (BjbNote         *self);
 void          bjb_note_set_text_content        (BjbNote         *self,
-                                                const char      *content);
-char         *bjb_note_get_raw_content         (BjbNote         *self);
-void          bjb_note_set_raw_content         (BjbNote         *self,
                                                 const char      *content);
 char         *bjb_note_get_html                (BjbNote         *self);
 void          bjb_note_set_html                (BjbNote         *self,
