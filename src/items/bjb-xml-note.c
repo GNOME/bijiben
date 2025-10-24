@@ -105,6 +105,7 @@ bjb_xml_note_finalize (GObject *object)
 
   g_clear_pointer (&self->text_content, g_free);
   g_clear_pointer (&self->title, g_free);
+  g_clear_object (&self->tag_store);
 
   G_OBJECT_CLASS (bjb_xml_note_parent_class)->finalize (object);
 }
