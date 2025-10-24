@@ -147,7 +147,8 @@ bjb_xml_note_new_from_data (const char  *uid,
   g_set_object (&self->tag_store, tag_store);
   bjb_item_set_uid (BJB_ITEM (self), uid);
 
-  biji_lazy_deserialize (BJB_NOTE (self));
+  if (uid)
+    biji_lazy_deserialize (BJB_NOTE (self));
 
   return BJB_ITEM (self);
 }
