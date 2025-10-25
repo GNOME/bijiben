@@ -46,7 +46,6 @@ typedef enum
   NOTE_FORMAT_TOMBOY_2,
   NOTE_FORMAT_TOMBOY_3,
   NOTE_FORMAT_BIJIBEN_1,
-  NOTE_FORMAT_BIJIBEN_2,
   N_NOTE_FORMATS
 } NoteFormat;
 
@@ -60,7 +59,6 @@ struct _BjbXmlNote
   /* contains all tags known to BjbManager, only for lookup */
   BjbTagStore *tag_store;
 
-  NoteFormat   note_format;
   guint        parse_complete : 1;
 };
 
@@ -126,7 +124,6 @@ bjb_xml_note_class_init (BjbXmlNoteClass *klass)
 static void
 bjb_xml_note_init (BjbXmlNote *self)
 {
-  self->note_format = NOTE_FORMAT_BIJIBEN_2;
 }
 
 /**
