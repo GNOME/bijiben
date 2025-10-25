@@ -293,6 +293,7 @@ biji_webkit_editor_content_changed (BijiWebkitEditor *self,
   g_signal_emit (self, biji_editor_signals[CONTENT_CHANGED], 0, NULL);
 
   bjb_item_set_mtime (BJB_ITEM (note), g_get_real_time () / G_USEC_PER_SEC);
+  bjb_item_set_modified (BJB_ITEM (note));
 }
 
 
