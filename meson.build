@@ -133,6 +133,10 @@ subdir('src')
 subdir('po')
 subdir('help')
 
+if get_option('tests')
+  subdir('tests')
+endif
+
 configure_file(
   output: 'config.h',
   configuration: config_h

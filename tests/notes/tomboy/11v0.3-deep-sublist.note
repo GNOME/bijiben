@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<note version="0.3" xmlns:link="http://beatniksoftware.com/tomboy/link" xmlns:size="http://beatniksoftware.com/tomboy/size" xmlns="http://beatniksoftware.com/tomboy">
+  <title>Deep SubList</title>
+  <text xml:space="preserve"><note-content version="0.1">Deep SubList
+
+<list><list-item dir="ltr">Item 1
+<list><list-item dir="ltr">Subitem 1.1
+<list><list-item dir="ltr">Subitem 1.1.1
+</list-item><list-item dir="ltr">SubItem 1.1.2
+</list-item></list></list-item><list-item dir="ltr">Subitem 1.2
+</list-item></list></list-item><list-item dir="ltr">Item 2
+<list><list-item dir="ltr">SubItem 2.1
+<list><list-item dir="ltr">Subitem 2.1.1
+<list><list-item dir="ltr">Subitem 2.1.1.1
+</list-item></list></list-item><list-item dir="ltr">Subitem 2.1.2
+</list-item></list></list-item><list-item dir="ltr">Subitem 2.2
+</list-item></list></list-item><list-item dir="ltr">Item 3
+<list><list-item dir="ltr">Subitem 3.1
+<list><list-item dir="ltr">Subitem 3.1.1
+</list-item><list-item dir="ltr">Subitem 3.1.2
+<list><list-item dir="ltr">Subitem 3.1.2.1
+<list><list-item dir="ltr">Subitem 3.1.2.1.1
+</list-item><list-item dir="ltr">Subitem 3.1.2.1.2
+<list><list-item dir="ltr">Subitem 3.1.2.1.2.1</list-item></list></list-item></list></list-item></list></list-item></list></list-item></list></list-item></list></note-content></text>
+  <last-change-date>2025-10-27T09:04:39.1491460+05:30</last-change-date>
+  <last-metadata-change-date>2025-10-27T09:04:39.1502570+05:30</last-metadata-change-date>
+  <create-date>2025-10-27T08:58:56.6055860+05:30</create-date>
+  <cursor-position>304</cursor-position>
+  <selection-bound-position>304</selection-bound-position>
+  <width>607</width>
+  <height>743</height>
+  <x>0</x>
+  <y>0</y>
+  <open-on-startup>False</open-on-startup>
+</note>

@@ -4,7 +4,7 @@ revision_tag = vcs_tag(
 )
 bijiben_deps += declare_dependency(sources: revision_tag)
 
-sources = files(
+libsrc = files(
   'deserializer/biji-lazy-deserializer.c',
   'deserializer/biji-tomboy-reader.c',
   'editor/biji-editor-selection.c',
@@ -31,7 +31,6 @@ sources = files(
   'bjb-editor-toolbar.c',
   'bjb-import-dialog.c',
   'bjb-list-view-row.c',
-  'bjb-main.c',
   'bjb-manager.c',
   'bjb-note-list.c',
   'bjb-note-view.c',
@@ -44,6 +43,10 @@ sources = files(
   'bjb-window.c',
 )
 
+sources = files(
+  'bjb-main.c',
+)
+
 sources += gnome.compile_resources(
   'bjb-resources',
   gresource,
@@ -53,11 +56,18 @@ sources += gnome.compile_resources(
   export: true
 )
 
+libbijiben = static_library(
+  'bijiben', libsrc,
+  include_directories: [top_inc, src_inc],
+  dependencies: bijiben_deps,
+)
+
 executable(
   bijiben_name,
   sources,
   include_directories: [top_inc, src_inc],
   dependencies: bijiben_deps,
+  link_with: libbijiben,
   install: true,
   install_dir: bijiben_bindir
 )
