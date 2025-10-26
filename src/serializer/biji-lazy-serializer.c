@@ -97,13 +97,11 @@ serialize_html (BijiLazySerializer *self)
   g_free (html);
 }
 
-static gboolean
+static char *
 biji_lazy_serialize_internal (BijiLazySerializer *self)
 {
   GdkRGBA                    color;
   gchar                     *color_str;
-  gboolean                   retval;
-  const gchar               *path;
   g_autoptr(GDateTime)       change_date = NULL;
   g_autoptr(GDateTime)       metadata_date = NULL;
   g_autoptr(GDateTime)       create_date = NULL;
@@ -208,17 +206,14 @@ biji_lazy_serialize_internal (BijiLazySerializer *self)
 
   xmlFreeTextWriter(self->writer);
 
-  path = bjb_item_get_uid (BJB_ITEM (self->note));
-  retval = g_file_set_contents (path, (gchar*) self->buf->content, -1, NULL);
-
-  return retval;
+  return g_strdup ((char *) self->buf->content);
 }
 
-gboolean
+char *
 biji_lazy_serialize (BjbNote *note)
 {
   BijiLazySerializer *self;
-  gboolean result ;
+  char *result;
 
   self = g_object_new (BIJI_TYPE_LAZY_SERIALIZER, NULL);
   g_set_object (&self->note, note);

@@ -28,6 +28,7 @@
 # include "config.h"
 #endif
 
+#include "serializer/biji-lazy-serializer.h"
 #include "bjb-tag.h"
 #include "bjb-note.h"
 
@@ -152,6 +153,14 @@ bjb_note_set_html (BjbNote    *self,
 
   g_free (priv->html);
   priv->html = g_strdup (html);
+}
+
+char *
+bjb_note_get_xml (BjbNote *self)
+{
+  g_return_val_if_fail (BJB_IS_NOTE (self), NULL);
+
+  return biji_lazy_serialize (BJB_NOTE (self));
 }
 
 void

@@ -49,6 +49,7 @@ struct _BijiLazyDeserializer
   BjbNote    *note;
   BijiXmlType type;
   xmlTextReaderPtr r;
+  char *note_file_content;
 
   /* Reader for internal content, either tomboy html or Bijiben xhtml */
   xmlTextReaderPtr inner;
@@ -75,6 +76,8 @@ biji_lazy_deserializer_finalize (GObject *object)
 {
   BijiLazyDeserializer *self= BIJI_LAZY_DESERIALIZER (object);
 
+  g_clear_object (&self->note);
+  g_clear_pointer (&self->note_file_content, g_free);
   g_string_free (self->raw_text, TRUE);
   g_string_free (self->html, TRUE);
   g_free (self->content);
@@ -474,14 +477,11 @@ biji_parse_file (BijiLazyDeserializer *self)
 static gboolean
 biji_lazy_deserialize_internal (BijiLazyDeserializer *self)
 {
-  BjbNote *n = self->note;
-  const gchar *path;
   xmlDocPtr doc;
   xmlNodePtr cur;
   xmlChar     *version;
 
-  path = bjb_item_get_uid (BJB_ITEM (n));
-  doc = xmlParseFile (path);
+  doc = xmlParseDoc ((xmlChar *)self->note_file_content);
 
   if (doc == NULL )
   {
@@ -537,9 +537,7 @@ biji_lazy_deserialize_internal (BijiLazyDeserializer *self)
 
   xmlFree (version);
 
-  path = bjb_item_get_uid (BJB_ITEM (n));
-  self->r = xmlNewTextReaderFilename (path);
-
+  self->r = xmlReaderForDoc ((xmlChar *)self->note_file_content, NULL, NULL, 0);
   biji_parse_file (self);
   xmlFreeDoc (doc);
 
@@ -560,12 +558,14 @@ biji_lazy_deserializer_new (BjbNote *note)
 }
 
 gboolean
-biji_lazy_deserialize (BjbNote *note)
+biji_lazy_deserialize (BjbNote *note,
+                       char    *note_file_content)
 {
   BijiLazyDeserializer *bld;
   gboolean result;
 
   bld = biji_lazy_deserializer_new (note);
+  bld->note_file_content = note_file_content;
   result = biji_lazy_deserialize_internal (bld);
   g_clear_object (&bld);
 

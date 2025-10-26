@@ -242,7 +242,18 @@ bjb_local_provider_save_item (GTask        *task,
     }
 
   if (BJB_IS_NOTE (item))
-    biji_lazy_serialize (BJB_NOTE (item));
+    {
+      g_autofree char *content = NULL;
+      g_autoptr(GError) error = NULL;
+      const char *path;
+
+      content = bjb_note_get_xml (BJB_NOTE (item));
+      path = bjb_item_get_uid (item);
+      g_file_set_contents (path, content, -1, &error);
+
+      if (error)
+        g_warning ("Error saving note: %s", error->message);
+    }
 
   g_task_return_boolean (task, TRUE);
 }

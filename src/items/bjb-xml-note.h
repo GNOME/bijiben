@@ -36,5 +36,7 @@ G_DECLARE_FINAL_TYPE (BjbXmlNote, bjb_xml_note, BJB, XML_NOTE, BjbNote)
 
 BjbItem    *bjb_xml_note_new_from_data    (const char  *uid,
                                            BjbTagStore *tag_store);
+BjbItem    *bjb_xml_note_new_from_xml     (char        *xml_content,
+                                           BjbTagStore *tag_store);
 
 G_END_DECLS

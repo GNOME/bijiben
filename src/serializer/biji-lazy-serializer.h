@@ -32,6 +32,6 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (BijiLazySerializer, biji_lazy_serializer, BIJI, LAZY_SERIALIZER, GObject)
 
-gboolean         biji_lazy_serialize                     (BjbNote *note);
+char       *biji_lazy_serialize                     (BjbNote *note);
 
 G_END_DECLS

@@ -140,13 +140,36 @@ bjb_xml_note_new_from_data (const char  *uid,
                             BjbTagStore *tag_store)
 {
   BjbXmlNote *self;
+  char *content = NULL;
+
+  if (uid)
+    {
+      g_autoptr(GError) error = NULL;
+
+      if (!g_file_get_contents (uid, &content, NULL, &error))
+        {
+          g_warning ("Eror reading note file: %s", error->message);
+          return NULL;
+        }
+    }
+
+  self = (BjbXmlNote *)bjb_xml_note_new_from_xml (content, tag_store);
+  bjb_item_set_uid (BJB_ITEM (self), uid);
+
+  return BJB_ITEM (self);
+}
+
+BjbItem *
+bjb_xml_note_new_from_xml (char        *xml,
+                           BjbTagStore *tag_store)
+{
+  BjbXmlNote *self;
 
   self = g_object_new (BJB_TYPE_XML_NOTE, NULL);
   g_set_object (&self->tag_store, tag_store);
-  bjb_item_set_uid (BJB_ITEM (self), uid);
 
-  if (uid)
-    biji_lazy_deserialize (BJB_NOTE (self));
+  if (xml)
+    biji_lazy_deserialize (BJB_NOTE (self), xml);
 
   return BJB_ITEM (self);
 }
