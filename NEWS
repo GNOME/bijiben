@@ -1,3 +1,19 @@
+Overview of changes in 40.2
+===========================
+
+* Fixed a crash on shell search
+* Fixed a crash in detached notes
+* Depend on webkit2gtk-4.1
+* Fixed Flatpak build
+* Fixed --new-note when Notes is already open
+
+Translations
+* Spanish, Occitan, Indonesian, Vietnamese, Russian, Icelandic, Abkhazian
+  Georgian, Belarusian, Danish, Bulgarian
+
+Contributors
+* Balló György, Mohammed Sadiq
+
 Overview of changes in 40.1
 ===========================
 
