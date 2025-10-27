@@ -51,6 +51,7 @@ biji_lazy_serializer_finalize (GObject *object)
 
   xmlBufferFree (self->buf);
   xmlFreeTextReader (self->inner);
+  g_clear_object (&self->note);
 
   G_OBJECT_CLASS (biji_lazy_serializer_parent_class)->finalize (object);
 }
