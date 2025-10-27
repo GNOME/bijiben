@@ -174,13 +174,15 @@ process_tomboy_end_elem (BijiLazyDeserializer *self)
 static void
 process_tomboy_text_elem (BijiLazyDeserializer *self)
 {
+  g_autofree char *escaped = NULL;
   const gchar *text;
 
   text = (const gchar *) xmlTextReaderConstValue (self->inner);
 
   /* Simply append the text to both raw & html */
   self->raw_text = g_string_append (self->raw_text, text);
-  self->html = g_string_append (self->html, text);
+  escaped = g_markup_escape_text (text, -1);
+  self->html = g_string_append (self->html, escaped);
 }
 
 static void
