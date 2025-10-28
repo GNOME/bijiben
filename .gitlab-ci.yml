@@ -14,7 +14,7 @@ flatpak:
     MANIFEST_PATH: "build-aux/flatpak/org.gnome.Notes.json"
     RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
     APP_ID: "org.gnome.Notes.Devel"
-    FLATPAK_MODULE: 'gnome-notes'
+    FLATPAK_MODULE: 'bijiben'
 
 nightly:
   extends: '.publish_nightly'
