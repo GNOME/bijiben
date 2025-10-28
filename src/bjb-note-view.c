@@ -23,6 +23,7 @@
 #include "bjb-application.h"
 #include "bjb-editor-toolbar.h"
 #include "bjb-settings.h"
+#include "editor/biji-webkit-editor.h"
 #include "items/bjb-xml-note.h"
 #include "providers/bjb-provider.h"
 #include "bjb-note-view.h"
@@ -41,8 +42,6 @@ struct _BjbNoteView
   GtkWidget         *view;
   BjbNote           *note;
 
-  gboolean           is_self_change;
-  gulong             modified_id;
   guint              save_id;
 };
 
@@ -144,7 +143,7 @@ on_note_color_changed_cb (BjbNoteView *self)
   g_assert (BJB_IS_NOTE_VIEW (self));
 
   bjb_item_get_rgba (BJB_ITEM (self->note), &color);
-  webkit_web_view_set_background_color (WEBKIT_WEB_VIEW (self->view), &color);
+  biji_webkit_editor_set_color (BIJI_WEBKIT_EDITOR (self->view), &color);
 }
 
 static void
@@ -230,15 +229,23 @@ bjb_note_view_init (BjbNoteView *self)
 }
 
 static void
-note_view_note_modified_cb (BjbNoteView *self)
+note_view_note_modified_cb (BjbNoteView      *self,
+                            const char       *html,
+                            const char       *text)
 {
   NoteData *data;
 
   g_assert (BJB_IS_NOTE_VIEW (self));
 
-  if (!self->note || self->is_self_change ||
-      !bjb_item_is_modified (BJB_ITEM (self->note)) ||
-      self->save_id)
+  if (!self->note)
+    return;
+
+  bjb_note_set_html (self->note, html);
+  bjb_note_set_text_content (self->note, text);
+  bjb_item_set_mtime (BJB_ITEM (self->note), g_get_real_time () / G_USEC_PER_SEC);
+  bjb_item_set_modified (BJB_ITEM (self->note));
+
+  if (self->save_id)
     return;
 
   data = g_new0 (NoteData, 1);
@@ -271,7 +278,6 @@ bjb_note_view_set_note (BjbNoteView *self,
       note_view_save_item (data);
     }
 
-  g_clear_signal_handler (&self->modified_id, self->note);
   g_clear_handle_id (&self->save_id, g_source_remove);
 
   bjb_editor_toolbar_set_can_format (BJB_EDITOR_TOOLBAR (self->editor_toolbar),
@@ -291,30 +297,33 @@ bjb_note_view_set_note (BjbNoteView *self,
       GdkRGBA color;
 
       /* Text Editor (WebKitMainView) */
-      self->view = (GtkWidget *)biji_webkit_editor_new (note);
+      self->view = (GtkWidget *)biji_webkit_editor_new ();
+      webkit_web_view_set_editable (WEBKIT_WEB_VIEW (self->view),
+                                    !bjb_item_is_trashed (BJB_ITEM (self->note)));
+      biji_webkit_editor_set_html (BIJI_WEBKIT_EDITOR (self->view),
+                                   bjb_note_get_html (note));
       gtk_widget_set_vexpand (self->view, TRUE);
       gtk_box_prepend (GTK_BOX (self->editor_box), self->view);
 
-      self->modified_id = g_signal_connect_object (self->note, "notify::modified",
-                                                   G_CALLBACK (note_view_note_modified_cb),
-                                                   self, G_CONNECT_SWAPPED);
+      g_signal_connect_object (self->view, "content-changed",
+                               G_CALLBACK (note_view_note_modified_cb),
+                               self, G_CONNECT_SWAPPED);
       if (!bjb_item_get_rgba (BJB_ITEM (note), &color))
         {
           BjbSettings *settings;
 
           settings = bjb_settings_get_default();
 
-          self->is_self_change = TRUE;
           if (gdk_rgba_parse (&color, bjb_settings_get_default_color (settings)))
             bjb_item_set_rgba (BJB_ITEM (note), &color);
           bjb_item_unset_modified (BJB_ITEM (note));
-          self->is_self_change = FALSE;
         }
 
       g_signal_connect_object (self->note, "notify::color",
                                G_CALLBACK (on_note_color_changed_cb),
                                self,
                                G_CONNECT_SWAPPED);
+      on_note_color_changed_cb (self);
 
       gtk_widget_set_visible (self->view, TRUE);
 

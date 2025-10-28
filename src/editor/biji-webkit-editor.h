@@ -46,11 +46,13 @@ typedef enum
 G_DECLARE_FINAL_TYPE (BijiWebkitEditor, biji_webkit_editor, BIJI, WEBKIT_EDITOR, WebKitWebView)
 
 
-BijiWebkitEditor * biji_webkit_editor_new (BjbNote *note);
+BijiWebkitEditor * biji_webkit_editor_new (void);
+void biji_webkit_editor_set_html  (BijiWebkitEditor *self,
+                                   char             *html);
+void biji_webkit_editor_set_color (BijiWebkitEditor *self,
+                                   GdkRGBA          *rgba);
 
 void biji_webkit_editor_apply_format (BijiWebkitEditor *self, gint format);
-
-const gchar * biji_webkit_editor_get_selection (BijiWebkitEditor *self);
 
 void biji_webkit_editor_set_font (BijiWebkitEditor *self, gchar *font);
 

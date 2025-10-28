@@ -29,13 +29,6 @@
 #define ZOOM_MEDIUM 1.0f;
 #define ZOOM_SMALL  0.8f;
 
-/* Prop */
-enum {
-  PROP_0,
-  PROP_NOTE,
-  NUM_PROP
-};
-
 /* Signals */
 enum {
   EDITOR_CLOSED,
@@ -54,28 +47,20 @@ typedef enum {
 
 static guint biji_editor_signals [EDITOR_SIGNALS] = { 0 };
 
-static GParamSpec *properties[NUM_PROP] = { NULL, };
-
 struct _BijiWebkitEditor
 {
   WebKitWebView     parent_instance;
-  BjbNote          *note;
-  gulong            content_changed;
-  gboolean          has_text;
-  char             *selected_text;
+
   BlockFormat       block_format;
   gboolean          first_load;
+  gboolean          load_finished;
+  GdkRGBA           note_color;
+  gboolean          has_color;
+
   EEditorSelection *sel;
-  GtkEventController *shortcut_controller;
 };
 
 G_DEFINE_TYPE (BijiWebkitEditor, biji_webkit_editor, WEBKIT_TYPE_WEB_VIEW)
-
-const gchar *
-biji_webkit_editor_get_selection (BijiWebkitEditor *self)
-{
-  return self->selected_text;
-}
 
 static WebKitWebContext *
 biji_webkit_editor_get_web_context (void)
@@ -208,17 +193,6 @@ biji_webkit_editor_redo_cb (BijiWebkitEditor *self)
   return GDK_EVENT_STOP;
 }
 
-static void
-set_editor_color (WebKitWebView *w, GdkRGBA *col)
-{
-  g_autofree gchar *script = NULL;
-
-  webkit_web_view_set_background_color (w, col);
-  script = g_strdup_printf ("document.getElementById('editable').style.color = '%s';",
-                            BJB_UTILS_COLOR_INTENSITY (col) < 0.5 ? "white" : "black");
-  webkit_web_view_evaluate_javascript (w, script, -1, NULL, NULL, NULL, NULL, NULL);
-}
-
 void
 biji_webkit_editor_set_font (BijiWebkitEditor *self, gchar *font)
 {
@@ -263,51 +237,6 @@ biji_webkit_editor_init (BijiWebkitEditor *self)
 {
 }
 
-static void
-biji_webkit_editor_finalize (GObject *object)
-{
-  BijiWebkitEditor *self = BIJI_WEBKIT_EDITOR (object);
-
-  g_clear_object (&self->note);
-  g_free (self->selected_text);
-
-  self->shortcut_controller = NULL;
-
-  if (self->note != NULL) {
-    g_object_remove_weak_pointer (G_OBJECT (self->note), (gpointer*) &self->note);
-  }
-
-  G_OBJECT_CLASS (biji_webkit_editor_parent_class)->finalize (object);
-}
-
-static void
-biji_webkit_editor_content_changed (BijiWebkitEditor *self,
-                                    const char *html,
-                                    const char *text)
-{
-  BjbNote *note = self->note;
-
-  bjb_note_set_html (note, (char *)html);
-  bjb_note_set_text_content (note, (char *)text);
-
-  g_signal_emit (self, biji_editor_signals[CONTENT_CHANGED], 0, NULL);
-
-  bjb_item_set_mtime (BJB_ITEM (note), g_get_real_time () / G_USEC_PER_SEC);
-  bjb_item_set_modified (BJB_ITEM (note));
-}
-
-
-static void
-on_note_color_changed (BijiWebkitEditor *self)
-{
-  GdkRGBA color;
-
-  g_assert (BIJI_IS_WEBKIT_EDITOR (self));
-
-  if (bjb_item_get_rgba (BJB_ITEM (self->note), &color))
-    set_editor_color (WEBKIT_WEB_VIEW (self), &color);
-}
-
 static gboolean
 on_navigation_request (WebKitWebView           *web_view,
                        WebKitPolicyDecision    *decision,
@@ -344,20 +273,13 @@ on_load_change (WebKitWebView  *web_view,
                 WebKitLoadEvent event)
 {
   BijiWebkitEditor *self = BIJI_WEBKIT_EDITOR (web_view);
-  GdkRGBA color;
 
   if (event != WEBKIT_LOAD_FINISHED)
     return;
 
-  /* Apply color */
-  if (bjb_item_get_rgba (BJB_ITEM (self->note), &color))
-    set_editor_color (web_view, &color);
-
-  g_signal_connect_object (self->note,
-                           "notify::color",
-                           G_CALLBACK (on_note_color_changed),
-                           web_view,
-                           G_CONNECT_SWAPPED);
+  self->load_finished = TRUE;
+  if (self->has_color)
+    biji_webkit_editor_set_color (self, &self->note_color);
 }
 
 static gboolean
@@ -389,24 +311,15 @@ biji_webkit_editor_handle_contents_update (BijiWebkitEditor *self,
   if (!text)
     return;
 
-  biji_webkit_editor_content_changed (self, html, text);
+  g_signal_emit (self, biji_editor_signals[CONTENT_CHANGED], 0, html, text);
 }
 
 static void
 biji_webkit_editor_handle_selection_change (BijiWebkitEditor *self,
                                             JSCValue         *js_value)
 {
-  g_autoptr (JSCValue) js_has_text     = NULL;
-  g_autoptr (JSCValue) js_text         = NULL;
   g_autoptr (JSCValue) js_block_format = NULL;
   g_autofree char *block_format_str = NULL;
-
-  js_has_text = jsc_value_object_get_property (js_value, "hasText");
-  self->has_text = jsc_value_to_boolean (js_has_text);
-
-  js_text = jsc_value_object_get_property (js_value, "text");
-  g_free (self->selected_text);
-  self->selected_text = jsc_value_to_string (js_text);
 
   js_block_format = jsc_value_object_get_property (js_value, "blockFormat");
   block_format_str = jsc_value_to_string (js_block_format);
@@ -471,12 +384,8 @@ static void
 biji_webkit_editor_constructed (GObject *obj)
 {
   BijiWebkitEditor *self;
-  GtkShortcut *redo_shortcut;
-  GtkShortcut *undo_shortcut;
   WebKitWebView *view;
   WebKitUserContentManager *user_content;
-  g_autoptr(GBytes) html_data = NULL;
-  gchar *body;
 
   self = BIJI_WEBKIT_EDITOR (obj);
   view = WEBKIT_WEB_VIEW (self);
@@ -491,35 +400,6 @@ biji_webkit_editor_constructed (GObject *obj)
 
   self->sel = e_editor_selection_new (view);
 
-  webkit_web_view_set_editable (view, !bjb_item_is_trashed (BJB_ITEM (self->note)));
-
-  /* Do not segfault at finalize
-   * if the note died */
-  g_object_add_weak_pointer (G_OBJECT (self->note), (gpointer*) &self->note);
-
-  body = bjb_note_get_html (self->note);
-
-  if (!body)
-    body = html_from_plain_content ("");
-
-  html_data = g_bytes_new_take (body, strlen (body));
-  webkit_web_view_load_bytes (view, html_data, "application/xhtml+xml", NULL,
-                              "file://" DATADIR G_DIR_SEPARATOR_S "bijiben" G_DIR_SEPARATOR_S);
-
-  redo_shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_Z, GDK_CONTROL_MASK | GDK_SHIFT_MASK),
-                                    gtk_callback_action_new ((GtkShortcutFunc) biji_webkit_editor_redo_cb, self, NULL));
-  undo_shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_Z, GDK_CONTROL_MASK),
-                                    gtk_callback_action_new ((GtkShortcutFunc) biji_webkit_editor_undo_cb, self, NULL));
-
-  self->shortcut_controller = gtk_shortcut_controller_new ();
-  gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (self->shortcut_controller), GTK_SHORTCUT_SCOPE_LOCAL);
-  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (self->shortcut_controller),
-                                        redo_shortcut);
-  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (self->shortcut_controller),
-                                        undo_shortcut);
-
-  gtk_widget_add_controller (GTK_WIDGET (self), self->shortcut_controller);
-
   /* Do not be a browser */
   g_signal_connect (view, "decide-policy",
                     G_CALLBACK (on_navigation_request), NULL);
@@ -530,60 +410,12 @@ biji_webkit_editor_constructed (GObject *obj)
 }
 
 static void
-biji_webkit_editor_get_property (GObject  *object,
-                                 guint     property_id,
-                                 GValue   *value,
-                                 GParamSpec *pspec)
-{
-  BijiWebkitEditor *self = BIJI_WEBKIT_EDITOR (object);
-
-  switch (property_id)
-  {
-    case PROP_NOTE:
-      g_value_set_object (value, self->note);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-  }
-}
-
-static void
-biji_webkit_editor_set_property (GObject  *object,
-                                 guint     property_id,
-                                 const GValue *value,
-                                 GParamSpec *pspec)
-{
-  BijiWebkitEditor *self = BIJI_WEBKIT_EDITOR (object);
-
-  switch (property_id)
-  {
-    case PROP_NOTE:
-      self->note = g_value_dup_object (value);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-  }
-}
-
-static void
 biji_webkit_editor_class_init (BijiWebkitEditorClass *klass)
 {
   GObjectClass* object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->constructed = biji_webkit_editor_constructed;
-  object_class->finalize = biji_webkit_editor_finalize;
-  object_class->get_property = biji_webkit_editor_get_property;
-  object_class->set_property = biji_webkit_editor_set_property;
-
-  properties[PROP_NOTE] = g_param_spec_object ("note",
-                                               "Note",
-                                               "Bjb Note",
-                                                BJB_TYPE_NOTE,
-                                                G_PARAM_READWRITE  |
-                                                G_PARAM_CONSTRUCT |
-                                                G_PARAM_STATIC_STRINGS);
-
-  g_object_class_install_property (object_class,PROP_NOTE,properties[PROP_NOTE]);
 
   biji_editor_signals[EDITOR_CLOSED] = g_signal_new ("closed",
                                        G_OBJECT_CLASS_TYPE (klass),
@@ -600,13 +432,18 @@ biji_webkit_editor_class_init (BijiWebkitEditorClass *klass)
                                          0,
                                          NULL,
                                          NULL,
-                                         g_cclosure_marshal_VOID__VOID,
+                                         NULL,
                                          G_TYPE_NONE,
-                                         0);
+                                         2, G_TYPE_STRING, G_TYPE_STRING);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Z, GDK_CONTROL_MASK,
+                                (GtkShortcutFunc) biji_webkit_editor_undo_cb, NULL);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Z, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+                                (GtkShortcutFunc) biji_webkit_editor_redo_cb, NULL);
 }
 
 BijiWebkitEditor *
-biji_webkit_editor_new (BjbNote *note)
+biji_webkit_editor_new (void)
 {
   WebKitUserContentManager *manager = webkit_user_content_manager_new ();
 
@@ -614,8 +451,52 @@ biji_webkit_editor_new (BjbNote *note)
                        "web-context", biji_webkit_editor_get_web_context (),
                        "settings", biji_webkit_editor_get_web_settings (),
                        "user-content-manager", manager,
-                       "note", note,
                        NULL);
 
   g_object_unref (manager);
+}
+
+void
+biji_webkit_editor_set_html (BijiWebkitEditor *self,
+                             char             *html)
+{
+  g_autoptr(GBytes) html_data = NULL;
+
+  g_return_if_fail (BIJI_IS_WEBKIT_EDITOR (self));
+
+  self->load_finished = FALSE;
+  self->has_color = FALSE;
+
+  if (!html || !*html)
+    html = html_from_plain_content ("");
+
+  html_data = g_bytes_new_take (html, strlen (html));
+  webkit_web_view_load_bytes (WEBKIT_WEB_VIEW (self), html_data,
+                              "application/xhtml+xml", NULL,
+                              "file://" DATADIR G_DIR_SEPARATOR_S "bijiben" G_DIR_SEPARATOR_S);
+}
+
+void
+biji_webkit_editor_set_color (BijiWebkitEditor *self,
+                              GdkRGBA          *rgba)
+{
+  g_autofree char *script = NULL;
+
+  g_return_if_fail (BIJI_IS_WEBKIT_EDITOR (self));
+
+  if (!self->load_finished)
+    {
+      if (!gdk_rgba_equal (rgba, &self->note_color))
+        self->note_color = *rgba;
+      self->has_color = TRUE;
+      return;
+    }
+
+  webkit_web_view_set_background_color (WEBKIT_WEB_VIEW (self), rgba);
+  script = g_strdup_printf ("document.getElementById('editable').style.color = '%s';",
+                            BJB_UTILS_COLOR_INTENSITY (rgba) < 0.5 ? "white" : "black");
+  webkit_web_view_evaluate_javascript (WEBKIT_WEB_VIEW (self), script, -1,
+                                       NULL, NULL, NULL, NULL, NULL);
+  self->note_color = (GdkRGBA){};
+  self->has_color = FALSE;
 }
