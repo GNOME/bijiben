@@ -22,19 +22,19 @@
   </kudos>
   <screenshots>
     <screenshot type="default">
-      <image width="960" height="540">https://gitlab.gnome.org/GNOME/gnome-notes/raw/master/data/appdata/default.png</image>
+      <image width="960" height="540">https://gitlab.gnome.org/GNOME/bijiben/raw/master/data/appdata/default.png</image>
     </screenshot>
     <screenshot>
       <caption>Edit view</caption>
-      <image width="960" height="540">https://gitlab.gnome.org/GNOME/gnome-notes/raw/master/data/appdata/edit.png</image>
+      <image width="960" height="540">https://gitlab.gnome.org/GNOME/bijiben/raw/master/data/appdata/edit.png</image>
     </screenshot>
     <screenshot>
       <caption>Select view</caption>
-      <image width="960" height="540">https://gitlab.gnome.org/GNOME/gnome-notes/raw/master/data/appdata/select.png</image>
+      <image width="960" height="540">https://gitlab.gnome.org/GNOME/bijiben/raw/master/data/appdata/select.png</image>
     </screenshot>
     <screenshot>
       <caption>List view</caption>
-      <image width="960" height="540">https://gitlab.gnome.org/GNOME/gnome-notes/raw/master/data/appdata/list.png</image>
+      <image width="960" height="540">https://gitlab.gnome.org/GNOME/bijiben/raw/master/data/appdata/list.png</image>
     </screenshot>
   </screenshots>
 
@@ -64,9 +64,9 @@
   </releases>
 
   <url type="homepage">https://wiki.gnome.org/Apps/Notes</url>
-  <url type="bugtracker">https://gitlab.gnome.org/GNOME/gnome-notes/-/issues</url>
-  <url type="vcs-browser">https://gitlab.gnome.org/GNOME/gnome-notes</url>
-  <url type="translate">https://l10n.gnome.org/module/gnome-notes/</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/bijiben/-/issues</url>
+  <url type="vcs-browser">https://gitlab.gnome.org/GNOME/bijiben</url>
+  <url type="translate">https://l10n.gnome.org/module/bijiben/</url>
   <url type="donation">https://www.gnome.org/donate/</url>
   <url type="help">https://help.gnome.org/users/bijiben/stable/</url>
   <!-- developer_name tag deprecated with Appstream 1.0 -->

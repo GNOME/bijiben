@@ -34,7 +34,7 @@ set_defines = [
   # package
   ['BIJIBEN_APPLICATION_ID', application_id],
   ['PACKAGE', bijiben_name],
-  ['PACKAGE_BUGREPORT', 'https://gitlab.gnome.org/GNOME/gnome-notes/issues'],
+  ['PACKAGE_BUGREPORT', 'https://gitlab.gnome.org/GNOME/bijiben/issues'],
   ['PACKAGE_NAME', bijiben_name],
   ['PACKAGE_STRING', '@0@ @1@'.format(bijiben_name, bijiben_version)],
   ['PACKAGE_TARNAME', bijiben_name],

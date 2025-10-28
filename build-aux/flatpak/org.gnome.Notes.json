@@ -152,7 +152,7 @@
             ]
         },
         {
-            "name" : "gnome-notes",
+            "name" : "bijiben",
             "buildsystem" : "meson",
             "builddir" : true,
             "config-opts" : [
@@ -162,7 +162,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gnome-notes.git"
+                    "url" : "https://gitlab.gnome.org/GNOME/bijiben.git"
                 }
             ]
         }

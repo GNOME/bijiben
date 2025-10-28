@@ -9,7 +9,7 @@ Notes, formerly "Bijiben", is a note editor designed to remain simple to use.
 
 - Homepage: <https://wiki.gnome.org/Apps/Notes>
 
-- Report issues: <https://gitlab.gnome.org/GNOME/gnome-notes/issues/>
+- Report issues: <https://gitlab.gnome.org/GNOME/bijiben/issues/>
 
 - Donate: <https://www.gnome.org/friends/>
 
