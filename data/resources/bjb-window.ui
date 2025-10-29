@@ -83,7 +83,7 @@
         <attribute name="action">win.view-notebooks</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Email this Note</attribute>
+        <attribute name="label" translatable="yes">Email this Note…</attribute>
         <attribute name="action">win.email</attribute>
       </item>
       <item>
