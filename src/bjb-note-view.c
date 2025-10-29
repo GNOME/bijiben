@@ -324,6 +324,7 @@ bjb_note_view_set_note (BjbNoteView *self,
                                self,
                                G_CONNECT_SWAPPED);
       on_note_color_changed_cb (self);
+      view_font_changed_cb (self, NULL, bjb_settings_get_default ());
 
       gtk_widget_set_visible (self->view, TRUE);
 
