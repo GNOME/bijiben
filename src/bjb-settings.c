@@ -37,7 +37,6 @@ struct _BjbSettings
   GObject    parent_instance;
 
   /* Note Appearance settings */
-  gboolean   use_system_font;
   char      *font;
   char      *color;
 
@@ -88,11 +87,13 @@ bjb_settings_get_property (GObject    *object,
                            GParamSpec *pspec)
 {
   BjbSettings *self = BJB_SETTINGS (object);
+  gboolean use_system_font;
 
   switch (prop_id)
     {
     case PROP_USE_SYSTEM_FONT:
-      g_value_set_boolean (value, self->use_system_font);
+      use_system_font = g_settings_get_boolean (self->app_settings, "use-system-font");
+      g_value_set_boolean (value, use_system_font);
       break;
 
     case PROP_FONT:
