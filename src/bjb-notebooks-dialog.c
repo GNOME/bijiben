@@ -24,9 +24,11 @@
 # include "config.h"
 #endif
 
+#include <adwaita.h>
+
 #include "bjb-application.h"
 #include "providers/bjb-provider.h"
-#include "bjb-notebook-row.h"
+#include "items/bjb-tag.h"
 #include "bjb-notebooks-dialog.h"
 #include "bjb-log.h"
 
@@ -97,40 +99,53 @@ on_add_notebook_button_clicked_cb (BjbNotebooksDialog *self)
 
 static void
 on_notebooks_row_activated_cb (BjbNotebooksDialog *self,
-                               BjbNotebookRow     *row,
+                               AdwActionRow       *row,
                                GtkListBox         *box)
 {
   BjbItem *notebook;
+  GtkWidget *check_box;
 
   g_assert (BJB_IS_NOTEBOOKS_DIALOG (self));
   g_assert (GTK_IS_LIST_BOX (box));
-  g_assert (BJB_IS_NOTEBOOK_ROW (row));
+  g_assert (ADW_IS_ACTION_ROW (row));
   g_assert (BJB_IS_NOTE (self->item));
 
-  notebook = bjb_notebook_row_get_item (row);
+  notebook = g_object_get_data (G_OBJECT (row), "notebook");
+  check_box = g_object_get_data (G_OBJECT (row), "check-box");
 
   BJB_TRACE_MSG ("Notebook '%s' %s",
                  bjb_item_get_title (notebook),
-                 bjb_notebook_row_get_active (row) ? "selected" : "deselected");
+                 gtk_widget_get_visible (check_box) ? "selected" : "deselected");
 
   /* add tag if it's not already, remove otherwise */
-  if (!bjb_notebook_row_get_active (row))
-    bjb_note_add_tag (self->item, bjb_item_get_title (notebook));
-  else
+  if (gtk_widget_get_visible (check_box))
     bjb_note_remove_tag (self->item, notebook);
+  else
+    bjb_note_add_tag (self->item, bjb_item_get_title (notebook));
 }
 
 static GtkWidget *
 notebooks_row_new (BjbItem            *notebook,
                    BjbNotebooksDialog *self)
 {
+  GtkWidget *check_box;
   GtkWidget *row;
 
   g_assert (BJB_IS_NOTEBOOKS_DIALOG (self));
   g_assert (BJB_IS_NOTEBOOK (notebook) || BJB_IS_TAG (notebook));
 
-  row = bjb_notebook_row_new (notebook);
-  gtk_widget_set_visible (row, TRUE);
+  row = adw_action_row_new ();
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), TRUE);
+  gtk_list_box_row_set_selectable (GTK_LIST_BOX_ROW (row), FALSE);
+  adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row),
+                                 bjb_item_get_title (notebook));
+
+  check_box = gtk_image_new_from_icon_name ("object-select-symbolic");
+  gtk_widget_set_visible (check_box, FALSE);
+  adw_action_row_add_suffix (ADW_ACTION_ROW (row), check_box);
+
+  g_object_set_data (G_OBJECT (row), "notebook", notebook);
+  g_object_set_data (G_OBJECT (row), "check-box", check_box);
 
   return row;
 }
@@ -186,8 +201,8 @@ bjb_notebooks_dialog_new (GtkWindow *parent_window)
 static void
 notebooks_note_tag_changed_cb (BjbNotebooksDialog *self)
 {
-  BjbNotebookRow *row;
   GListModel *tags;
+  GtkWidget *row;
   int index;
 
   g_assert (BJB_IS_NOTEBOOKS_DIALOG (self));
@@ -197,17 +212,19 @@ notebooks_note_tag_changed_cb (BjbNotebooksDialog *self)
   index = 0;
   do
     {
-      row = (BjbNotebookRow *)gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->notebooks_list), index);
+      row = (GtkWidget *)gtk_list_box_get_row_at_index (GTK_LIST_BOX (self->notebooks_list), index);
 
       if (row)
         {
+          GtkWidget *check_box;
           BjbItem *notebook;
 
-          notebook = bjb_notebook_row_get_item (row);
+          notebook = g_object_get_data (G_OBJECT (row), "notebook");
+          check_box = g_object_get_data (G_OBJECT (row), "check-box");
           if (g_list_store_find (G_LIST_STORE (tags), notebook, NULL))
-            bjb_notebook_row_set_active (row, TRUE);
+            gtk_widget_set_visible (check_box, TRUE);
           else
-            bjb_notebook_row_set_active (row, FALSE);
+            gtk_widget_set_visible (check_box, FALSE);
         }
       index++;
     } while (row);
