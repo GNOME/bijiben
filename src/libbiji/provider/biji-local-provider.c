@@ -173,7 +173,7 @@ enumerate_next_files_ready_cb (GObject *source,
   BijiLocalProvider *self;
   BijiProviderHelper *helper;
   GList *files, *l;
-  GError *error;
+  GError *error = NULL;
   gchar *base_path;
 
 
@@ -248,7 +248,7 @@ enumerate_children_ready_cb (GObject *source,
 {
   GFile *location;
   GFileEnumerator *enumerator;
-  GError *error;
+  GError *error = NULL;
   BijiLocalProvider *self;
   BijiProviderHelper *helper;
 
