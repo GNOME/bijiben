@@ -215,6 +215,14 @@ populate_headerbar_for_note_view (BjbWindow *self)
   self->title_binding = binding;
 }
 
+BjbNote *
+bjb_window_get_note (BjbWindow *self)
+{
+  g_return_val_if_fail (BJB_IS_WINDOW (self), NULL);
+
+  return self->note;
+}
+
 void
 bjb_window_set_note (BjbWindow *self,
                      BjbNote   *note)

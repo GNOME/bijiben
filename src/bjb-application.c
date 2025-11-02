@@ -66,7 +66,8 @@ application_item_removed_cb (BjbApplication *self,
   g_assert (BJB_IS_ITEM (item));
 
   window = gtk_application_get_active_window (GTK_APPLICATION (self));
-  if (BJB_IS_WINDOW (window))
+  if (BJB_IS_WINDOW (window) &&
+      bjb_window_get_note (BJB_WINDOW (window)) == (gpointer)item)
     bjb_window_set_note (BJB_WINDOW (window), NULL);
 }
 

@@ -26,10 +26,13 @@
 #include <gtk/gtk.h>
 #include <adwaita.h>
 
+#include "items/bjb-note.h"
+
 #define BJB_TYPE_WINDOW (bjb_window_get_type ())
 
 G_DECLARE_FINAL_TYPE (BjbWindow, bjb_window, BJB, WINDOW, AdwApplicationWindow)
 
 GtkWidget       *bjb_window_new            (void);
+BjbNote         *bjb_window_get_note       (BjbWindow     *self);
 void             bjb_window_set_note       (BjbWindow     *self,
                                             BjbNote       *note);
