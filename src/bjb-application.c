@@ -24,6 +24,7 @@
 #include "version.h"
 
 #include <glib/gi18n.h>
+#include <libdex.h>
 
 #include "bjb-application.h"
 #include "bjb-manager.h"
@@ -104,39 +105,53 @@ bjb_application_init (BjbApplication *self)
   g_application_set_version (app, PACKAGE_VCS_VERSION);
 }
 
+static DexFuture *
+application_startup_fiber (gpointer user_data)
+{
+  BjbApplication *self = user_data;
+  g_autoptr(GFile) storage = NULL;
+  g_autoptr(GError) error = NULL;
+  BjbManager *manager;
+
+  manager = bjb_manager_get_default ();
+  g_signal_connect_object (manager, "item-removed",
+                           G_CALLBACK (application_item_removed_cb),
+                           self, G_CONNECT_SWAPPED);
+
+  storage = g_file_new_build_filename (g_get_user_data_dir (), "bijiben", NULL);
+  dex_await (dex_file_make_directory (storage, G_PRIORITY_DEFAULT), &error);
+
+  /* Consider as fatal error on failure to create bijiben data directory */
+  if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS))
+    g_error ("Error creating bijiben data directory: %s", error->message);
+
+  g_clear_error (&error);
+  dex_await (bjb_manager_load (manager), &error);
+
+  if (error)
+    g_warning ("Error loading providers: %s", error->message);
+
+  return dex_future_new_true ();
+}
+
 static void
 bijiben_startup (GApplication *application)
 {
-  g_autofree gchar *storage_path = NULL;
   g_autoptr(GAction) text_size = NULL;
-  g_autoptr(GFile) storage = NULL;
-  g_autoptr(GError) error = NULL;
   BjbSettings *settings;
-  BjbManager *manager;
 
   G_APPLICATION_CLASS (bjb_application_parent_class)->startup (application);
 
   gtk_window_set_default_icon_name ("org.gnome.Notes");
 
-  storage_path = g_build_filename (g_get_user_data_dir (), "bijiben", NULL);
-  storage = g_file_new_for_path (storage_path);
-
-  // Create the bijiben dir to ensure.
-  g_file_make_directory (storage, NULL, &error);
-
-  if (error && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS))
-    g_warning ("%s", error->message);
-
   settings = bjb_settings_get_default ();
   text_size = bjb_settings_get_text_size_gaction (settings);
   g_action_map_add_action (G_ACTION_MAP (application), text_size);
 
-  manager = bjb_manager_get_default ();
-  bjb_manager_load (manager);
-
-  g_signal_connect_object (manager, "item-removed",
-                           G_CALLBACK (application_item_removed_cb),
-                           application, G_CONNECT_SWAPPED);
+  dex_future_disown (dex_scheduler_spawn (NULL, 0,
+                                          application_startup_fiber,
+                                          g_object_ref (application),
+                                          g_object_unref));
 }
 
 static void

@@ -113,6 +113,7 @@ bijiben_deps = [
   dependency('libadwaita-1', version: '>= 1.2.0'),
   dependency('libxml-2.0'),
   dependency('libcurl'),
+  dependency('libdex-1'),
   dependency('libsoup-3.0'),
   dependency('webkitgtk-6.0', version: '>= 2.40'),
   cc.find_library('m')

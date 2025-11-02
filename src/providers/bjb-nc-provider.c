@@ -32,6 +32,7 @@
 
 #include "../items/bjb-item.h"
 #include "../items/bjb-plain-note.h"
+#include "bjb-dex.h"
 #include "bjb-nc-provider.h"
 #include "../bjb-log.h"
 
@@ -200,268 +201,105 @@ parse_json_array_cb (JsonArray *array,
   g_list_store_append (self->notes, note);
 }
 
-static void
-nc_provider_parse_notes (BjbNcProvider *self,
-                         GTask         *task,
-                         const char    *json_data)
+static DexFuture *
+provider_load_fiber (gpointer data)
 {
+  BjbNcProvider *self = data;
+  g_autoptr(SoupMessage) message = NULL;
   g_autoptr(JsonParser) parser = NULL;
-  g_autoptr(GError) error = NULL;
+  g_autoptr(GUri) uri = NULL;
   JsonNode *root = NULL;
+  GInputStream *stream;
+  GError *error = NULL;
+  DexFuture *future;
+  BjbDex *dex;
 
   g_assert (BJB_IS_NC_PROVIDER (self));
 
-  parser = json_parser_new ();
-  if (!json_parser_load_from_data (parser, json_data, -1, &error))
+  self->nextcloud_uri = g_uri_build_with_user (SOUP_HTTP_URI_FLAGS, "https",
+                                               self->user_name, self->password,
+                                               NULL,
+                                               self->domain_name, -1,
+                                               NEXTCLOUD_BASE_PATH,
+                                               NULL, NULL);
+  uri = soup_uri_copy (self->nextcloud_uri, SOUP_URI_PATH, NEXTCLOUD_BASE_PATH "/notes", SOUP_URI_NONE);
+  message = nc_provider_new_message (self, SOUP_METHOD_GET, uri);
+
+  dex = bjb_dex_new (self->soup_session, soup_session_send_finish, G_TYPE_OBJECT);
+  future = bjb_dex_dup_future (dex);
+  soup_session_send_async (self->soup_session, message, G_PRIORITY_DEFAULT,
+                           bjb_dex_get_cancellable (dex),
+                           bjb_dex_callback, dex);
+
+  stream = dex_await_object (future, &error);
+
+  if (error)
     {
-      if (error)
-        g_debug ("error:%s", error->message);
+      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_debug ("Error session send: %s", error->message);
+      return dex_future_new_for_error (error);
     }
+
+  parser = json_parser_new ();
+  dex = bjb_dex_new (parser, json_parser_load_from_stream_finish, G_TYPE_BOOLEAN);
+  future = bjb_dex_dup_future (dex);
+  json_parser_load_from_stream_async (parser, stream,
+                                      bjb_dex_get_cancellable (dex),
+                                      bjb_dex_callback, dex);
+  dex_await_boolean (future, &error);
+  if (error)
+    return dex_future_new_for_error (error);
 
   root = json_parser_get_root (parser);
   if (JSON_NODE_TYPE (root) == JSON_NODE_ARRAY)
-    {
-      json_array_foreach_element (json_node_get_array (root), parse_json_array_cb, self);
-      g_task_return_boolean (task, TRUE);
-    }
-  else
-    {
-      g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_INVALID_DATA,
-                               "Invalid json data received");
-    }
+    json_array_foreach_element (json_node_get_array (root), parse_json_array_cb, self);
+
+  return dex_future_new_true ();
 }
 
-static void
-read_from_stream (GObject      *object,
-                  GAsyncResult *result,
-                  gpointer      user_data)
-{
-  g_autoptr(GTask) task = user_data;
-  BjbNcProvider *self;
-  GInputStream *stream;
-  GByteArray *content;
-  GError *error = NULL;
-  gssize n_bytes;
-  gsize pos;
-
-  g_assert (G_IS_TASK (task));
-
-  self = g_task_get_source_object (task);
-  g_assert (BJB_IS_NC_PROVIDER (self));
-
-  stream = g_object_get_data (user_data, "stream");
-  content = g_object_get_data (user_data, "content");
-  pos = GPOINTER_TO_SIZE (g_object_get_data (user_data, "pos"));
-  g_assert (stream);
-  g_assert (content);
-
-  n_bytes = g_input_stream_read_finish (stream, result, &error);
-
-  if (n_bytes < 0)
-    {
-      g_task_return_error (task, error);
-    }
-  else if (n_bytes > 0)
-    {
-      GCancellable *cancellable;
-
-      pos += n_bytes;
-      g_object_set_data (user_data, "pos", GSIZE_TO_POINTER (pos));
-      g_byte_array_set_size (content, pos + DATA_BLOCK_SIZE + 1);
-
-      cancellable = g_task_get_cancellable (task);
-      g_input_stream_read_async (stream,
-                                 content->data + pos,
-                                 DATA_BLOCK_SIZE,
-                                 G_PRIORITY_DEFAULT,
-                                 cancellable,
-                                 read_from_stream,
-                                 g_steal_pointer (&task));
-    }
-  else
-    {
-      content->data[pos] = 0;
-
-      if (*(content->data) != '{' &&
-          content->len < 1024 &&
-          g_ascii_isalnum (*(content->data)))
-        g_warning ("Invalid data: %s", (char *)content->data);
-
-      nc_provider_parse_notes (self, task, (const char *)content->data);
-    }
-}
-
-static void
-nc_provider_get_notes_cb (GObject      *object,
-                          GAsyncResult *result,
-                          gpointer      user_data)
-{
-  g_autoptr(GTask) task = user_data;
-  BjbNcProvider *self;
-  GInputStream *stream;
-  GCancellable *cancellable;
-  GByteArray *content;
-  GError *error = NULL;
-
-  g_assert (G_IS_TASK (task));
-
-  self = g_task_get_source_object (task);
-  g_assert (BJB_IS_NC_PROVIDER (self));
-
-  stream = soup_session_send_finish (SOUP_SESSION (object), result, &error);
-
-  if (error)
-    {
-      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-        g_debug ("Error session send: %s", error->message);
-      g_task_return_error (task, error);
-      return;
-    }
-
-  content = g_byte_array_new ();
-  g_byte_array_set_size (content, DATA_BLOCK_SIZE + 1);
-  g_object_set_data_full (user_data, "stream", stream, g_object_unref);
-  g_object_set_data_full (user_data, "content", content, (GDestroyNotify)g_byte_array_unref);
-
-  cancellable = g_task_get_cancellable (task);
-  g_input_stream_read_async (stream,
-                             content->data,
-                             DATA_BLOCK_SIZE,
-                             G_PRIORITY_DEFAULT,
-                             cancellable,
-                             read_from_stream,
-                             g_steal_pointer (&task));
-}
-
-static void
-nc_provider_get_password_cb (GObject      *object,
-                             GAsyncResult *result,
-                             gpointer      user_data)
-{
-  g_autoptr(GTask) task = user_data;
-  BjbNcProvider *self = NULL;
-  GError *error = NULL;
-
-  g_assert (G_IS_TASK (task));
-
-  self = g_task_get_source_object (task);
-  g_assert (BJB_IS_NC_PROVIDER (self));
-
-  goa_password_based_call_get_password_finish (GOA_PASSWORD_BASED (object),
-                                               &self->password,
-                                               result,
-                                               &error);
-
-  if (error)
-    {
-      g_warning ("Failed to get password: %s", error->message);
-      g_task_return_error (task, error);
-      return;
-    }
-
-  if (!self->nextcloud_uri)
-    self->nextcloud_uri = g_uri_build_with_user (SOUP_HTTP_URI_FLAGS, "https",
-                                                 self->user_name, self->password,
-                                                 NULL,
-                                                 self->domain_name, -1,
-                                                 NEXTCLOUD_BASE_PATH,
-                                                 NULL, NULL);
-
-  {
-    g_autoptr(SoupMessage) message = NULL;
-    g_autoptr(GUri) uri = NULL;
-    GCancellable *cancellable;
-
-    cancellable = g_task_get_cancellable (task);
-    uri = soup_uri_copy (self->nextcloud_uri, SOUP_URI_PATH, NEXTCLOUD_BASE_PATH "/notes", SOUP_URI_NONE);
-    message = nc_provider_new_message (self, SOUP_METHOD_GET, uri);
-    g_task_set_task_data (task, g_object_ref (message), g_object_unref);
-
-    soup_session_send_async (self->soup_session, message, G_PRIORITY_DEFAULT, cancellable,
-                             nc_provider_get_notes_cb,
-                             g_steal_pointer (&task));
-  }
-}
-
-
-static void
-bjb_nc_provider_connect_async (BjbProvider         *provider,
-                               GCancellable        *cancellable,
-                               GAsyncReadyCallback  callback,
-                               gpointer             user_data)
+static DexFuture *
+bjb_nc_provider_connect (BjbProvider *provider)
 {
   BjbNcProvider *self = (BjbNcProvider *)provider;
-  g_autoptr(GTask) task = NULL;
+  g_autoptr(GAsyncResult) result = NULL;
   GoaPasswordBased *goa_password;
+  DexFuture *future = NULL;
+  GError *error = NULL;
+  BjbDex *dex;
 
   g_assert (BJB_IS_NC_PROVIDER (self));
-  g_assert (!cancellable || G_IS_CANCELLABLE (cancellable));
 
   goa_password = goa_object_peek_password_based (self->goa_object);
-  task = g_task_new (self, cancellable, callback, user_data);
+  if (!goa_password)
+    return dex_future_new_reject (G_IO_ERROR,
+                                  G_IO_ERROR_FAILED,
+                                  "Failed to connect: Password not available");
 
-  if (goa_password)
-    {
-      goa_password_based_call_get_password (goa_password,
-                                            self->user_name,
-                                            cancellable,
-                                            nc_provider_get_password_cb,
-                                            g_steal_pointer (&task));
-    }
-  else
-    {
-      g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_FAILED,
-                               "Failed to connect: Password not available");
-    }
-}
-
-static void
-nc_provider_add_note_cb (GObject      *object,
-                         GAsyncResult *result,
-                         gpointer      user_data)
-{
-  g_autoptr(GInputStream) stream = NULL;
-  g_autoptr(GTask) task = user_data;
-  g_autoptr(GError) error = NULL;
-  SoupMessage *message;
-  BjbItem *item;
-
-  g_assert (G_IS_TASK (task));
-
-  item = g_task_get_task_data (task);
-  message = g_object_get_data (G_OBJECT (task), "message");
-  g_assert (SOUP_IS_MESSAGE (message));
-  g_assert (BJB_IS_ITEM (item));
-
-  stream = soup_session_send_finish (SOUP_SESSION (object), result, &error);
+  dex = bjb_dex_new (NULL, NULL, G_TYPE_ASYNC_RESULT);
+  future = bjb_dex_dup_future (dex);
+  goa_password_based_call_get_password (goa_password, self->user_name,
+                                        bjb_dex_get_cancellable (dex),
+                                        bjb_dex_callback, dex);
+  result = dex_await_object (future, &error);
+  goa_password_based_call_get_password_finish (goa_password, &self->password, result, &error);
 
   if (error)
-    {
-      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-        g_debug ("Error session send: %s", error->message);
-      g_task_return_error (task, error);
-      return;
-    }
+    return dex_future_new_for_error (error);
 
-  bjb_item_unset_modified (item);
-  BJB_TRACE_MSG ("Soup status: %d", soup_message_get_status (message));
+  dex_future_disown (dex_scheduler_spawn (NULL, 0,
+                                          provider_load_fiber,
+                                          g_object_ref (self),
+                                          g_object_unref));
+  return dex_future_new_true ();
 }
 
-static void
-bjb_nc_provider_save_item_async (BjbProvider         *provider,
-                                 BjbItem             *item,
-                                 GCancellable        *cancellable,
-                                 GAsyncReadyCallback  callback,
-                                 gpointer             user_data)
+static DexFuture *
+bjb_nc_provider_save_item (BjbProvider *provider,
+                           BjbItem     *item)
 {
   BjbNcProvider *self = (BjbNcProvider *)provider;
-  g_autoptr(GTask) task = NULL;
 
   g_assert (BJB_IS_NC_PROVIDER (self));
-  g_assert (!cancellable || G_IS_CANCELLABLE (cancellable));
-
-  task = g_task_new (self, cancellable, callback, user_data);
-  g_task_set_task_data (task, g_object_ref (item), g_object_unref);
 
   if (self->password)
     {
@@ -469,6 +307,9 @@ bjb_nc_provider_save_item_async (BjbProvider         *provider,
       g_autoptr(GBytes) bytes = NULL;
       g_autofree char *path = NULL;
       g_autoptr(GUri) uri = NULL;
+      GError *error = NULL;
+      DexFuture *future;
+      BjbDex *dex;
 
       if (bjb_item_get_uid (item))
         path = g_strconcat (NEXTCLOUD_BASE_PATH, "/notes/", bjb_item_get_uid (item), NULL);
@@ -484,19 +325,23 @@ bjb_nc_provider_save_item_async (BjbProvider         *provider,
 
       bytes = nc_provider_get_note_json (BJB_NOTE (item));
       soup_message_set_request_body_from_bytes (message, "application/json", bytes);
-      g_object_set_data_full (G_OBJECT (task), "message",
-                              g_object_ref (message), g_object_unref);
 
-      soup_session_send_async (self->soup_session, message, G_PRIORITY_DEFAULT, cancellable,
-                               nc_provider_add_note_cb,
-                               g_steal_pointer (&task));
+      dex = bjb_dex_new (self->soup_session, soup_session_send_finish, G_TYPE_OBJECT);
+      future = bjb_dex_dup_future (dex);
+      soup_session_send_async (self->soup_session, message, G_PRIORITY_DEFAULT, NULL,
+                               bjb_dex_callback, dex);
+      dex_await (future, &error);
+      if (error)
+        return dex_future_new_for_error (error);
+      return dex_future_new_true ();
     }
   else
     {
-      g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_FAILED,
-                               "Failed to connect: Password not available");
+      return dex_future_new_reject (G_IO_ERROR, G_IO_ERROR_FAILED,
+                                    "Failed to connect: Password not available");
     }
 }
+
 
 static void
 bjb_nc_provider_class_init (BjbNcProviderClass *klass)
@@ -511,8 +356,8 @@ bjb_nc_provider_class_init (BjbNcProviderClass *klass)
   provider_class->get_location_name = bjb_nc_provider_get_location_name;
   provider_class->get_notes = bjb_nc_provider_get_notes;
 
-  provider_class->connect_async = bjb_nc_provider_connect_async;
-  provider_class->save_item_async = bjb_nc_provider_save_item_async;
+  provider_class->connect = bjb_nc_provider_connect;
+  provider_class->save_item = bjb_nc_provider_save_item;
 }
 
 static void

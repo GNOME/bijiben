@@ -26,6 +26,7 @@
 #pragma once
 
 #include <gio/gio.h>
+#include <libdex.h>
 
 G_BEGIN_DECLS
 
@@ -33,7 +34,7 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (BjbManager, bjb_manager, BJB, MANAGER, GObject)
 
 BjbManager     *bjb_manager_get_default           (void);
-void            bjb_manager_load                  (BjbManager         *self);
+DexFuture      *bjb_manager_load                  (BjbManager         *self);
 GListModel     *bjb_manager_get_providers         (BjbManager         *self);
 GListModel     *bjb_manager_get_notes             (BjbManager         *self);
 

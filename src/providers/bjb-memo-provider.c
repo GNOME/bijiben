@@ -32,6 +32,7 @@
 #include <glib/gi18n.h>
 
 #include "../items/bjb-plain-note.h"
+#include "bjb-dex.h"
 #include "bjb-memo-provider.h"
 
 /*
@@ -206,51 +207,13 @@ bjb_memo_provider_objects_removed_cb (ECalClientView *client_view,
     }
 }
 
-static void
-bjb_memo_provider_loaded_cb (ECalClientView *client_view,
-                             const GError   *error,
-                             gpointer        user_data)
+static DexFuture *
+memo_load_fiber (gpointer data)
 {
-  BjbMemoProvider *self;
-  g_autoptr(GTask) task = user_data;
-
-  g_assert (E_IS_CAL_CLIENT_VIEW (client_view));
-  g_assert (G_IS_TASK (task));
-
-  self = g_task_get_source_object (task);
-  g_assert (BJB_IS_MEMO_PROVIDER (self));
-
-  if (error)
-    g_task_return_error (task, g_error_copy (error));
-  else
-    g_task_return_boolean (task, TRUE);
-}
-
-static void
-bjb_memo_provider_view_ready_cb (GObject      *object,
-                                 GAsyncResult *result,
-                                 gpointer      user_data)
-{
-  BjbMemoProvider *self;
-  ECalClient *client = (ECalClient *)object;
-  g_autoptr(GTask) task = user_data;
+  BjbMemoProvider *self = data;
   GError *error = NULL;
 
-  g_assert (E_IS_CAL_CLIENT (client));
-  g_assert (G_IS_ASYNC_RESULT (result));
-  g_assert (G_IS_TASK (task));
-
-  self = g_task_get_source_object (task);
   g_assert (BJB_IS_MEMO_PROVIDER (self));
-
-  if (!e_cal_client_get_view_finish (client, result,
-                                     &self->client_view,
-                                     &error))
-    {
-      g_task_return_error (task, error);
-
-      return;
-    }
 
   g_signal_connect_object (self->client_view, "objects-added",
                            G_CALLBACK (bjb_memo_provider_objects_added_cb),
@@ -258,157 +221,76 @@ bjb_memo_provider_view_ready_cb (GObject      *object,
   g_signal_connect_object (self->client_view, "objects-removed",
                            G_CALLBACK (bjb_memo_provider_objects_removed_cb),
                            self, G_CONNECT_AFTER);
-  g_signal_connect_object (self->client_view, "complete",
-                           G_CALLBACK (bjb_memo_provider_loaded_cb),
-                           g_object_ref (task), G_CONNECT_AFTER);
-
   e_cal_client_view_start (self->client_view, &error);
 
   if (error)
-    g_task_return_error (task, error);
+    return dex_future_new_for_error (error);
+
+  return dex_future_new_true ();
 }
 
-static void
-bjb_memo_provider_connected_cb (GObject      *object,
-                                GAsyncResult *result,
-                                gpointer      user_data)
-{
-  BjbMemoProvider *self;
-  g_autoptr(GTask) task = user_data;
-  g_autoptr(GError) error = NULL;
-  g_autoptr(ECalClient) client = NULL;
-  GCancellable *cancellable;
-
-  g_assert (G_IS_ASYNC_RESULT (result));
-  g_assert (G_IS_TASK (task));
-
-  self = g_task_get_source_object (task);
-  g_assert (BJB_IS_MEMO_PROVIDER (self));
-
-  client = E_CAL_CLIENT (e_cal_client_connect_finish (result, &error));
-
-  if (!error)
-    self->status = BJB_STATUS_CONNECTED;
-  else
-    self->status = BJB_STATUS_DISCONNECTED;
-
-  if (error)
-    {
-      g_task_return_error (task, g_steal_pointer (&error));
-
-      return;
-    }
-
-  cancellable = g_task_get_cancellable (task);
-  self->client = g_steal_pointer (&client);
-  e_cal_client_get_view (self->client,
-                         "#t",
-                         cancellable,
-                         bjb_memo_provider_view_ready_cb,
-                         g_steal_pointer (&task));
-}
-
-static void
-bjb_memo_provider_connect_async (BjbProvider         *provider,
-                                 GCancellable        *cancellable,
-                                 GAsyncReadyCallback  callback,
-                                 gpointer             user_data)
+static DexFuture *
+bjb_memo_provider_connect (BjbProvider *provider)
 {
   BjbMemoProvider *self = (BjbMemoProvider *)provider;
-  g_autoptr(GTask) task = NULL;
+  g_autoptr(GAsyncResult) result = NULL;
+  DexFuture *future;
+  GError *error = NULL;
+  BjbDex *dex;
 
   g_assert (BJB_IS_MEMO_PROVIDER (self));
-  g_assert (!cancellable || G_IS_CANCELLABLE (cancellable));
-
-  task = g_task_new (self, cancellable, callback, user_data);
-  g_task_set_source_tag (task, bjb_memo_provider_connect_async);
 
   self->status = BJB_STATUS_CONNECTING;
 
+  dex = bjb_dex_new (NULL, e_cal_client_connect_finish, G_TYPE_OBJECT);
+  future = bjb_dex_dup_future (dex);
   e_cal_client_connect (self->source, E_CAL_CLIENT_SOURCE_TYPE_MEMOS,
                         10, /* seconds to wait */
-                        NULL,
-                        bjb_memo_provider_connected_cb,
-                        g_steal_pointer (&task));
+                        bjb_dex_get_cancellable (dex),
+                        bjb_dex_callback,
+                        dex);
+  self->client = dex_await_object (future, &error);
+
+  if (error)
+    return dex_future_new_for_error (error);
+
+  dex = bjb_dex_new (NULL, NULL, G_TYPE_ASYNC_RESULT);
+  future = bjb_dex_dup_future (dex);
+  e_cal_client_get_view (self->client, "#t",
+                         bjb_dex_get_cancellable (dex),
+                         bjb_dex_callback,
+                         dex);
+  result = dex_await_object (future, &error);
+  e_cal_client_get_view_finish (self->client, result, &self->client_view, &error);
+
+  if (error)
+    return dex_future_new_for_error (error);
+
+  return dex_scheduler_spawn (NULL, 0,
+                              memo_load_fiber,
+                              g_object_ref (self),
+                              g_object_unref);
 }
 
-static void
-bjb_memo_provider_create_cb (GObject      *object,
-                             GAsyncResult *result,
-                             gpointer      user_data)
-{
-  ECalClient *client = (ECalClient *)object;
-  g_autoptr(GError) error = NULL;
-  g_autoptr(GTask) task = user_data;
-  g_autofree char *uid = NULL;
-  BjbItem *item;
-
-  g_assert (E_IS_CAL_CLIENT (client));
-  g_assert (G_IS_ASYNC_RESULT (result));
-  g_assert (G_IS_TASK (task));
-
-  item = g_task_get_task_data (task);
-
-  if (e_cal_client_create_object_finish (client, result, &uid, &error))
-    {
-      bjb_item_set_uid (item, uid);
-      g_task_return_boolean (task, TRUE);
-    }
-  else
-    g_task_return_error (task, g_steal_pointer (&error));
-
-  g_application_release (g_application_get_default ());
-}
-
-static void
-bjb_memo_provider_save_cb (GObject      *object,
-                           GAsyncResult *result,
-                           gpointer      user_data)
-{
-  ECalClient *client = (ECalClient *)object;
-  g_autoptr(GError) error = NULL;
-  g_autoptr(GTask) task = user_data;
-
-  g_assert (E_IS_CAL_CLIENT (client));
-  g_assert (G_IS_ASYNC_RESULT (result));
-  g_assert (G_IS_TASK (task));
-
-  if (e_cal_client_modify_object_finish (client, result, &error))
-    {
-      g_task_return_boolean (task, TRUE);
-    }
-  else
-    g_task_return_error (task, g_steal_pointer (&error));
-
-  g_application_release (g_application_get_default ());
-}
-
-static void
-bjb_memo_provider_save_item_async (BjbProvider         *provider,
-                                   BjbItem             *item,
-                                   GCancellable        *cancellable,
-                                   GAsyncReadyCallback  callback,
-                                   gpointer             user_data)
+static DexFuture *
+bjb_memo_provider_save_item (BjbProvider *provider,
+                             BjbItem     *item)
 {
   BjbMemoProvider *self = (BjbMemoProvider *)provider;
-  g_autoptr(GTask) task = NULL;
   g_autofree char *content = NULL;
   g_autoptr(ECalComponentText) description = NULL;
   g_autoptr(ECalComponentText) summary = NULL;
   g_autoptr(ECalComponentDateTime) date_time = NULL;
   ECalComponent *component;
   ICalTimezone *zone;
+  DexFuture *future;
   ICalTime *time;
   GSList descriptions;
+  GError *error = NULL;
+  BjbDex *dex;
 
   g_assert (BJB_IS_MEMO_PROVIDER (self));
   g_assert (BJB_IS_ITEM (item));
-  g_assert (!cancellable || G_IS_CANCELLABLE (cancellable));
-
-  task = g_task_new (self, cancellable, callback, user_data);
-  g_task_set_source_tag (task, bjb_memo_provider_save_item_async);
-  g_task_set_task_data (task, g_object_ref (item), g_object_unref);
-  g_application_hold (g_application_get_default ());
 
   zone = e_cal_client_get_default_timezone (self->client);
   time = i_cal_time_new_current_with_zone (zone);
@@ -444,22 +326,39 @@ bjb_memo_provider_save_item_async (BjbProvider         *provider,
 
   if (bjb_item_is_new (item))
     {
+      g_autoptr(GAsyncResult) result = NULL;
+      g_autofree char *uid = NULL;
+
+      dex = bjb_dex_new (NULL, NULL, G_TYPE_ASYNC_RESULT);
+      future = bjb_dex_dup_future (dex);
       e_cal_client_create_object (self->client,
                                   e_cal_component_get_icalcomponent (component),
                                   E_CAL_OPERATION_FLAG_CONFLICT_FAIL,
                                   NULL,
-                                  bjb_memo_provider_create_cb,
-                                  g_steal_pointer (&task));
+                                  bjb_dex_callback, dex);
+      result = dex_await_object (future, NULL);
+      e_cal_client_create_object_finish (self->client, result, &uid, &error);
+      if (error)
+        return dex_future_new_for_error (error);
+
+      bjb_item_set_uid (item, uid);
+      return dex_future_new_true ();
     }
   else
     {
+      dex = bjb_dex_new (self->client, e_cal_client_modify_object_finish, G_TYPE_BOOLEAN);
+      future = bjb_dex_dup_future (dex);
+
       e_cal_client_modify_object (self->client,
                                   e_cal_component_get_icalcomponent (component),
                                   E_CAL_OBJ_MOD_THIS,
                                   E_CAL_OPERATION_FLAG_CONFLICT_FAIL,
-                                  cancellable,
-                                  bjb_memo_provider_save_cb,
-                                  g_steal_pointer (&task));
+                                  NULL,
+                                  bjb_dex_callback, dex);
+      if (dex_await_boolean (future, &error))
+        return dex_future_new_true ();
+
+      return dex_future_new_for_error (error);
     }
 }
 
@@ -493,8 +392,8 @@ bjb_memo_provider_class_init (BjbMemoProviderClass *klass)
 
   provider_class->get_notes = bjb_memo_provider_get_notes;
 
-  provider_class->connect_async = bjb_memo_provider_connect_async;
-  provider_class->save_item_async = bjb_memo_provider_save_item_async;
+  provider_class->connect = bjb_memo_provider_connect;
+  provider_class->save_item = bjb_memo_provider_save_item;
 }
 
 static void

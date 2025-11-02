@@ -19,6 +19,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <adwaita.h>
+#include <libdex.h>
 
 #include "bjb-application.h"
 #include "bjb-editor-toolbar.h"
@@ -41,60 +42,14 @@ struct _BjbNoteView
   /* Data */
   GtkWidget         *view;
   BjbNote           *note;
+  DexFuture         *save_timeout;
 
   gboolean           is_self_change;
   gulong             modified_id;
-  guint              save_id;
 };
 
-typedef struct _NoteData
-{
-  BjbNoteView *self;
-  BjbItem     *note;
-} NoteData;
 
 G_DEFINE_TYPE (BjbNoteView, bjb_note_view, GTK_TYPE_BOX)
-
-static void
-note_data_free (gpointer user_data)
-{
-  NoteData *data = user_data;
-
-  if (!data)
-    return;
-
-  g_set_weak_pointer (&data->self, NULL);
-  g_clear_object (&data->note);
-  g_free (data);
-}
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (NoteData, note_data_free)
-
-static gboolean
-note_view_save_item (gpointer user_data)
-{
-  NoteData *data = user_data;
-  BjbNoteView *self;
-  BjbProvider *provider;
-  BjbItem *note;
-
-  g_assert (data);
-
-  self = data->self;
-  note = data->note;
-  g_assert (!self || BJB_IS_NOTE_VIEW (self));
-  g_assert (BJB_IS_ITEM (note));
-
-  provider = g_object_get_data (G_OBJECT (note), "provider");
-  g_assert (BJB_IS_PROVIDER (provider));
-
-  if (self)
-    self->save_id = 0;
-
-  bjb_provider_save_item_async (provider, note, NULL, NULL, NULL);
-
-  return G_SOURCE_REMOVE;
-}
 
 static void
 note_view_format_applied_cb (BjbNoteView      *self,
@@ -171,26 +126,27 @@ view_font_changed_cb (BjbNoteView *self,
 }
 
 static void
+bjb_note_view_unroot (GtkWidget *widget)
+{
+  BjbNoteView *self = (BjbNoteView *)widget;
+
+  if (self->save_timeout)
+    dex_timeout_postpone_until (DEX_TIMEOUT (self->save_timeout), 0);
+
+  g_clear_pointer (&self->save_timeout, dex_unref);
+
+  GTK_WIDGET_CLASS (bjb_note_view_parent_class)->unroot (widget);
+}
+
+static void
 bjb_note_view_finalize (GObject *object)
 {
   BjbNoteView *self = (BjbNoteView *)object;
 
-  if (self->save_id && self->note &&
-      bjb_item_is_modified (BJB_ITEM (self->note)))
-    {
-      NoteData *data;
-
-      data = g_new0 (NoteData, 1);
-      g_set_object (&data->note, (BjbItem *)self->note);
-      note_view_save_item (data);
-    }
-
-  g_clear_handle_id (&self->save_id, g_source_remove);
-
   g_clear_object (&self->note);
   g_clear_object (&self->view);
 
-  G_OBJECT_CLASS (bjb_note_view_parent_class)->finalize (object);
+  G_OBJECT_CLASS (bjb_note_view_parent_class)->dispose (object);
 }
 
 static void
@@ -200,6 +156,7 @@ bjb_note_view_class_init (BjbNoteViewClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->finalize = bjb_note_view_finalize;
+  widget_class->unroot = bjb_note_view_unroot;
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Notes"
@@ -246,25 +203,53 @@ note_view_editor_modified_cb (BjbNoteView *self,
   bjb_item_set_modified (BJB_ITEM (self->note));
 }
 
+static DexFuture *
+note_save_fiber (gpointer user_data)
+{
+  BjbNoteView *self = user_data;
+  g_autoptr(GError) error = NULL;
+  g_autoptr(BjbNote) note = NULL;
+  BjbProvider *provider;
+
+  g_assert (BJB_IS_NOTE_VIEW (self));
+
+  if (self->save_timeout)
+    return dex_future_new_true ();
+
+  note = g_object_ref (self->note);
+  g_application_hold (g_application_get_default ());
+
+  self->save_timeout = dex_timeout_new_seconds (10);
+  dex_await (dex_ref (self->save_timeout), NULL);
+
+  provider = g_object_get_data (G_OBJECT (note), "provider");
+  g_assert (BJB_IS_PROVIDER (provider));
+
+  g_debug ("saving note");
+  dex_await (bjb_provider_save_item (provider, BJB_ITEM (note)), &error);
+  if (error)
+    g_warning ("Error saving note: %s", error->message);
+
+  g_clear_pointer (&self->save_timeout, dex_unref);
+  g_application_release (g_application_get_default ());
+
+  return dex_future_new_true ();
+}
+
 static void
 note_view_note_modified_cb (BjbNoteView *self)
 {
-  NoteData *data;
-
   g_assert (BJB_IS_NOTE_VIEW (self));
 
   if (!self->note || self->is_self_change ||
       !bjb_item_is_modified (BJB_ITEM (self->note)) ||
-      self->save_id)
+      self->save_timeout)
     return;
 
-  data = g_new0 (NoteData, 1);
-  g_set_weak_pointer (&data->self, self);
-  g_set_object (&data->note, (BjbItem *)self->note);
-
-  self->save_id = g_timeout_add_seconds_full (G_PRIORITY_DEFAULT, 10,
-                                              note_view_save_item,
-                                              data, note_data_free);
+  dex_future_disown (dex_scheduler_spawn (NULL, 0,
+                                          note_save_fiber,
+                                          g_object_ref (self),
+                                          g_object_unref));
 }
 
 void
@@ -277,19 +262,11 @@ bjb_note_view_set_note (BjbNoteView *self,
   if (self->note == note)
     return;
 
-  if (self->save_id && self->note &&
-      bjb_item_is_modified (BJB_ITEM (self->note)))
-    {
-      g_autoptr(NoteData) data = NULL;
+  if (self->save_timeout)
+    dex_timeout_postpone_until (DEX_TIMEOUT (self->save_timeout), 0);
 
-      data = g_new0 (NoteData, 1);
-      g_set_weak_pointer (&data->self, self);
-      g_set_object (&data->note, (BjbItem *)self->note);
-      note_view_save_item (data);
-    }
-
+  g_clear_pointer (&self->save_timeout, dex_unref);
   g_clear_signal_handler (&self->modified_id, self->note);
-  g_clear_handle_id (&self->save_id, g_source_remove);
 
   bjb_editor_toolbar_set_can_format (BJB_EDITOR_TOOLBAR (self->editor_toolbar),
                                      BJB_IS_XML_NOTE (note));

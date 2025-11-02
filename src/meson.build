@@ -25,6 +25,7 @@ libsrc = files(
   'biji-date-time.c',
   'biji-info-set.c',
   'biji-string.c',
+  'bjb-dex.c',
   'bjb-utils.c',
   'bjb-log.c',
   'bjb-application.c',

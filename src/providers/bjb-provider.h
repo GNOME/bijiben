@@ -26,6 +26,7 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
+#include <libdex.h>
 
 #include "../items/bjb-tag-store.h"
 #include "../items/bjb-item.h"
@@ -47,21 +48,9 @@ struct _BjbProviderClass
   GListModel  *(*get_notes)            (BjbProvider          *self);
   GListModel  *(*get_trash_notes)      (BjbProvider          *self);
 
-  void         (*connect_async)        (BjbProvider          *self,
-                                        GCancellable         *cancellable,
-                                        GAsyncReadyCallback   callback,
-                                        gpointer              user_data);
-  gboolean     (*connect_finish)       (BjbProvider          *self,
-                                        GAsyncResult         *result,
-                                        GError              **error);
-  void         (*save_item_async)      (BjbProvider          *self,
-                                        BjbItem              *item,
-                                        GCancellable         *cancellable,
-                                        GAsyncReadyCallback   callback,
-                                        gpointer              user_data);
-  gboolean     (*save_item_finish)     (BjbProvider          *self,
-                                        GAsyncResult         *result,
-                                        GError              **error);
+  DexFuture   *(*connect)              (BjbProvider          *self);
+  DexFuture   *(*save_item)            (BjbProvider          *self,
+                                        BjbItem              *item);
 };
 
 const char  *bjb_provider_get_name             (BjbProvider          *self);
@@ -73,19 +62,7 @@ GListModel  *bjb_provider_get_notes            (BjbProvider          *self);
 GListModel  *bjb_provider_get_trash_notes      (BjbProvider          *self);
 BjbTagStore *bjb_provider_get_tag_store        (BjbProvider          *self);
 
-void         bjb_provider_connect_async        (BjbProvider          *self,
-                                                GCancellable         *cancellable,
-                                                GAsyncReadyCallback   callback,
-                                                gpointer              user_data);
-gboolean     bjb_provider_connect_finish       (BjbProvider          *self,
-                                                GAsyncResult         *result,
-                                                GError              **error);
-void         bjb_provider_save_item_async      (BjbProvider          *self,
-                                                BjbItem              *item,
-                                                GCancellable         *cancellable,
-                                                GAsyncReadyCallback   callback,
-                                                gpointer              user_data);
-gboolean     bjb_provider_save_item_finish     (BjbProvider          *self,
-                                                GAsyncResult         *result,
-                                                GError              **error);
+DexFuture   *bjb_provider_connect              (BjbProvider          *self);
+DexFuture   *bjb_provider_save_item            (BjbProvider          *self,
+                                                BjbItem              *item);
 G_END_DECLS

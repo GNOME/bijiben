@@ -34,7 +34,6 @@ typedef struct
 {
   BjbTagStore *tag_store;
   gboolean     connected;
-  gboolean     loaded;
 } BjbProviderPrivate;
 
 G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (BjbProvider, bjb_provider, G_TYPE_OBJECT)
@@ -96,49 +95,6 @@ bjb_provider_real_get_trash_notes (BjbProvider *self)
 }
 
 static void
-bjb_provider_real_connect_async (BjbProvider         *self,
-                                 GCancellable        *cancellable,
-                                 GAsyncReadyCallback  callback,
-                                 gpointer             user_data)
-{
-  g_task_report_new_error (self, callback, user_data,
-                           bjb_provider_real_connect_async,
-                           G_IO_ERROR,
-                           G_IO_ERROR_NOT_SUPPORTED,
-                           "Connecting items asynchronously not supported");
-}
-
-static gboolean
-bjb_provider_real_connect_finish (BjbProvider   *self,
-                                  GAsyncResult  *result,
-                                  GError       **error)
-{
-  return g_task_propagate_boolean (G_TASK (result), error);
-}
-
-static void
-bjb_provider_real_save_item_async (BjbProvider         *self,
-                                   BjbItem             *item,
-                                   GCancellable        *cancellable,
-                                   GAsyncReadyCallback  callback,
-                                   gpointer             user_data)
-{
-  g_task_report_new_error (self, callback, user_data,
-                           bjb_provider_real_save_item_async,
-                           G_IO_ERROR,
-                           G_IO_ERROR_NOT_SUPPORTED,
-                           "Saving item asynchronously not supported");
-}
-
-static gboolean
-bjb_provider_real_save_item_finish (BjbProvider   *self,
-                                    GAsyncResult  *result,
-                                    GError       **error)
-{
-  return g_task_propagate_boolean (G_TASK (result), error);
-}
-
-static void
 bjb_provider_get_property (GObject    *object,
                            guint       prop_id,
                            GValue     *value,
@@ -186,11 +142,6 @@ bjb_provider_class_init (BjbProviderClass *klass)
 
   klass->get_notes = bjb_provider_real_get_notes;
   klass->get_trash_notes = bjb_provider_real_get_trash_notes;
-
-  klass->connect_async = bjb_provider_real_connect_async;
-  klass->connect_finish = bjb_provider_real_connect_finish;
-  klass->save_item_async = bjb_provider_real_save_item_async;
-  klass->save_item_finish = bjb_provider_real_save_item_finish;
 
   properties[PROP_NAME] =
     g_param_spec_string ("name",
@@ -330,115 +281,60 @@ bjb_provider_get_tag_store (BjbProvider *self)
 }
 
 /**
- * bjb_provider_connect_async:
+ * bjb_provider_connect:
  * @self: a #BjbProvider
- * @cancellable: (nullable): a #GCancellable or %NULL
- * @callback: a #GAsyncReadyCallback, or %NULL
- * @user_data: closure data for @callback
  *
  * Asynchronously connect and load all items (Notes
  * and Notebooks) from the provider.
  *
- * @callback should complete the operation by calling
- * bjb_provider_connect_items_finish().
+ * Returns: (transfer full): A #DexFuture
  */
-void
-bjb_provider_connect_async (BjbProvider         *self,
-                            GCancellable        *cancellable,
-                            GAsyncReadyCallback  callback,
-                            gpointer             user_data)
+DexFuture *
+bjb_provider_connect (BjbProvider *self)
 {
   BjbProviderPrivate *priv = bjb_provider_get_instance_private (self);
 
-  g_return_if_fail (BJB_IS_PROVIDER (self));
-  g_return_if_fail (!cancellable || G_IS_CANCELLABLE (cancellable));
-  g_return_if_fail (priv->connected == FALSE);
+  g_return_val_if_fail (BJB_IS_PROVIDER (self), NULL);
+  g_return_val_if_fail (!priv->connected, NULL);
+  g_assert (BJB_PROVIDER_GET_CLASS (self)->connect);
 
-  BJB_PROVIDER_GET_CLASS (self)->connect_async (self, cancellable,
-                                                callback, user_data);
+  return BJB_PROVIDER_GET_CLASS (self)->connect (self);
 }
 
-/**
- * bjb_provider_connect_finish:
- * @self: a #BjbProvider
- * @result: a #GAsyncResult provided to callback
- * @error: a location for a #GError or %NULL
- *
- * Completes an asynchronous loading of items initiated
- * with bjb_provider_connect_items_async().
- *
- * Returns: %TRUE if items loaded successfully. %FALSE otherwise.
- */
-gboolean
-bjb_provider_connect_finish (BjbProvider   *self,
-                             GAsyncResult  *result,
-                             GError       **error)
+static DexFuture *
+save_item_failed_cb (DexFuture *future,
+                     gpointer   user_data)
 {
-  BjbProviderPrivate *priv = bjb_provider_get_instance_private (self);
-  gboolean ret;
+  BjbItem *item = user_data;
 
-  g_return_val_if_fail (BJB_IS_PROVIDER (self), FALSE);
-  g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
+  bjb_item_set_modified (item);
 
-  ret = BJB_PROVIDER_GET_CLASS (self)->connect_finish (self, result, error);
-
-  if (ret)
-    priv->loaded = TRUE;
-
-  return ret;
+  return dex_future_new_true ();
 }
 
 /**
- * bjb_provider_save_item_async:
+ * bjb_provider_save_item:
  * @self: a #BjbProvider
  * @item: a #BjbItem
- * @cancellable: (nullable): a #GCancellable or %NULL
- * @callback: a #GAsyncReadyCallback, or %NULL
- * @user_data: closure data for @callback
  *
- * Asynchronously save the @item. If the item
- * isn't saved at all, a new item (ie, a file, or database
- * entry, or whatever) is created. Else, the old item is
- * updated with the new data.
+ * Asynchronously save @item
  *
- * @callback should complete the operation by calling
- * bjb_provider_save_item_finish().
+ * Returns: (transfer full): A #DexFuture
  */
-void
-bjb_provider_save_item_async (BjbProvider         *self,
-                              BjbItem             *item,
-                              GCancellable        *cancellable,
-                              GAsyncReadyCallback  callback,
-                              gpointer             user_data)
+DexFuture *
+bjb_provider_save_item (BjbProvider *self,
+                        BjbItem     *item)
 {
-  g_return_if_fail (BJB_IS_PROVIDER (self));
-  g_return_if_fail (BJB_IS_ITEM (item));
-  g_return_if_fail (!cancellable || G_IS_CANCELLABLE (cancellable));
+  DexFuture *future;
 
-  BJB_PROVIDER_GET_CLASS (self)->save_item_async (self, item,
-                                                 cancellable, callback,
-                                                 user_data);
-}
+  g_return_val_if_fail (BJB_IS_PROVIDER (self), NULL);
+  g_assert (BJB_PROVIDER_GET_CLASS (self)->save_item);
 
-/**
- * bjb_provider_save_item_finish:
- * @self: a #BjbProvider
- * @result: a #GAsyncResult provided to callback
- * @error: a location for a #GError or %NULL
- *
- * Completes saving an item initiated with
- * bjb_provider_save_item_async().
- *
- * Returns: %TRUE if the item was saved successfully.
- * %FALSE otherwise.
- */
-gboolean
-bjb_provider_save_item_finish (BjbProvider   *self,
-                               GAsyncResult  *result,
-                               GError       **error)
-{
-  g_return_val_if_fail (BJB_IS_PROVIDER (self), FALSE);
-  g_return_val_if_fail (G_IS_ASYNC_RESULT (result), FALSE);
+  future = BJB_PROVIDER_GET_CLASS (self)->save_item (self, item);
 
-  return BJB_PROVIDER_GET_CLASS (self)->save_item_finish (self, result, error);
+  dex_future_disown (dex_future_catch (dex_ref (future),
+                                       save_item_failed_cb,
+                                       g_object_ref (item),
+                                       g_object_unref));
+  return future;
 }

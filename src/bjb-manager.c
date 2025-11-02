@@ -39,6 +39,7 @@
 #include "providers/bjb-local-provider.h"
 #include "providers/bjb-memo-provider.h"
 #include "providers/bjb-nc-provider.h"
+#include "bjb-dex.h"
 #include "bjb-manager.h"
 
 struct _BjbManager
@@ -79,46 +80,16 @@ manager_provider_item_removed_cb (BjbManager  *self,
   g_signal_emit (self, signals[ITEM_REMOVED], 0, provider, item);
 }
 
-static void
-manager_memo_provider_connect_cb (GObject      *object,
-                                  GAsyncResult *result,
-                                  gpointer      user_data)
+static DexFuture *
+bjb_manager_load_eds (BjbManager *self)
 {
-  g_autoptr(BjbManager) self = user_data;
+  g_autoptr(GPtrArray) futures = NULL;
+  g_autolist(ESource) sources = NULL;
   g_autoptr(GError) error = NULL;
 
-  bjb_provider_connect_finish (BJB_PROVIDER (object), result, &error);
-
-  if (error)
-    g_warning ("Error loading provider: %s", error->message);
-}
-
-static void
-manager_nextcloud_provider_connect_cb (GObject      *object,
-                                       GAsyncResult *result,
-                                       gpointer      user_data)
-{
-  g_autoptr(BjbManager) self = user_data;
-  g_autoptr(GError) error = NULL;
-
-  bjb_provider_connect_finish (BJB_PROVIDER (object), result, &error);
-
-  if (error)
-    g_warning ("Error loading provider: %s", error->message);
-}
-
-static void
-load_eds_cb (GObject      *object,
-             GAsyncResult *result,
-             gpointer      user_data)
-{
-  g_autoptr(BjbManager) self = user_data;
-  g_autoptr(GError) error = NULL;
-  GList *sources;
-
-  self->eds_registry = e_source_registry_new_finish (result, &error);
   sources = e_source_registry_list_sources (self->eds_registry,
                                             E_SOURCE_EXTENSION_MEMO_LIST);
+  futures = g_ptr_array_new_full (10, dex_unref);
   for (GList *node = sources; node != NULL; node = node->next)
     {
       g_autoptr(BjbProvider) provider = NULL;
@@ -131,13 +102,13 @@ load_eds_cb (GObject      *object,
       g_list_store_append (self->list_of_notes,
                            bjb_provider_get_notes (provider));
 
-      bjb_provider_connect_async (provider,
-                                  NULL,
-                                  manager_memo_provider_connect_cb,
-                                  g_object_ref (self));
+      g_ptr_array_add (futures, bjb_provider_connect (provider));
     }
 
-  g_list_free_full (sources, g_object_unref);
+  if (futures->len)
+    return dex_future_allv ((DexFuture **)futures->pdata, futures->len);
+
+  return dex_future_new_true ();
 }
 
 static void
@@ -167,10 +138,7 @@ manager_goa_account_added_cb (BjbManager *self,
       g_list_store_append (self->providers, provider);
       g_list_store_append (self->list_of_notes,
                            bjb_provider_get_notes (provider));
-      bjb_provider_connect_async (provider,
-                                  NULL,
-                                  manager_nextcloud_provider_connect_cb,
-                                  g_object_ref (self));
+      dex_future_disown (bjb_provider_connect (provider));
     }
 }
 
@@ -207,22 +175,11 @@ manager_goa_account_removed_cb (BjbManager *self,
     }
 }
 
-static void
-load_goa_cb (GObject      *object,
-             GAsyncResult *result,
-             gpointer      user_data)
+static DexFuture *
+bjb_manager_load_goa (gpointer data)
 {
-  g_autoptr(BjbManager) self = user_data;
-  g_autoptr(GError) error = NULL;
-  GList *accounts;
-
-  self->goa_client = goa_client_new_finish (result, &error);
-
-  if (error)
-    {
-      g_warning ("Failed loading goa: %s", error->message);
-      return;
-    }
+  BjbManager *self = data;
+  g_autolist(GoaObject) accounts = NULL;
 
   g_signal_connect_object (self->goa_client, "account-added",
                            G_CALLBACK (manager_goa_account_added_cb),
@@ -238,21 +195,22 @@ load_goa_cb (GObject      *object,
   for (GList *node = accounts; node; node = node->next)
     manager_goa_account_added_cb (self, node->data, self->goa_client);
 
-  g_list_free_full (accounts, g_object_unref);
+  return dex_future_new_true ();
 }
 
-static void
-manager_local_provider_connect_cb (GObject      *object,
-                                   GAsyncResult *result,
-                                   gpointer      user_data)
+static DexFuture *
+local_provider_connect_cb (DexFuture *completed,
+                           gpointer   data)
 {
-  g_autoptr(BjbManager) self = user_data;
+  BjbManager *self = data;
 
   g_list_store_append (self->providers, self->local_provider);
   g_list_store_append (self->list_of_notes,
                        bjb_provider_get_notes (self->local_provider));
   g_list_store_append (self->list_of_notes,
                        bjb_provider_get_trash_notes (self->local_provider));
+
+  return dex_future_new_true ();
 }
 
 static void
@@ -312,24 +270,58 @@ bjb_manager_get_default (void)
   return self;
 }
 
-void
+DexFuture *
 bjb_manager_load (BjbManager *self)
 {
-  g_return_if_fail (BJB_IS_MANAGER (self));
+  DexFuture *local_future = NULL;
+  DexFuture *eds_future = NULL;
+  DexFuture *goa_future;
+  BjbDex *dex;
+  g_autoptr(GError) error = NULL;
 
-  if (self->loaded || self->is_loading)
-    return;
+  g_return_val_if_fail (BJB_IS_MANAGER (self), NULL);
+
+  if (self->loaded)
+    return dex_future_new_true ();
+
+  g_assert (!self->is_loading);
 
   self->is_loading = TRUE;
 
   g_debug ("Loading Providers");
-  e_source_registry_new (NULL, load_eds_cb, g_object_ref (self));
-  goa_client_new (NULL, load_goa_cb, g_object_ref (self));
 
-  bjb_provider_connect_async (self->local_provider,
-                              NULL,
-                              manager_local_provider_connect_cb,
-                              g_object_ref (self));
+
+  dex = bjb_dex_new (NULL, e_source_registry_new_finish, G_TYPE_OBJECT);
+  eds_future = bjb_dex_dup_future (dex);
+  e_source_registry_new (bjb_dex_get_cancellable (dex),
+                         bjb_dex_callback, dex);
+  self->eds_registry = dex_await_object (eds_future, &error);
+
+  if (error)
+    eds_future = dex_future_new_for_error (error);
+  else
+    eds_future = bjb_manager_load_eds (self);
+
+
+  dex = bjb_dex_new (NULL, goa_client_new_finish, G_TYPE_OBJECT);
+  goa_future = bjb_dex_dup_future (dex);
+  goa_client_new (bjb_dex_get_cancellable (dex),
+                  bjb_dex_callback, dex);
+  self->goa_client = dex_await_object (goa_future, &error);
+
+  if (error)
+    goa_future = dex_future_new_for_error (error);
+  else
+    goa_future = bjb_manager_load_goa (self);
+
+
+  local_future = bjb_provider_connect (self->local_provider);
+  local_future = dex_future_then (local_future,
+                                  local_provider_connect_cb,
+                                  g_object_ref (self),
+                                  g_object_unref);
+
+  return dex_future_all (local_future, eds_future, goa_future, NULL);
 }
 
 GListModel *
