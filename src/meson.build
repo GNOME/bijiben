@@ -19,7 +19,6 @@ libsrc = files(
   'providers/bjb-memo-provider.c',
   'providers/bjb-local-provider.c',
   'providers/bjb-nc-provider.c',
-  'serializer/biji-lazy-serializer.c',
   'biji-date-time.c',
   'biji-info-set.c',
   'biji-date-time.c',

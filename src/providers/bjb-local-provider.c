@@ -31,7 +31,6 @@
 
 #include <glib/gi18n.h>
 
-#include "serializer/biji-lazy-serializer.h"
 #include "../items/bjb-xml-note.h"
 #include "bjb-local-provider.h"
 

@@ -53,7 +53,6 @@ char         *bjb_note_get_raw_content         (BjbNote         *self);
 char         *bjb_note_get_html                (BjbNote         *self);
 void          bjb_note_set_html                (BjbNote         *self,
                                                 const char      *html);
-char         *bjb_note_get_xml                 (BjbNote         *self);
 void          bjb_note_add_tag                 (BjbNote         *self,
                                                 const char      *tag_title);
 void          bjb_note_remove_tag              (BjbNote         *self,
