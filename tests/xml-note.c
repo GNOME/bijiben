@@ -75,13 +75,13 @@ test_tomboy_note_parse (gconstpointer user_data)
 
   store = bjb_tag_store_new ();
   tomboy_note = bjb_xml_note_new_from_data (tomboy_file, store);
-  xml_content = bjb_note_get_xml (BJB_NOTE (tomboy_note));
+  xml_content = bjb_note_get_raw_content (BJB_NOTE (tomboy_note));
   g_assert_finalize_object (tomboy_note);
   tomboy_note = bjb_xml_note_new_from_xml (xml_content, store);
 
   expected_file = g_strdup_printf ("%s.expected.note", tomboy_file);
   expected_note = bjb_xml_note_new_from_data (expected_file, store);
-  xml_content = bjb_note_get_xml (BJB_NOTE (expected_note));
+  xml_content = bjb_note_get_raw_content (BJB_NOTE (expected_note));
   /* Check if the populated XML is same as the content in the file */
   compare_xml (expected_file, xml_content);
   g_assert_finalize_object (expected_note);

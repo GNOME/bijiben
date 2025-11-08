@@ -186,7 +186,7 @@ bjb_local_provider_save_item (BjbProvider *provider,
       g_autoptr(GFile) file = NULL;
       char *content;
 
-      content = bjb_note_get_xml (BJB_NOTE (item));
+      content = bjb_note_get_raw_content (BJB_NOTE (item));
       bytes = g_bytes_new_take (content, strlen (content));
       file = g_file_new_for_path (bjb_item_get_uid (item));
 
