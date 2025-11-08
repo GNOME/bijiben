@@ -133,6 +133,24 @@ bjb_note_set_text_content (BjbNote    *self,
   BJB_NOTE_GET_CLASS (self)->set_text_content (self, content);
 }
 
+/**
+ * bjb_note_get_raw_content:
+ * @self: a #BjbNote
+ *
+ * Get the raw content of the note.
+ *
+ * Returns (transfer full): the raw content
+ * of the note
+ */
+char *
+bjb_note_get_raw_content (BjbNote *self)
+{
+  g_return_val_if_fail (BJB_IS_NOTE (self), NULL);
+  g_assert (BJB_NOTE_GET_CLASS (self)->get_raw_content);
+
+  return BJB_NOTE_GET_CLASS (self)->get_raw_content (self);
+}
+
 char *
 bjb_note_get_html (BjbNote *self)
 {
