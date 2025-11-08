@@ -11,6 +11,8 @@
 #undef G_DISABLE_CAST_CHECKS
 #undef G_LOG_DOMAIN
 
+#include <libedataserver/libedataserver.h>
+
 #include "items/bjb-xml-note.h"
 #include "bjb-log.h"
 
@@ -35,6 +37,31 @@ test_xml_note_empty (void)
 }
 
 static void
+compare_xml (const char *expected_file,
+             const char *xml_str)
+{
+  g_autofree char *expected_xml_str = NULL;
+  g_autoptr(GError) error = NULL;
+  xmlChar *new_xml, *new_expected_xml;
+  xmlDoc *xml, *expected_xml;
+
+  g_file_get_contents (expected_file, &expected_xml_str, NULL, &error);
+  g_assert_no_error (error);
+
+  xml = e_xml_parse_data (xml_str, strlen (xml_str));
+  expected_xml = e_xml_parse_data (expected_xml_str, strlen (expected_xml_str));
+
+  xmlDocDumpMemory (xml, &new_xml, NULL);
+  xmlDocDumpMemory (expected_xml, &new_expected_xml, NULL);
+  g_assert_cmpstr ((char *)new_xml, ==, (char *)new_expected_xml);
+
+  xmlFreeDoc (xml);
+  xmlFreeDoc (expected_xml);
+  xmlFree (new_xml);
+  xmlFree (new_expected_xml);
+}
+
+static void
 test_tomboy_note_parse (gconstpointer user_data)
 {
   g_autoptr(BjbTagStore) store = NULL;
@@ -55,6 +82,8 @@ test_tomboy_note_parse (gconstpointer user_data)
   expected_file = g_strdup_printf ("%s.expected.note", tomboy_file);
   expected_note = bjb_xml_note_new_from_data (expected_file, store);
   xml_content = bjb_note_get_xml (BJB_NOTE (expected_note));
+  /* Check if the populated XML is same as the content in the file */
+  compare_xml (expected_file, xml_content);
   g_assert_finalize_object (expected_note);
   expected_note = bjb_xml_note_new_from_xml (xml_content, store);
 
@@ -113,6 +142,7 @@ main (int   argc,
 {
   char *path;
 
+  e_xml_initialize_in_main ();
   g_test_init (&argc, &argv, NULL);
 
   g_test_add_func ("/xml/empty", test_xml_note_empty);
