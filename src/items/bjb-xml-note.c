@@ -38,6 +38,9 @@
 #define COMMON_XML_HEAD "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 #define BIJIBEN_XML_NS "http://projects.gnome.org/bijiben"
 #define TOMBOY_XML_NS  "http://beatniksoftware.com/tomboy"
+#define BIJIBEN_XML_PREFIX  COMMON_XML_HEAD "\n<note version=\"1\" xmlns:link=\"" BIJIBEN_XML_NS "/link\" " \
+  "xmlns:size=\"" BIJIBEN_XML_NS "/size\" xmlns=\"" BIJIBEN_XML_NS "\">"
+#define BIJIBEN_HTML_PREFIX "<text xml:space=\"preserve\">"
 
 typedef enum
 {
@@ -65,6 +68,62 @@ struct _BjbXmlNote
 G_DEFINE_TYPE (BjbXmlNote, bjb_xml_note, BJB_TYPE_NOTE)
 
 static void
+xml_string_add_tag (GString    *string,
+                    const char *tag,
+                    const char *content,
+                    int         indent)
+{
+  if (!tag || !content)
+    return;
+
+  while (indent--)
+    g_string_append_c (string, ' ');
+
+  g_string_append_c (string, '<');
+  g_string_append (string, tag);
+  g_string_append_c (string, '>');
+
+  g_string_append (string, content);
+
+  g_string_append_c (string, '<');
+  g_string_append_c (string, '/');
+  g_string_append (string, tag);
+  g_string_append_c (string, '>');
+  g_string_append_c (string, '\n');
+}
+
+static void
+xml_note_add_string_tags (BjbXmlNote *self,
+                          GString    *string)
+{
+  GListModel *tags;
+  guint n_items;
+
+  tags = bjb_note_get_tags (BJB_NOTE (self));
+  n_items = g_list_model_get_n_items (tags);
+
+  if (!n_items)
+    {
+      g_string_append (string, " <tags/>\n");
+      return;
+    }
+
+  g_string_append (string, " <tags>\n");
+  for (guint i = 0; i < n_items; i++)
+    {
+      g_autoptr(BjbItem) tag = NULL;
+      g_autofree char *tag_str;
+
+      tag = g_list_model_get_item (tags, i);
+      tag_str = g_strconcat ("system:notebook:", bjb_item_get_title (tag), NULL);
+      xml_string_add_tag (string, "tag", tag_str, 2);
+    }
+
+  g_string_truncate (string, string->len - 1);
+  g_string_append (string, "</tags>\n");
+}
+
+static void
 bjb_xml_note_set_text_content (BjbNote    *note,
                                const char *content)
 {
@@ -84,6 +143,69 @@ bjb_xml_note_get_text_content (BjbNote *note)
   g_assert (BJB_IS_NOTE (note));
 
   return g_strdup (self->text_content);
+}
+
+static char *
+bjb_xml_note_get_raw_content (BjbNote *note)
+{
+  BjbXmlNote *self = BJB_XML_NOTE (note);
+  BjbItem *item = BJB_ITEM (note);
+  g_autofree char *html = NULL;
+  GString *xml = NULL;
+
+  g_assert (BJB_IS_NOTE (note));
+
+  xml = g_string_sized_new (1024);
+  g_string_append_len (xml, BIJIBEN_XML_PREFIX, strlen (BIJIBEN_XML_PREFIX));
+  g_string_append_c (xml, '\n');
+
+  xml_string_add_tag (xml, "title", bjb_item_get_title (item), 2);
+  html = bjb_note_get_html (note);
+  g_string_append_c (xml, ' ');
+  g_string_append_c (xml, ' ');
+  g_string_append_len (xml, BIJIBEN_HTML_PREFIX, strlen (BIJIBEN_HTML_PREFIX));
+  g_string_append (xml, html);
+  g_string_append (xml, "</text>\n");
+
+  {
+    GDateTime *date;
+    char *text;
+
+    date = g_date_time_new_from_unix_utc (bjb_item_get_mtime (item));
+    text = g_date_time_format_iso8601 (date);
+    xml_string_add_tag (xml, "last-change-date", text, 2);
+
+    date = g_date_time_new_from_unix_utc (bjb_item_get_meta_mtime (item));
+    text = g_date_time_format_iso8601 (date);
+    xml_string_add_tag (xml, "last-metadata-change-date", text, 2);
+
+    date = g_date_time_new_from_unix_utc (bjb_item_get_create_time (item));
+    text = g_date_time_format_iso8601 (date);
+    xml_string_add_tag (xml, "create-date", text, 2);
+  }
+
+  xml_string_add_tag (xml, "cursor-position", "0", 2);
+  xml_string_add_tag (xml, "selection-bound-position", "0", 2);
+  xml_string_add_tag (xml, "width", "0", 2);
+  xml_string_add_tag (xml, "height", "0", 2);
+  xml_string_add_tag (xml, "x", "0", 2);
+  xml_string_add_tag (xml, "y", "0", 2);
+
+  if (bjb_item_get_rgba (item, NULL))
+  {
+    g_autofree char *color_str = NULL;
+    GdkRGBA rgba;
+
+    bjb_item_get_rgba (item, &rgba);
+    color_str = gdk_rgba_to_string (&rgba);
+    xml_string_add_tag (xml, "color", color_str, 2);
+  }
+
+  xml_note_add_string_tags (self, xml);
+  xml_string_add_tag (xml, "open-on-startup", "False", 2);
+  g_string_append (xml, " </note>");
+
+  return g_string_free_and_steal (xml);
 }
 
 static BjbTagStore *
@@ -118,6 +240,7 @@ bjb_xml_note_class_init (BjbXmlNoteClass *klass)
 
   note_class->get_text_content = bjb_xml_note_get_text_content;
   note_class->set_text_content = bjb_xml_note_set_text_content;
+  note_class->get_raw_content = bjb_xml_note_get_raw_content;
   note_class->get_tag_store = bjb_xml_note_get_tag_store;
 }
 
