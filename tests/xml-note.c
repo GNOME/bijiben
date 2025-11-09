@@ -103,6 +103,25 @@ test_tomboy_note_parse (gconstpointer user_data)
 }
 
 static void
+test_bijiben_note_parse (gconstpointer user_data)
+{
+  g_autofree char *generated_xml = NULL;
+  g_autofree char *expected_xml = NULL;
+  g_autoptr(BjbTagStore) store = NULL;
+  g_autoptr(BjbXmlNote) note = NULL;
+  g_autoptr(GError) error = NULL;
+  const char *bijiben_file = user_data;
+
+  g_file_get_contents (bijiben_file, &expected_xml, NULL, &error);
+  g_assert_no_error (error);
+
+  store = bjb_tag_store_new ();
+  note = (gpointer)bjb_xml_note_new_from_data (bijiben_file, store);
+  generated_xml = bjb_note_get_raw_content (BJB_NOTE (note));
+  g_assert_cmpstr (generated_xml, ==, expected_xml);
+}
+
+static void
 create_test (const char *path,
              const char *test_prefix)
 {
@@ -129,10 +148,20 @@ create_test (const char *path,
 
       file_name = files->pdata[i];
       test_path = g_strdup_printf ("/%s-import/%s", test_prefix, file_name);
-      g_test_add_data_func_full (test_path,
-                                 g_build_filename (path, file_name, NULL),
-                                 test_tomboy_note_parse,
-                                 g_free);
+      if (g_str_equal (test_prefix, "tomboy"))
+        {
+          g_test_add_data_func_full (test_path,
+                                     g_build_filename (path, file_name, NULL),
+                                     test_tomboy_note_parse,
+                                     g_free);
+        }
+      else if (g_str_equal (test_prefix, "bijiben"))
+        {
+          g_test_add_data_func_full (test_path,
+                                     g_build_filename (path, file_name, NULL),
+                                     test_bijiben_note_parse,
+                                     g_free);
+        }
     }
 }
 
@@ -149,6 +178,10 @@ main (int   argc,
 
   path = g_test_build_filename (G_TEST_DIST, "notes", "tomboy", NULL);
   create_test (path, "tomboy");
+  g_free (path);
+
+  path = g_test_build_filename (G_TEST_DIST, "notes", "bijiben", NULL);
+  create_test (path, "bijiben");
   g_free (path);
 
  return g_test_run ();
