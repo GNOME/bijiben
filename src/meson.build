@@ -5,8 +5,6 @@ revision_tag = vcs_tag(
 bijiben_deps += declare_dependency(sources: revision_tag)
 
 libsrc = files(
-  'deserializer/biji-lazy-deserializer.c',
-  'deserializer/biji-tomboy-reader.c',
   'editor/biji-editor-selection.c',
   'editor/biji-webkit-editor.c',
   'items/bjb-item.c',
