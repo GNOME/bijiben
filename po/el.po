@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bijiben gnome-3-8\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2022-05-20 21:32+0000\n"
+"POT-Creation-Date: 2024-03-15 10:28+0000\n"
 "PO-Revision-Date: 2022-07-14 00:55+0300\n"
-"Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
+"Last-Translator: Giannis Antypas <gianni.antypas@gmail.com>\n"
 "Language-Team: Ελληνικά <>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: data/appdata/org.gnome.Notes.appdata.xml.in:6
 #: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:626 src/bjb-window.c:46
+#: src/bjb-application.c:396 src/bjb-window.c:46
 msgid "Notes"
 msgstr "Σημειώσεις"
 
@@ -163,127 +163,138 @@ msgstr ""
 "Υπάρχουν διαθέσιμα τρία μεγέθη κειμένου: μικρά, μεσαία (προεπιλογή) και "
 "μεγάλα."
 
-#: data/resources/bjb-notebooks-dialog.ui:6 data/resources/bjb-window.ui:304
-#: data/resources/bjb-window.ui:392 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:247
+#: data/resources/bjb-window.ui:338 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Σημειωματάρια"
 
-#: data/resources/bjb-notebooks-dialog.ui:33
+#: data/resources/bjb-notebooks-dialog.ui:30
 msgid "New Notebook…"
 msgstr "Νέο σημειωματάριο…"
 
-#: data/resources/bjb-notebooks-dialog.ui:43
+#: data/resources/bjb-notebooks-dialog.ui:37
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: data/resources/bjb-window.ui:47 data/resources/bjb-window.ui:283
-#: src/bjb-window.c:449
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:340
+#, fuzzy
+#| msgid "%d selected"
+#| msgid_plural "%d selected"
+msgid "No note selected"
+msgstr "%d επιλεγμένο"
+
+#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
+#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:228
+#: src/bjb-window.c:279
 msgid "All Notes"
 msgstr "Όλες οι σημειώσεις"
 
-#: data/resources/bjb-window.ui:63
+#: data/resources/bjb-window.ui:43
 msgid "Open menu"
 msgstr "Άνοιγμα μενού"
 
-#: data/resources/bjb-window.ui:148
+#: data/resources/bjb-window.ui:93
 msgid "More options"
 msgstr "Περισσότερες επιλογές"
 
-#: data/resources/bjb-window.ui:179 data/resources/import-dialog.ui:5
+#: data/resources/bjb-window.ui:125 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Εισαγωγή σημειώσεων"
 
-#: data/resources/bjb-window.ui:196
+#: data/resources/bjb-window.ui:140
 msgid "Text Sizes"
 msgstr "Μεγέθη κειμένων"
 
-#: data/resources/bjb-window.ui:205
+#: data/resources/bjb-window.ui:149
 msgid "_Large"
 msgstr "Με_γάλο"
 
-#: data/resources/bjb-window.ui:214
+#: data/resources/bjb-window.ui:158
 msgid "_Medium"
 msgstr "_Μεσαίο"
 
-#: data/resources/bjb-window.ui:223
+#: data/resources/bjb-window.ui:167
 msgid "_Small"
 msgstr "Μι_κρό"
 
-#: data/resources/bjb-window.ui:240 data/resources/settings-dialog.ui:10
+#: data/resources/bjb-window.ui:183 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
-#: data/resources/bjb-window.ui:248
+#: data/resources/bjb-window.ui:191
 msgid "Keyboard Shortcuts"
 msgstr "Συντομεύσεις πληκτρολογίου"
 
-#: data/resources/bjb-window.ui:256
+#: data/resources/bjb-window.ui:199
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: data/resources/bjb-window.ui:264
+#: data/resources/bjb-window.ui:207
 msgid "About Notes"
 msgstr "Περί του Σημειώσεις"
 
-#: data/resources/bjb-window.ui:330 src/bjb-window.c:459
+#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
+#: data/resources/bjb-window.ui:272 src/bjb-window.c:289
 msgid "Trash"
 msgstr "Απορρίμματα"
 
-#: data/resources/bjb-window.ui:352
+#: data/resources/bjb-window.ui:299
 msgid "Open in New Window"
 msgstr "Άνοιγμα σε ένα νέο παράθυρο"
 
-#: data/resources/bjb-window.ui:368
+#: data/resources/bjb-window.ui:315
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: data/resources/bjb-window.ui:376
+#: data/resources/bjb-window.ui:323
 msgid "Redo"
 msgstr "Ακύρωση αναίρεσης"
 
-#: data/resources/bjb-window.ui:400
+#: data/resources/bjb-window.ui:346
 msgid "Email this Note"
 msgstr "Στείλτε αυτή τη σημείωση ηλεκτρονικά"
 
-#: data/resources/bjb-window.ui:408 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:354 data/resources/selection-toolbar.ui:96
 msgid "Move to Trash"
 msgstr "Μετακίνηση στα απορρίμματα"
 
-#: data/resources/editor-toolbar.ui:63
+#: data/resources/bjb-window.ui:398
+#, fuzzy
+#| msgid "Select import location"
+msgid "Select Note Location"
+msgstr "Επιλογή τοποθεσίας εισαγωγής"
+
+#: data/resources/editor-toolbar.ui:20
 msgid "Bold"
 msgstr "Έντονα"
 
-#: data/resources/editor-toolbar.ui:79
+#: data/resources/editor-toolbar.ui:28
 msgid "Italic"
 msgstr "Πλάγια"
 
-#: data/resources/editor-toolbar.ui:95
+#: data/resources/editor-toolbar.ui:36
 msgid "Strike"
 msgstr "Επιγράμμιση"
 
-#: data/resources/editor-toolbar.ui:123
+#: data/resources/editor-toolbar.ui:52
 msgid "Bullets"
 msgstr "Κουκκίδες"
 
-#: data/resources/editor-toolbar.ui:139
+#: data/resources/editor-toolbar.ui:60
 msgid "List"
 msgstr "Λίστα"
 
-#: data/resources/editor-toolbar.ui:167
+#: data/resources/editor-toolbar.ui:76
 msgid "Indent"
 msgstr "Εσοχή"
 
-#: data/resources/editor-toolbar.ui:183
+#: data/resources/editor-toolbar.ui:84
 msgid "Outdent"
-msgstr ""
+msgstr "Προεξοχή"
 
-#: data/resources/editor-toolbar.ui:222
+#: data/resources/editor-toolbar.ui:106
 msgid "Copy selection to a new note"
 msgstr "Αντιγραφή επιλογής σε νέα σημείωση"
-
-#: data/resources/empty-results-box.ui:33
-msgid "No notes"
-msgstr "Δεν υπάρχουν σημειώσεις"
 
 #: data/resources/help-overlay.ui:9
 msgctxt "shortcut window"
@@ -433,63 +444,55 @@ msgstr "Επαναφορά"
 msgid "Permanently Delete"
 msgstr "Μόνιμη διαγραφή"
 
-#: data/resources/settings-dialog.ui:37
-msgid "Use System Font"
-msgstr "Χρήση γραμματοσειράς συστήματος"
-
-#: data/resources/settings-dialog.ui:50
-msgid "Note Font"
-msgstr "Γραμματοσειρά σημείωσης"
-
-#: data/resources/settings-dialog.ui:62
-msgid "Default Color"
-msgstr "Προεπιλεγμένο χρώμα"
-
-#: data/resources/settings-dialog.ui:113
+#: data/resources/settings-dialog.ui:23
 msgid "Note Appearance"
 msgstr "Εμφάνιση σημείωσης"
 
-#: data/resources/settings-dialog.ui:126
-msgid "Select the default storage location:"
-msgstr "Επιλογή προεπιλεγμένης τοποθεσίας αποθήκευσης:"
+#: data/resources/settings-dialog.ui:32
+msgid "Use System Font"
+msgstr "Χρήση γραμματοσειράς συστήματος"
 
-#: data/resources/settings-dialog.ui:157
-msgid "Primary Book"
-msgstr "Κύριο σημειωματάριο"
+#: data/resources/settings-dialog.ui:43
+msgid "Note Font"
+msgstr "Γραμματοσειρά σημείωσης"
 
-#: src/bijiben-shell-search-provider.c:229 src/bjb-window.c:134
+#: data/resources/settings-dialog.ui:53
+msgid "Default Color"
+msgstr "Προεπιλεγμένο χρώμα"
+
+#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:111
 msgid "Untitled"
 msgstr "Χωρίς τίτλο"
 
-#: src/bjb-application.c:222
+#: src/bjb-application.c:146
 msgid "GNOME Notes"
 msgstr "Σημειώσεις"
 
-#: src/bjb-application.c:277
+#: src/bjb-application.c:172
 msgid "Show verbose logs"
 msgstr "Εμφάνιση λεπτομερειών καταγραφής"
 
-#: src/bjb-application.c:279
+#: src/bjb-application.c:174
 msgid "Show the application’s version"
 msgstr "Εμφάνιση έκδοσης της εφαρμογής"
 
-#: src/bjb-application.c:281
+#: src/bjb-application.c:176
 msgid "Create a new note"
 msgstr "Δημιουργία νέας σημείωσης"
 
-#: src/bjb-application.c:289
+#: src/bjb-application.c:184
 msgid "[FILE…]"
 msgstr "[ΑΡΧΕΙΟ…]"
 
-#: src/bjb-application.c:290
+#: src/bjb-application.c:185
 msgid "Take notes and export them everywhere."
 msgstr "Πάρτε σημειώσεις και κάντετες εξαγωγή παντού."
 
-#: src/bjb-application.c:627
+#: src/bjb-application.c:397
 msgid "Simple notebook for GNOME"
 msgstr "Απλό σημειωματάριο για το GNOME"
 
-#: src/bjb-application.c:633
+#: src/bjb-application.c:403
 msgid "translator-credits"
 msgstr ""
 "Ελληνική μεταφραστική ομάδα GNOME\n"
@@ -505,26 +508,30 @@ msgstr ""
 msgid "Note Color"
 msgstr "Χρώμα σημείωσης"
 
-#: src/bjb-controller.c:237
-msgid "Notebook"
-msgstr "Σημειωματάριο"
+#: src/bjb-note-list.c:113
+#, fuzzy
+#| msgid "All Notes"
+msgid "Add Notes"
+msgstr "Όλες οι σημειώσεις"
 
-#: src/bjb-empty-results-box.c:63
-msgid "Press the New button to create a note."
+#: src/bjb-note-list.c:114
+#, fuzzy
+#| msgid "Press the New button to create a note."
+msgid "Use the + button to add a note"
 msgstr "Πατήστε το κουμπί Νέα για τη δημιουργία σημείωσης."
 
-#: src/bjb-empty-results-box.c:85
-msgid "Oops"
-msgstr "Ώχ"
+#: src/bjb-note-list.c:119
+msgid "No Results"
+msgstr "Κανένα αποτέλεσμα"
 
-#: src/bjb-empty-results-box.c:91
-msgid "Please install “Tracker” then restart the application."
-msgstr ""
-"Παρακαλούμε, εγκαταστήστε το «Tracker» και μετά επανεκκινήστε την εφαρμογή."
+#: src/bjb-note-list.c:120
+msgid "Try a different search"
+msgstr "Δοκιμάστε μια διαφορετική αναζήτηση"
 
-#. Label used to indicate that note is opened in another window.
-#: src/bjb-note-view.c:187
-msgid "This note is being viewed in another window."
+#: src/bjb-note-view.c:146
+#, fuzzy
+#| msgid "This note is being viewed in another window."
+msgid "This note is being viewed in another window"
 msgstr "Αυτή η σημείωση προβάλλεται σε άλλο παράθυρο."
 
 #: src/bjb-utils.c:51
@@ -544,20 +551,50 @@ msgstr "Αυτόν το μήνα"
 #. * right to left languages might move %s
 #. *         '%s Last Updated'
 #.
-#: src/bjb-window.c:939
+#: src/bjb-window.c:559
 #, c-format
 msgid "Last updated: %s"
 msgstr "Τελευταία ενημέρωση: %s"
 
-#: src/libbiji/provider/biji-local-provider.c:366
-msgid "Local storage"
-msgstr "Τοπική αποθήκευση"
+#: src/providers/bjb-local-provider.c:78
+msgid "Local"
+msgstr "Τοπικά"
+
+#: src/providers/bjb-local-provider.c:91
+msgid "On This Computer"
+msgstr "Σε αυτό τον υπολογιστή"
+
+#: src/providers/bjb-memo-provider.c:90
+#, fuzzy
+#| msgid "Rename Note"
+msgid "Memo Note"
+msgstr "Σημείωση μετονομασίας"
+
+#~ msgid "No notes"
+#~ msgstr "Δεν υπάρχουν σημειώσεις"
+
+#~ msgid "Select the default storage location:"
+#~ msgstr "Επιλογή προεπιλεγμένης τοποθεσίας αποθήκευσης:"
+
+#~ msgid "Primary Book"
+#~ msgstr "Κύριο σημειωματάριο"
+
+#~ msgid "Notebook"
+#~ msgstr "Σημειωματάριο"
+
+#~ msgid "Oops"
+#~ msgstr "Ώχ"
+
+#~ msgid "Please install “Tracker” then restart the application."
+#~ msgstr ""
+#~ "Παρακαλούμε, εγκαταστήστε το «Tracker» και μετά επανεκκινήστε την "
+#~ "εφαρμογή."
+
+#~ msgid "Local storage"
+#~ msgstr "Τοπική αποθήκευση"
 
 #~ msgid "Enter a name to create a notebook"
 #~ msgstr "Εισαγωγή ονόματος για τη δημιουργία σημειωματαρίου"
-
-#~ msgid "Local"
-#~ msgstr "Τοπικά"
 
 #~ msgid "How to show note items"
 #~ msgstr "Τρόπος εμφάνισης σημειώσεων"
@@ -604,11 +641,6 @@ msgstr "Τοπική αποθήκευση"
 
 #~ msgid "Click on items to select them"
 #~ msgstr "Πατήστε στα αντικείμενα για να τα επιλέξετε"
-
-#~ msgid "%d selected"
-#~ msgid_plural "%d selected"
-#~ msgstr[0] "%d επιλεγμένο"
-#~ msgstr[1] "%d επιλεγμένα"
 
 #~ msgid "Results for %s"
 #~ msgstr "Αποτελέσματα για %s"
@@ -922,9 +954,6 @@ msgstr "Τοπική αποθήκευση"
 
 #~ msgid "Done"
 #~ msgstr "Έτοιμο"
-
-#~ msgid "Rename Note"
-#~ msgstr "Σημείωση μετονομασίας"
 
 #~ msgid "Rename"
 #~ msgstr "Μετονομασία"
