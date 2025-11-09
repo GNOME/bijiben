@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <note version="1" xmlns:link="http://projects.gnome.org/bijiben/link" xmlns:size="http://projects.gnome.org/bijiben/size" xmlns="http://projects.gnome.org/bijiben">
   <title>Escaped text</title>
-  <text xml:space="preserve"><html xmlns="http://www.w3.org/1999/xhtml"><body>Escaped text<br/><br/>This note has text to be escaped &amp; this is not &lt;bold&gt;. \n should not insert a newline, nor with &lt;br/&gt;.</body></html></text>
+  <text xml:space="preserve"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" href="Default.css" type="text/css" /><script language="javascript" src="bijiben.js"></script></head><body>Escaped text<br/><br/>This note has text to be escaped &amp; this is not &lt;bold&gt;. \n should not insert a newline, nor with &lt;br/&gt;.</body></html></text>
   <last-change-date>2025-10-27T02:04:40Z</last-change-date>
   <last-metadata-change-date>2025-10-27T03:48:20Z</last-metadata-change-date>
   <create-date>1970-01-01T00:00:00Z</create-date>

@@ -30,14 +30,15 @@
 
 #include <gtk/gtk.h>
 
-#include "deserializer/biji-lazy-deserializer.h"
-#include "bjb-tag.h"
-#include "bjb-xml.h"
+#include "../biji-date-time.h"
 #include "bjb-xml-note.h"
 
 #define COMMON_XML_HEAD "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 #define BIJIBEN_XML_NS "http://projects.gnome.org/bijiben"
 #define TOMBOY_XML_NS  "http://beatniksoftware.com/tomboy"
+#define BIJIBEN_HTML_START "<html xmlns=\"http://www.w3.org/1999/xhtml\"><head>"\
+  "<link rel=\"stylesheet\" href=\"Default.css\" type=\"text/css\" />"\
+  "<script language=\"javascript\" src=\"bijiben.js\"></script></head><body>"
 #define BIJIBEN_XML_PREFIX  COMMON_XML_HEAD "\n<note version=\"1\" xmlns:link=\"" BIJIBEN_XML_NS "/link\" " \
   "xmlns:size=\"" BIJIBEN_XML_NS "/size\" xmlns=\"" BIJIBEN_XML_NS "\">"
 #define BIJIBEN_HTML_PREFIX "<text xml:space=\"preserve\">"
@@ -62,6 +63,10 @@ struct _BjbXmlNote
   /* contains all tags known to BjbManager, only for lookup */
   BjbTagStore *tag_store;
 
+  GString     *parsed_html;
+  GString     *parsed_text;
+  NoteFormat   note_format;
+  guint        is_parsing_content : 1;
   guint        parse_complete : 1;
 };
 
@@ -123,6 +128,285 @@ xml_note_add_string_tags (BjbXmlNote *self,
   g_string_append (string, "</tags>\n");
 }
 
+static NoteFormat
+parse_note_version (const char **attribute_names,
+                    const char **attribute_values)
+{
+  const char *version = NULL;
+  bool is_bijiben = FALSE;
+
+  for (guint i = 0; attribute_names[i]; i++)
+    {
+      if (g_str_equal (attribute_names[i], "version"))
+        version = attribute_values[i];
+      else if (g_str_equal (attribute_names[i], "xmlns"))
+        {
+          if (g_str_equal (attribute_values[i], BIJIBEN_XML_NS))
+            is_bijiben = TRUE;
+          else if (g_str_equal (attribute_values[i], TOMBOY_XML_NS))
+            is_bijiben = FALSE;
+          else
+            return NOTE_FORMAT_UNKNOWN;
+        }
+    }
+
+  if (is_bijiben)
+    {
+      if (g_str_equal (version, "1"))
+        return NOTE_FORMAT_BIJIBEN_1;
+
+      /* Bijiben only has note version '1' */
+      return NOTE_FORMAT_UNKNOWN;
+    }
+
+  if (g_str_equal (version, "0.1"))
+    return NOTE_FORMAT_TOMBOY_1;
+
+  if (g_str_equal (version, "0.2"))
+    return NOTE_FORMAT_TOMBOY_2;
+
+  if (g_str_equal (version, "0.3"))
+    return NOTE_FORMAT_TOMBOY_2;
+
+  g_return_val_if_reached (NOTE_FORMAT_UNKNOWN);
+}
+
+static void
+html_add_tag (GString    *string,
+              const char *tag,
+              bool        is_end)
+{
+  g_string_append_c (string, '<');
+  if (is_end)
+    g_string_append_c (string, '/');
+  g_string_append (string, tag);
+  g_string_append_c (string, '>');
+}
+
+static const char *
+get_html_tag_for_tomboy_tag (const char *tomboy_tag)
+{
+  if (g_str_equal (tomboy_tag, "bold"))
+    return "b";
+  if (g_str_equal (tomboy_tag, "italic"))
+    return "i";
+  if (g_str_equal (tomboy_tag, "strikethrough"))
+    return "strike";
+  if (g_str_equal (tomboy_tag, "list"))
+    return "ul";
+  if (g_str_equal (tomboy_tag, "list-item"))
+    return "li";
+
+  g_return_val_if_reached ("span");
+}
+
+static void
+parse_tomboy_note_tag (BjbXmlNote *self,
+                       const char *tag,
+                       bool is_end)
+{
+  const char *html_tag;
+
+  /* Ignore unsupported tags */
+  if (g_str_has_prefix (tag, "size") ||
+      g_str_equal (tag, "monospace") ||
+      g_str_equal (tag, "highlight"))
+    return;
+
+  html_tag = get_html_tag_for_tomboy_tag (tag);
+  html_add_tag (self->parsed_html, html_tag, is_end);
+}
+
+static void
+parse_tag_start (GMarkupParseContext  *context,
+                 const char           *element_name,
+                 const char          **attribute_names,
+                 const char          **attribute_values,
+                 gpointer              user_data,
+                 GError              **error)
+{
+  BjbXmlNote *self = user_data;
+
+  /* Parsing content is done in parse_text() */
+  if (self->is_parsing_content)
+    {
+      if (self->note_format == NOTE_FORMAT_BIJIBEN_1)
+        {
+          /* br is handled in parse_tag_end as it's self closing */
+          /* doc: though self-closing tags don't exist in HTML */
+          /* We used to have it.  Let's not break it until we have */
+          /* tests for those */
+          if (!g_str_equal (element_name, "br"))
+            html_add_tag (self->parsed_html, element_name, FALSE);
+
+          if (g_str_equal (element_name, "br"))
+            g_string_append_c (self->parsed_text, '\n');
+          else if (g_str_equal (element_name, "li"))
+            g_string_append_len (self->parsed_text, "- ", strlen ("- "));
+          else if (self->parsed_text->len &&
+                   g_str_equal (element_name, "li"))
+            g_string_append_c (self->parsed_text, '\n');
+        }
+      else
+        {
+          parse_tomboy_note_tag (self, element_name, FALSE);
+        }
+      return;
+    }
+
+  if (self->note_format == NOTE_FORMAT_BIJIBEN_1 &&
+      g_str_equal (element_name, "body"))
+    {
+      self->is_parsing_content = TRUE;
+    }
+  else if (g_str_equal (element_name, "note-content"))
+    {
+      self->is_parsing_content = TRUE;
+    }
+  else if (self->note_format == NOTE_FORMAT_UNKNOWN &&
+      g_str_equal (element_name, "note"))
+    {
+      self->note_format = parse_note_version (attribute_names, attribute_values);
+
+      if (self->note_format == NOTE_FORMAT_UNKNOWN)
+        {
+          g_autoptr(GError) err = NULL;
+
+          err = g_error_new (G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "Note is invalid");
+          g_markup_parse_context_end_parse (context, &err);
+        }
+    }
+}
+
+static void
+parse_tag_end (GMarkupParseContext  *context,
+               const char           *element_name,
+               gpointer              user_data,
+               GError              **error)
+{
+  BjbXmlNote *self = user_data;
+
+  if (self->note_format == NOTE_FORMAT_BIJIBEN_1 &&
+      g_str_equal (element_name, "body"))
+    {
+      self->is_parsing_content = FALSE;
+    }
+  else if (g_str_equal (element_name, "note-content"))
+    {
+      self->is_parsing_content = FALSE;
+    }
+
+  if (self->is_parsing_content)
+    {
+      if (self->note_format == NOTE_FORMAT_BIJIBEN_1)
+        {
+          if (g_str_equal (element_name, "br"))
+            g_string_append_len (self->parsed_html, "<br/>", strlen ("<br/>"));
+          else
+            html_add_tag (self->parsed_html, element_name, TRUE);
+        }
+      else
+        {
+          parse_tomboy_note_tag (self, element_name, TRUE);
+        }
+    }
+}
+
+static void
+parse_text (GMarkupParseContext  *context,
+            const char           *text,
+            gsize                 text_len,
+            gpointer              user_data,
+            GError              **error)
+{
+  BjbXmlNote *self = user_data;
+  BjbNote *note = user_data;
+  BjbItem *item = user_data;
+  const char *element;
+
+  element = g_markup_parse_context_get_element (context);
+
+  if (self->is_parsing_content)
+    {
+      g_autofree char *escaped = NULL;
+
+      escaped = g_markup_escape_text (text, text_len);
+      g_string_append (self->parsed_html, escaped);
+      g_string_append_len (self->parsed_text, text, text_len);
+    }
+  else if (g_str_equal (element, "title"))
+    {
+      bjb_item_set_title (item, text);
+    }
+  else if (g_str_equal (element, "last-change-date"))
+    {
+      bjb_item_set_mtime (item, iso8601_to_gint64 (text));
+    }
+  else if (g_str_equal (element, "last-metadata-change-date"))
+    {
+      bjb_item_set_meta_mtime (item, iso8601_to_gint64 (text));
+    }
+  else if (g_str_equal (element, "create-date"))
+    {
+      bjb_item_set_create_time (item, iso8601_to_gint64 (text));
+    }
+  else if (g_str_equal (element, "color"))
+    {
+      GdkRGBA color;
+
+      if (gdk_rgba_parse (&color, text))
+        bjb_item_set_rgba (item, &color);
+      else
+        g_warning ("color invalid: %s", text);
+    }
+  else if (g_str_equal (element, "tag"))
+    {
+      if (g_str_has_prefix (text, "system:notebook:"))
+        bjb_note_add_tag (note, text + strlen ("system:notebook:"));
+    }
+}
+
+static GMarkupParser parser = {
+  parse_tag_start,
+  parse_tag_end,
+  parse_text,
+  NULL,
+  NULL
+};
+
+static void
+bjb_xml_note_parse (BjbXmlNote *self,
+                    const char *xml)
+{
+  g_autoptr(GMarkupParseContext) context = NULL;
+  g_autoptr(GError) error = NULL;
+
+  if (!xml || !*xml)
+    g_return_if_reached ();
+
+  /* Skip BOM, which may be present in tomboy note */
+  if (strncmp (xml, "\xef\xbb\xbf", 3) == 0)
+    xml = xml + 3;
+
+  self->parsed_text = g_string_sized_new (1024);
+  self->parsed_html = g_string_sized_new (1024);
+  g_string_append_len (self->parsed_html, BIJIBEN_HTML_START, strlen (BIJIBEN_HTML_START));
+
+  context = g_markup_parse_context_new (&parser, 0, g_object_ref (self), g_object_unref);
+  if (!g_markup_parse_context_parse (context, xml, strlen (xml), &error))
+    g_warning ("Failed parsing note: %s", error->message);
+
+  /* In tomboy, newline uses '\n' */
+  if (self->note_format == NOTE_FORMAT_TOMBOY_1 ||
+      self->note_format == NOTE_FORMAT_TOMBOY_2 ||
+      self->note_format == NOTE_FORMAT_TOMBOY_3)
+    g_string_replace (self->parsed_html, "\n", "<br/>", 0);
+
+  g_string_append (self->parsed_html, "</body></html>");
+  bjb_note_set_text_content (BJB_NOTE (self), self->parsed_text->str);
+  bjb_note_set_html (BJB_NOTE (self), self->parsed_html->str);
+}
+
 static void
 bjb_xml_note_set_text_content (BjbNote    *note,
                                const char *content)
@@ -174,14 +458,20 @@ bjb_xml_note_get_raw_content (BjbNote *note)
     date = g_date_time_new_from_unix_utc (bjb_item_get_mtime (item));
     text = g_date_time_format_iso8601 (date);
     xml_string_add_tag (xml, "last-change-date", text, 2);
+    g_date_time_unref (date);
+    g_free (text);
 
     date = g_date_time_new_from_unix_utc (bjb_item_get_meta_mtime (item));
     text = g_date_time_format_iso8601 (date);
     xml_string_add_tag (xml, "last-metadata-change-date", text, 2);
+    g_date_time_unref (date);
+    g_free (text);
 
     date = g_date_time_new_from_unix_utc (bjb_item_get_create_time (item));
     text = g_date_time_format_iso8601 (date);
     xml_string_add_tag (xml, "create-date", text, 2);
+    g_date_time_unref (date);
+    g_free (text);
   }
 
   xml_string_add_tag (xml, "cursor-position", "0", 2);
@@ -222,6 +512,11 @@ static void
 bjb_xml_note_finalize (GObject *object)
 {
   BjbXmlNote *self = BJB_XML_NOTE (object);
+
+  if (self->parsed_html)
+    g_string_free (self->parsed_html, TRUE);
+  if (self->parsed_text)
+    g_string_free (self->parsed_text, TRUE);
 
   g_clear_pointer (&self->text_content, g_free);
   g_clear_pointer (&self->title, g_free);
@@ -292,7 +587,9 @@ bjb_xml_note_new_from_xml (char        *xml,
   g_set_object (&self->tag_store, tag_store);
 
   if (xml)
-    biji_lazy_deserialize (BJB_NOTE (self), xml);
+    bjb_xml_note_parse (self, xml);
+
+  g_free (xml);
 
   return BJB_ITEM (self);
 }
