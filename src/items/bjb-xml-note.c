@@ -30,7 +30,7 @@
 
 #include <gtk/gtk.h>
 
-#include "../biji-date-time.h"
+#include "bjb-utils.h"
 #include "bjb-xml-note.h"
 
 #define COMMON_XML_HEAD "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -340,15 +340,15 @@ parse_text (GMarkupParseContext  *context,
     }
   else if (g_str_equal (element, "last-change-date"))
     {
-      bjb_item_set_mtime (item, iso8601_to_gint64 (text));
+      bjb_item_set_mtime (item, bjb_utils_get_unix_time (text));
     }
   else if (g_str_equal (element, "last-metadata-change-date"))
     {
-      bjb_item_set_meta_mtime (item, iso8601_to_gint64 (text));
+      bjb_item_set_meta_mtime (item, bjb_utils_get_unix_time (text));
     }
   else if (g_str_equal (element, "create-date"))
     {
-      bjb_item_set_create_time (item, iso8601_to_gint64 (text));
+      bjb_item_set_create_time (item, bjb_utils_get_unix_time (text));
     }
   else if (g_str_equal (element, "color"))
     {
