@@ -17,8 +17,6 @@ libsrc = files(
   'providers/bjb-memo-provider.c',
   'providers/bjb-local-provider.c',
   'providers/bjb-nc-provider.c',
-  'biji-date-time.c',
-  'biji-date-time.c',
   'bjb-dex.c',
   'bjb-utils.c',
   'bjb-log.c',
