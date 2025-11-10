@@ -1,5 +1,6 @@
 /* gn-utils.c
  *
+ * Copyright (C) Pierre-Yves LUYTEN 2011 <py@luyten.fr>
  * Copyright 2019 Mohammed Sadiq <sadiq@sadiqpk.org>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -80,4 +81,17 @@ bjb_utils_get_human_time (gint64 unix_time)
 
   /* Year */
   return g_date_time_format (local_time, "%Y");
+}
+
+gint64
+bjb_utils_get_unix_time (const char *iso_time)
+{
+  g_autoptr(GDateTime) dt = NULL;
+
+  dt = g_date_time_new_from_iso8601 (iso_time, NULL);
+
+  if (dt)
+    return g_date_time_to_unix (dt);
+
+  return 0;
 }

@@ -30,5 +30,6 @@
 G_BEGIN_DECLS
 
 gchar       *bjb_utils_get_human_time         (gint64      unix_time);
+gint64       bjb_utils_get_unix_time          (const char *iso_time);
 
 G_END_DECLS
