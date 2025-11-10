@@ -20,7 +20,6 @@
 #include "config.h"
 
 #include "bjb-utils.h"
-#include "biji-string.h"
 #include "biji-webkit-editor.h"
 #include "biji-editor-selection.h"
 #include <jsc/jsc.h>
@@ -355,27 +354,14 @@ on_script_message (WebKitUserContentManager *user_content,
 }
 
 static char *
-html_from_plain_content (const char *content)
+get_empty_html (void)
 {
-  g_autofree char *escaped = NULL;
-
-  if (content == NULL)
-    escaped = g_strdup ("");
-  else
-    escaped = biji_str_mass_replace (content,
-                                     "&", "&amp;",
-                                     "<", "&lt;",
-                                     ">", "&gt;",
-                                     "\n", "<br/>",
-                                     NULL);
-
   return g_strconcat ("<html xmlns=\"http://www.w3.org/1999/xhtml\">",
                       "<head>",
                       "<link rel=\"stylesheet\" href=\"Default.css\" type=\"text/css\"/>",
                       "<script language=\"javascript\" src=\"bijiben.js\"></script>"
                       "</head>",
                       "<body id=\"editable\">",
-                      escaped,
                       "</body></html>",
                       NULL);
 }
@@ -468,7 +454,7 @@ biji_webkit_editor_set_html (BijiWebkitEditor *self,
   self->has_color = FALSE;
 
   if (!html || !*html)
-    html = html_from_plain_content ("");
+    html = get_empty_html ();
 
   html_data = g_bytes_new_take (html, strlen (html));
   webkit_web_view_load_bytes (WEBKIT_WEB_VIEW (self), html_data,
