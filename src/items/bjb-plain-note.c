@@ -30,7 +30,6 @@
 
 #include <gtk/gtk.h>
 
-#include "biji-string.h"
 #include "bjb-plain-note.h"
 
 struct _BjbPlainNote
@@ -45,17 +44,16 @@ G_DEFINE_TYPE (BjbPlainNote, bjb_plain_note, BJB_TYPE_NOTE)
 static char *
 html_from_plain_content (const char *content)
 {
-  g_autofree char *escaped = NULL;
+  g_autoptr(GString) escaped_str = NULL;
+  char *escaped;
 
   if (content == NULL)
     escaped = g_strdup ("");
   else
-    escaped = biji_str_mass_replace (content,
-                                     "&", "&amp;",
-                                     "<", "&lt;",
-                                     ">", "&gt;",
-                                     "\n", "<br/>",
-                                     NULL);
+    escaped = g_markup_escape_text (content, -1);
+
+  escaped_str = g_string_new_take (escaped);
+  g_string_replace (escaped_str, "\n", "<br/>", 0);
 
   return g_strconcat ("<html xmlns=\"http://www.w3.org/1999/xhtml\">",
                       "<head>",
@@ -63,7 +61,7 @@ html_from_plain_content (const char *content)
                       "<script language=\"javascript\" src=\"bijiben.js\"></script>"
                       "</head>",
                       "<body id=\"editable\">",
-                      escaped,
+                      escaped_str->str,
                       "</body></html>",
                       NULL);
 }
