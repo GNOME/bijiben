@@ -18,7 +18,6 @@
  * 02110-1301, USA.
  */
 
-#include <biji-string.h>
 #include "bjb-application.h"
 #include "bjb-list-view-row.h"
 #include "bjb-utils.h"
@@ -79,10 +78,8 @@ note_color_changed_cb (BjbListViewRow *self)
 static void
 note_content_changed_cb (BjbListViewRow *self)
 {
-  g_autofree char *one_line = NULL;
-  g_autofree char *preview = NULL;
-  g_autofree char *content = NULL;
-  g_auto(GStrv) lines = NULL;
+  g_autoptr(GString) preview = NULL;
+  char *content;
 
   g_assert (BJB_IS_LIST_VIEW_ROW (self));
 
@@ -91,10 +88,13 @@ note_content_changed_cb (BjbListViewRow *self)
   if (!content)
     return;
 
-  lines = g_strsplit (content, "\n", -1);
-  one_line = g_strjoinv (" ", lines);
-  preview = biji_str_clean (one_line);
-  gtk_label_set_text (self->content, preview);
+  preview = g_string_new_take (content);
+  /* Since this is for preview, we only need a portion of content */
+  g_string_truncate (preview, 128);
+  g_string_replace (preview, "\n", " ", 0);
+  g_string_replace (preview, "\t", " ", 0);
+  g_string_replace (preview, "  ", " ", 0);
+  gtk_label_set_text (self->content, preview->str);
 }
 
 static void
