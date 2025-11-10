@@ -19,7 +19,6 @@ libsrc = files(
   'providers/bjb-nc-provider.c',
   'biji-date-time.c',
   'biji-date-time.c',
-  'biji-string.c',
   'bjb-dex.c',
   'bjb-utils.c',
   'bjb-log.c',
