@@ -354,10 +354,36 @@ parse_text (GMarkupParseContext  *context,
 
   if (self->is_parsing_content)
     {
-      g_autofree char *escaped = NULL;
+      g_autoptr(GString) content = NULL;
+      char *escaped = NULL;
 
       escaped = g_markup_escape_text (text, text_len);
-      g_string_append (self->parsed_html, escaped);
+      content = g_string_new_take (escaped);
+      if (self->note_format == NOTE_FORMAT_TOMBOY_1 ||
+          self->note_format == NOTE_FORMAT_TOMBOY_2 ||
+          self->note_format == NOTE_FORMAT_TOMBOY_3)
+        {
+          char *tab;
+
+          /* Replace consecutive spaces with no-break space */
+          /* In tomboy, spaces are shown as is, which is not the case in HTML */
+          g_string_replace (content, "  ", " \xC2\xA0", 0);
+          tab = content->str;
+          do
+            {
+              size_t tab_len;
+
+              if (!(tab = strchr (tab, '\t')))
+                break;
+
+              /* Don't collapse tabs */
+              tab_len = strspn (tab, " \t");
+              g_string_insert (content, tab - content->str + tab_len, "</span>");
+              g_string_insert (content, tab - content->str, "<span style=\"white-space:pre\">");
+              tab = tab + tab_len + strlen ("<span style=\"white-space:pre\"></span>");
+            } while (tab);
+        }
+      g_string_append (self->parsed_html, content->str);
       g_string_append_len (self->parsed_text, text, text_len);
     }
   else if (g_str_equal (element, "title"))
