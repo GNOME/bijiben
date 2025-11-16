@@ -183,6 +183,26 @@ html_add_tag (GString    *string,
   g_string_append_c (string, '>');
 }
 
+static void
+html_add_tag_with_attributes (GString     *string,
+                              const char  *tag,
+                              const char **attr_names,
+                              const char **attr_value)
+{
+  g_string_append_c (string, '<');
+  g_string_append (string, tag);
+  for (guint i = 0; attr_names && attr_names[i]; i++)
+    {
+      g_string_append_c (string, ' ');
+      g_string_append (string, attr_names[i]);
+      g_string_append_c (string, '=');
+      g_string_append_c (string, '"');
+      g_string_append (string, attr_value[i]);
+      g_string_append_c (string, '"');
+    }
+  g_string_append_c (string, '>');
+}
+
 static const char *
 get_html_tag_for_tomboy_tag (const char *tomboy_tag)
 {
@@ -237,7 +257,13 @@ parse_tag_start (GMarkupParseContext  *context,
           /* We used to have it.  Let's not break it until we have */
           /* tests for those */
           if (!g_str_equal (element_name, "br"))
-            html_add_tag (self->parsed_html, element_name, FALSE);
+            {
+              if (attribute_names[0])
+                html_add_tag_with_attributes (self->parsed_html, element_name,
+                                              attribute_names, attribute_values);
+              else
+                html_add_tag (self->parsed_html, element_name, FALSE);
+            }
 
           if (g_str_equal (element_name, "br"))
             g_string_append_c (self->parsed_text, '\n');
