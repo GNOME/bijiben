@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bijiben master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2024-03-15 10:28+0000\n"
-"PO-Revision-Date: 2024-03-31 12:46+0200\n"
+"POT-Creation-Date: 2025-12-10 17:10+0000\n"
+"PO-Revision-Date: 2025-12-10 21:34+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -21,17 +21,17 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:396 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Sporočilca"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "Sporočilca za GNOME"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -39,7 +39,7 @@ msgstr ""
 "Enostaven in hiter način za ustvarjanje sporočilc in seznamov. Pripraviti je "
 "mogoče neomejeno število zabeležki in jih pošiljati po elektronski pošti."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -47,34 +47,34 @@ msgstr ""
 "Sporočilca je mogoče shraniti krajevno na računalniku ali pa ga uskladiti s "
 "spletnimi storitvami, kot je ownCloud."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Urejevalni pogled"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Izbor pogleda"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Seznamski pogled"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr ""
 "sporočilca;sporočila;opomniki;seznami;zapiski,papirčki;note;notes;postit;"
 "post-it;reminder;sticky;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Objava sporočilc, označevanje datotek!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Zapisovalnik sporočilc"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Ustvari novo sporočilce"
 
@@ -121,42 +121,18 @@ msgstr ""
 "Možnost hrani pot do nazadnje odprtega sporočilca, ki je nato samodejno "
 "odprto ob zagonu."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Razpeto okno"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Razpeto glavno okno."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Velikost okna"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Velikost okna (širina in višina)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Položaj okna"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Položaj okna (osi x in y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "Velikost besedila, ki je prikazana v urejevalniku."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr ""
 "Na voljo so tri velikosti: majhna, srednja (uporabljena privzeto) in velika."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:247
-#: data/resources/bjb-window.ui:338 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Beležnice"
 
@@ -168,88 +144,85 @@ msgstr "Nova beležnica …"
 msgid "Add"
 msgstr "Dodaj"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:340
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Ni izbranega sporočilca"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:228
-#: src/bjb-window.c:279
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Vsa sporočilca"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Odpri meni"
 
-#: data/resources/bjb-window.ui:93
-msgid "More options"
-msgstr "Več podrobnosti"
-
-#: data/resources/bjb-window.ui:125 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Uvozi sporočilca"
 
-#: data/resources/bjb-window.ui:140
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Velikost besedila"
 
-#: data/resources/bjb-window.ui:149
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "_Velika"
 
-#: data/resources/bjb-window.ui:158
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "_Srednja"
 
-#: data/resources/bjb-window.ui:167
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Majhna"
 
-#: data/resources/bjb-window.ui:183 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Možnosti"
 
-#: data/resources/bjb-window.ui:191
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovne bližnjice‫"
 
-#: data/resources/bjb-window.ui:199
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Pomoč"
 
-#: data/resources/bjb-window.ui:207
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "O programu"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:272 src/bjb-window.c:289
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "Izberite mesto sporočilca"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "Smeti"
 
-#: data/resources/bjb-window.ui:299
-msgid "Open in New Window"
-msgstr "Odpri v novem oknu"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Nenaslovljeno sporočilce"
 
-#: data/resources/bjb-window.ui:315
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "Več podrobnosti"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "Razveljavi"
 
-#: data/resources/bjb-window.ui:323
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "Ponovi"
 
-#: data/resources/bjb-window.ui:346
-msgid "Email this Note"
-msgstr "Pošlji to sporočilce"
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "Pošlji to sporočilce …"
 
-#: data/resources/bjb-window.ui:354 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "Premakni v smeti"
-
-#: data/resources/bjb-window.ui:398
-msgid "Select Note Location"
-msgstr "Izberite mesto sporočilca"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -419,15 +392,11 @@ msgstr "Barva sporočilca"
 msgid "Share note"
 msgstr "Objavi sporočilce"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "Odpri v novem oknu"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Obnovi"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Trajno izbriši"
 
@@ -439,7 +408,7 @@ msgstr "Videz programa"
 msgid "Use System Font"
 msgstr "Uporabi sistemsko pisavo"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "Pisava sporočilca"
 
@@ -447,96 +416,70 @@ msgstr "Pisava sporočilca"
 msgid "Default Color"
 msgstr "Privzeta barva"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:111
-msgid "Untitled"
-msgstr "Nenaslovljeno sporočilce"
-
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "Opombe GNOME"
-
-#: src/bjb-application.c:172
-msgid "Show verbose logs"
-msgstr "Pokaži podrobne dnevnik"
-
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Pokaži različico programa"
-
-#: src/bjb-application.c:176
-msgid "Create a new note"
-msgstr "Ustvari novo sporočilce"
-
-#: src/bjb-application.c:184
-msgid "[FILE…]"
-msgstr "[DATOTEKA ...]"
-
-#: src/bjb-application.c:185
-msgid "Take notes and export them everywhere."
-msgstr "Beleži sporočilca in jih izvozi kamorkoli."
-
-#: src/bjb-application.c:397
-msgid "Simple notebook for GNOME"
-msgstr "Enostavna sporočilca za GNOME"
-
-#: src/bjb-application.c:403
-msgid "translator-credits"
-msgstr "Matej Urbančič <mateju@src.gnome.org>"
-
-#: src/bjb-color-button.c:140
+#: data/resources/settings-dialog.ui:97
 msgid "Note Color"
 msgstr "Barva sporočilca"
 
-#: src/bjb-note-list.c:113
+#: src/bjb-application.c:94
+msgid "Show verbose logs"
+msgstr "Pokaži podrobne dnevnik"
+
+#: src/bjb-application.c:96
+msgid "Create a new note"
+msgstr "Ustvari novo sporočilce"
+
+#: src/bjb-application.c:102
+msgid "[FILE…]"
+msgstr "[DATOTEKA ...]"
+
+#: src/bjb-application.c:103
+msgid "Take notes and export them everywhere."
+msgstr "Beleži sporočilca in jih izvozi kamorkoli."
+
+#: src/bjb-note-list.c:114
 msgid "Add Notes"
 msgstr "Dodaj sporočilca"
 
-#: src/bjb-note-list.c:114
+#: src/bjb-note-list.c:115
 msgid "Use the + button to add a note"
 msgstr "Pritisnite na gumb + za novo sporočilce"
 
-#: src/bjb-note-list.c:119
+#: src/bjb-note-list.c:120
 msgid "No Results"
 msgstr "Ni najdenih zadetkov"
 
-#: src/bjb-note-list.c:120
+#: src/bjb-note-list.c:121
 msgid "Try a different search"
 msgstr "Poskusite z drugačnim iskalnim nizom"
 
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "To sporočilce je že odprto v drugem oknu. "
-
-#: src/bjb-utils.c:51
+#: src/bjb-utils.c:52
 msgid "Unknown"
 msgstr "Neznano"
 
-#: src/bjb-utils.c:68
+#: src/bjb-utils.c:69
 msgid "Yesterday"
 msgstr "Včeraj"
 
-#: src/bjb-utils.c:74
+#: src/bjb-utils.c:75
 msgid "This month"
 msgstr "Ta mesec"
 
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:559
-#, c-format
-msgid "Last updated: %s"
-msgstr "Nazadnje posodobljeno: %s"
+#: src/bjb-window.c:93
+msgid "Simple notebook for GNOME"
+msgstr "Enostavna sporočilca za GNOME"
 
-#: src/providers/bjb-local-provider.c:78
+#: src/bjb-window.c:99
+msgid "translator-credits"
+msgstr "Matej Urbančič <mateju@src.gnome.org>"
+
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Krajevno"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "Na tem računalniku"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Sporočilce z zabeležko"
