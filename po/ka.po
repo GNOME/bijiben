@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Georgian translation for gnome-notes
+# Copyright (C) 2023 gnome-notes'S authors
+# This file is distributed under the same license as the gnome-notes package.
 # Ekaterine Papava <papava.e@gtu.ge>, 2023-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-notes\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2025-02-12 22:58+0000\n"
-"PO-Revision-Date: 2025-02-25 07:54+0100\n"
+"POT-Creation-Date: 2025-12-10 17:10+0000\n"
+"PO-Revision-Date: 2025-12-11 19:52+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "Language: ka\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:396 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "შენიშვნები"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "შენიშვნები GNOME-სთვის"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -36,7 +36,7 @@ msgstr ""
 "ადვილი და სწრაფი გზა, შექმნათ სერვისები, ან უბრალოდ სწრაფად ჩამოწეროთ რამე. "
 "ჩაიწერეთ, რამდენი შენიშვნაც გნებავთ და გააზიარეთ ისინი ელფოსტით."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -44,32 +44,32 @@ msgstr ""
 "შენიშვნები შეგიძლიათ ლოკალურად, თქვენს კომპიუტერში შეინახოთ, ან დაასინქრონოთ "
 "ის ონლაინ სერვისთან, როგორიცაა, მაგალითად, OwnCloud."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "ხედის ჩასწორება"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "აირჩიეთ ხედი"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "სიის ხედი"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr "notes;reminder;notebook;sticky notes;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "დაპოსტეთ შენიშვნები, დაუსვით ჭდეები ფაილებს!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "შენიშვნების ამღები"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "ახალი შენიშვნის შექმნა"
 
@@ -116,42 +116,18 @@ msgstr ""
 "ეს იმახსოვრებს ბოლოს გახსნილი ელემენტის შენიშვნის ბილიკს, რომ შემდეგი "
 "გაშვებისას გაიხსნას."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "გადიდებული ფანჯარა"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "ფანჯრის სრულად გაშლილი მდგომარეობა."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "ფანჯრის ზომა"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "ფანჯრის ზომა (სიგანე, სიმაღლე)"
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "ფანჯრის მდებარეობა"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "ფანჯრის მდებარეობა (x და y)"
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "შენიშვნების რედაქტორის ფონტის ზომა."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr ""
 "ხელმისაწვდომია ტექსტის სამი ზომა: პატარა, საშუალო(ნაგულისხმები) და დიდი."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:247
-#: data/resources/bjb-window.ui:338 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "წიგნაკები"
 
@@ -163,88 +139,85 @@ msgstr "ახალი წიგნაკი…"
 msgid "Add"
 msgstr "დამატება"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:340
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "შენიშვნა მონიშნული არაა"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:228
-#: src/bjb-window.c:279
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "ყველა შენიშვნა"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "მენიუს გახსნა"
 
-#: data/resources/bjb-window.ui:93
-msgid "More options"
-msgstr "მეტი პარამეტრი"
-
-#: data/resources/bjb-window.ui:125 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "შენიშვნების შემოტანა"
 
-#: data/resources/bjb-window.ui:140
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "ტექსტის ზომები"
 
-#: data/resources/bjb-window.ui:149
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "_დიდი"
 
-#: data/resources/bjb-window.ui:158
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "_საშუალო"
 
-#: data/resources/bjb-window.ui:167
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_პატარა"
 
-#: data/resources/bjb-window.ui:183 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "მორგება"
 
-#: data/resources/bjb-window.ui:191
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
-#: data/resources/bjb-window.ui:199
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "დახმარება"
 
-#: data/resources/bjb-window.ui:207
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "შენიშვნების შესახებ"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:272 src/bjb-window.c:289
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "აირჩიეთ შენიშვნის მდებარეობა"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "ნაგავი"
 
-#: data/resources/bjb-window.ui:299
-msgid "Open in New Window"
-msgstr "ახალ ფანჯარაში გახსნა"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "უსათაურო"
 
-#: data/resources/bjb-window.ui:315
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "მეტი პარამეტრი"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "ბრძანების გაუქმება"
 
-#: data/resources/bjb-window.ui:323
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "გამეორება"
 
-#: data/resources/bjb-window.ui:346
-msgid "Email this Note"
-msgstr "ამ შენიშვნის ელფოსტით გაგზავნა"
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "ამ შენიშვნის ელფოსტით გაგზავნა…"
 
-#: data/resources/bjb-window.ui:354 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "ნაგავში გადატანა"
-
-#: data/resources/bjb-window.ui:398
-msgid "Select Note Location"
-msgstr "აირჩიეთ შენიშვნის მდებარეობა"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -414,15 +387,11 @@ msgstr "შენიშვნის ფერი"
 msgid "Share note"
 msgstr "შენიშვნის გაზიარება"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "სხვა ფანჯარაში გახსნა"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "აღდგენა"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "სამუდამოდ წაშლა"
 
@@ -434,7 +403,7 @@ msgstr "შენიშვნის გარეგნობა"
 msgid "Use System Font"
 msgstr "სისტემური ფონტის გამოყენება"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "შენიშვნის ფონტი"
 
@@ -442,99 +411,110 @@ msgstr "შენიშვნის ფონტი"
 msgid "Default Color"
 msgstr "ნაგულისხმები ფერი"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:111
-msgid "Untitled"
-msgstr "უსათაურო"
-
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "შენიშვნები GNOME-სთვის"
-
-#: src/bjb-application.c:172
-msgid "Show verbose logs"
-msgstr "დამატებითი შეტყობინებების ჩვენება"
-
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "აპლიკაციის ვერსიის ჩვენება"
-
-#: src/bjb-application.c:176
-msgid "Create a new note"
-msgstr "ახალი შენიშვნის შექმნა"
-
-#: src/bjb-application.c:184
-msgid "[FILE…]"
-msgstr "[ფაილი...]"
-
-#: src/bjb-application.c:185
-msgid "Take notes and export them everywhere."
-msgstr "ჩაიწერეთ შენიშვნები და წაიღეთ ის, სადაც გნებავთ."
-
-#: src/bjb-application.c:397
-msgid "Simple notebook for GNOME"
-msgstr "მარტივი წიგნაკი GNOME-სთვის"
-
-#: src/bjb-application.c:403
-msgid "translator-credits"
-msgstr "თარგმანი-შესრულებულია"
-
-#: src/bjb-color-button.c:140
+#: data/resources/settings-dialog.ui:97
 msgid "Note Color"
 msgstr "შენიშვნის ფერი"
 
-#: src/bjb-note-list.c:113
+#: src/bjb-application.c:94
+msgid "Show verbose logs"
+msgstr "დამატებითი შეტყობინებების ჩვენება"
+
+#: src/bjb-application.c:96
+msgid "Create a new note"
+msgstr "ახალი შენიშვნის შექმნა"
+
+#: src/bjb-application.c:102
+msgid "[FILE…]"
+msgstr "[ფაილი...]"
+
+#: src/bjb-application.c:103
+msgid "Take notes and export them everywhere."
+msgstr "ჩაიწერეთ შენიშვნები და წაიღეთ ის, სადაც გნებავთ."
+
+#: src/bjb-note-list.c:114
 msgid "Add Notes"
 msgstr "შენიშვნების დამატება"
 
-#: src/bjb-note-list.c:114
+#: src/bjb-note-list.c:115
 msgid "Use the + button to add a note"
 msgstr "გამოიყენეთ + ღილაკი შენიშვნის დასამატებლად"
 
-#: src/bjb-note-list.c:119
+#: src/bjb-note-list.c:120
 msgid "No Results"
 msgstr "შედეგების გარეშე"
 
-#: src/bjb-note-list.c:120
+#: src/bjb-note-list.c:121
 msgid "Try a different search"
 msgstr "სცადეთ სხვა ძებნა"
 
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "ამ შენიშვნას სხვა ფანჯარაში ათვალიერებენ"
-
-#: src/bjb-utils.c:51
+#: src/bjb-utils.c:52
 msgid "Unknown"
 msgstr "უცნობი"
 
-#: src/bjb-utils.c:68
+#: src/bjb-utils.c:69
 msgid "Yesterday"
 msgstr "გუშინ"
 
-#: src/bjb-utils.c:74
+#: src/bjb-utils.c:75
 msgid "This month"
 msgstr "ამ თვეში"
 
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:559
-#, c-format
-msgid "Last updated: %s"
-msgstr "ბოლო განახლება: %s"
+#: src/bjb-window.c:93
+msgid "Simple notebook for GNOME"
+msgstr "მარტივი წიგნაკი GNOME-სთვის"
 
-#: src/providers/bjb-local-provider.c:78
+#: src/bjb-window.c:99
+msgid "translator-credits"
+msgstr "თარგმანი-შესრულებულია"
+
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "ლოკალური"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "ამ კომპიუტერზე"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "დასამახსოვრებელი შენიშვნა"
+
+#~ msgid "Window maximized"
+#~ msgstr "გადიდებული ფანჯარა"
+
+#~ msgid "Window maximized state."
+#~ msgstr "ფანჯრის სრულად გაშლილი მდგომარეობა."
+
+#~ msgid "Window size"
+#~ msgstr "ფანჯრის ზომა"
+
+#~ msgid "Window size (width and height)."
+#~ msgstr "ფანჯრის ზომა (სიგანე, სიმაღლე)"
+
+#~ msgid "Window position"
+#~ msgstr "ფანჯრის მდებარეობა"
+
+#~ msgid "Window position (x and y)."
+#~ msgstr "ფანჯრის მდებარეობა (x და y)"
+
+#~ msgid "Open in New Window"
+#~ msgstr "ახალ ფანჯარაში გახსნა"
+
+#~ msgid "Open in another window"
+#~ msgstr "სხვა ფანჯარაში გახსნა"
+
+#~ msgid "GNOME Notes"
+#~ msgstr "შენიშვნები GNOME-სთვის"
+
+#~ msgid "Show the application’s version"
+#~ msgstr "აპლიკაციის ვერსიის ჩვენება"
+
+#~ msgid "This note is being viewed in another window"
+#~ msgstr "ამ შენიშვნას სხვა ფანჯარაში ათვალიერებენ"
+
+#, c-format
+#~ msgid "Last updated: %s"
+#~ msgstr "ბოლო განახლება: %s"
 
 #~ msgid "Select the default storage location:"
 #~ msgstr "აირჩიეთ ნაგულისხმები საცავის მდებარეობა:"
