@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bijiben master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2023-03-23 14:14+0000\n"
-"PO-Revision-Date: 2023-04-01 14:59+0300\n"
-"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
+"POT-Creation-Date: 2025-12-10 17:10+0000\n"
+"PO-Revision-Date: 2025-12-20 00:14+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -20,19 +20,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:428 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Заметки"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "Заметки для GNOME"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -41,7 +41,7 @@ msgstr ""
 "списки. Храните столько заметок, сколько хотите, и делитесь ими по "
 "электронной почте."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -49,35 +49,35 @@ msgstr ""
 "Вы можете хранить свои заметки локально на своем компьютере или "
 "синхронизировать с онлайн-сервисами, такими как ownCloud."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Вид правки"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Вид выбора"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Вид списка"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr ""
 "notes;reminder;notebook;sticky notes;заметки;напоминания;записная;книжка;"
 "записки;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Создавайте заметки, отмечайте файлы!"
 
 # судя по результатам поиска в гугле, note taker это что-то наподобие стилуса из samsung galaxy note
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Электронная ручка"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Создать новую заметку"
 
@@ -122,165 +122,138 @@ msgstr ""
 "Здесь хранится путь до последних открытых в приложении заметок, чтобы их "
 "можно было открыть при следующем запуске приложения."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Окно развёрнуто"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Окно в развёрнутом состоянии."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Размеры окна"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Размеры окна (ширина и высота)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Положение окна"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Положение окна (x, y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "Размер текста, используемый редактором заметок."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr ""
 "Доступны три формата текста: маленький, средний (по умолчанию) и большой."
 
-#: data/resources/bjb-notebooks-dialog.ui:6 data/resources/bjb-window.ui:299
-#: data/resources/bjb-window.ui:387 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Записные книжки"
 
-#: data/resources/bjb-notebooks-dialog.ui:33
+#: data/resources/bjb-notebooks-dialog.ui:30
 msgid "New Notebook…"
 msgstr "Создать записную книжку…"
 
-#: data/resources/bjb-notebooks-dialog.ui:43
+#: data/resources/bjb-notebooks-dialog.ui:37
 msgid "Add"
 msgstr "Добавить"
 
-#: data/resources/bjb-note-view.ui:17 src/bjb-note-view.c:337
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Заметка не выбрана"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:48 data/resources/bjb-window.ui:278
-#: src/bjb-window.c:354
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Все заметки"
 
-#: data/resources/bjb-window.ui:64
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Открыть меню"
 
-#: data/resources/bjb-window.ui:134
-msgid "More options"
-msgstr "Дополнительные параметры"
-
-#: data/resources/bjb-window.ui:174 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Импортировать заметки"
 
-#: data/resources/bjb-window.ui:191
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Размер текста"
 
-#: data/resources/bjb-window.ui:200
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "_Большой"
 
-#: data/resources/bjb-window.ui:209
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "_Средний"
 
-#: data/resources/bjb-window.ui:218
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Маленький"
 
-#: data/resources/bjb-window.ui:235 data/resources/settings-dialog.ui:10
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Параметры"
 
-#: data/resources/bjb-window.ui:243
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: data/resources/bjb-window.ui:251
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Справка"
 
-#: data/resources/bjb-window.ui:259
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "О приложении"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:325 src/bjb-window.c:364
-msgid "Trash"
-msgstr "Корзина"
-
-#: data/resources/bjb-window.ui:347
-msgid "Open in New Window"
-msgstr "Открыть в новом окне"
-
-#: data/resources/bjb-window.ui:363
-msgid "Undo"
-msgstr "Отменить"
-
-#: data/resources/bjb-window.ui:371
-msgid "Redo"
-msgstr "Повторить"
-
-#: data/resources/bjb-window.ui:395
-msgid "Email this Note"
-msgstr "Отправить заметку по эл. почте"
-
-#: data/resources/bjb-window.ui:403 data/resources/selection-toolbar.ui:96
-msgid "Move to Trash"
-msgstr "Удалить в корзину"
-
-#: data/resources/bjb-window.ui:461
+#: data/resources/bjb-side-view.ui:118
 msgid "Select Note Location"
 msgstr "Выбрать расположение заметки"
 
-#: data/resources/editor-toolbar.ui:65
+#: data/resources/bjb-side-view.ui:196
+msgid "Trash"
+msgstr "Корзина"
+
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Безымянная"
+
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "Дополнительные параметры"
+
+#: data/resources/bjb-window.ui:71
+msgid "Undo"
+msgstr "Отменить"
+
+#: data/resources/bjb-window.ui:75
+msgid "Redo"
+msgstr "Повторить"
+
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "Отправить заметку по эл. почте…"
+
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
+msgid "Move to Trash"
+msgstr "Удалить в корзину"
+
+#: data/resources/editor-toolbar.ui:20
 msgid "Bold"
 msgstr "Полужирный"
 
-#: data/resources/editor-toolbar.ui:81
+#: data/resources/editor-toolbar.ui:28
 msgid "Italic"
 msgstr "Курсив"
 
-#: data/resources/editor-toolbar.ui:97
+#: data/resources/editor-toolbar.ui:36
 msgid "Strike"
 msgstr "Перечёркнутый"
 
-#: data/resources/editor-toolbar.ui:125
+#: data/resources/editor-toolbar.ui:52
 msgid "Bullets"
 msgstr "Маркированный список"
 
-#: data/resources/editor-toolbar.ui:141
+#: data/resources/editor-toolbar.ui:60
 msgid "List"
 msgstr "Нумерованный список"
 
-#: data/resources/editor-toolbar.ui:169
+#: data/resources/editor-toolbar.ui:76
 msgid "Indent"
 msgstr "Отступ"
 
-#: data/resources/editor-toolbar.ui:185
+#: data/resources/editor-toolbar.ui:84
 msgid "Outdent"
 msgstr "Внешн. отступ"
 
-#: data/resources/editor-toolbar.ui:224
+#: data/resources/editor-toolbar.ui:106
 msgid "Copy selection to a new note"
 msgstr "Копировать выделение в новую заметку"
 
@@ -420,76 +393,49 @@ msgstr "Цвет заметки"
 msgid "Share note"
 msgstr "Поделиться заметкой"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "Открыть в другом окне"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Восстановить"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Удалить навсегда"
 
-#: data/resources/settings-dialog.ui:37
-msgid "Use System Font"
-msgstr "Использовать системный шрифт"
-
-#: data/resources/settings-dialog.ui:50
-msgid "Note Font"
-msgstr "Шрифт заметок"
-
-#: data/resources/settings-dialog.ui:62
-msgid "Default Color"
-msgstr "Цвет по умолчанию"
-
-#: data/resources/settings-dialog.ui:113
+#: data/resources/settings-dialog.ui:23
 msgid "Note Appearance"
 msgstr "Внешний вид заметок"
 
-#: src/bijiben-shell-search-provider.c:228 src/bjb-window.c:111
-msgid "Untitled"
-msgstr "Безымянная"
+#: data/resources/settings-dialog.ui:32
+msgid "Use System Font"
+msgstr "Использовать системный шрифт"
 
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "Заметки GNOME"
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
+msgid "Note Font"
+msgstr "Шрифт заметок"
 
-#: src/bjb-application.c:172
+#: data/resources/settings-dialog.ui:53
+msgid "Default Color"
+msgstr "Цвет по умолчанию"
+
+#: data/resources/settings-dialog.ui:97
+msgid "Note Color"
+msgstr "Цвет заметки"
+
+#: src/bjb-application.c:94
 msgid "Show verbose logs"
 msgstr "Показывать подробный журнал"
 
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Показать версию приложения"
-
-#: src/bjb-application.c:176
+#: src/bjb-application.c:96
 msgid "Create a new note"
 msgstr "Создать новую заметку"
 
-#: src/bjb-application.c:184
+#: src/bjb-application.c:102
 msgid "[FILE…]"
 msgstr "[ФАЙЛ…]"
 
-#: src/bjb-application.c:185
+#: src/bjb-application.c:103
 msgid "Take notes and export them everywhere."
 msgstr "Взять заметки и экспортировать их куда-либо."
-
-#: src/bjb-application.c:429
-msgid "Simple notebook for GNOME"
-msgstr "Простая записная книжка для GNOME"
-
-#: src/bjb-application.c:435
-msgid "translator-credits"
-msgstr ""
-"Yuri Myasoedov <ymyasoedov@yandex.ru>, 2013-2015\n"
-"Stas Solovey <whats_up@tut.by>, 2013-2019\n"
-"Aleksandr Melman, 2023"
-
-#: src/bjb-color-button.c:140
-msgid "Note Color"
-msgstr "Цвет заметки"
 
 #: src/bjb-note-list.c:114
 msgid "Add Notes"
@@ -507,43 +453,77 @@ msgstr "Нет результатов"
 msgid "Try a different search"
 msgstr "Попробуйте другой поисковый запрос"
 
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "Эта заметка открыта в другом окне"
-
-#: src/bjb-utils.c:51
+#: src/bjb-utils.c:52
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: src/bjb-utils.c:68
+#: src/bjb-utils.c:69
 msgid "Yesterday"
 msgstr "Вчера"
 
-#: src/bjb-utils.c:74
+#: src/bjb-utils.c:75
 msgid "This month"
 msgstr "В этом месяце"
 
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:669
-#, c-format
-msgid "Last updated: %s"
-msgstr "Обновлено: %s"
+#: src/bjb-window.c:93
+msgid "Simple notebook for GNOME"
+msgstr "Простая записная книжка для GNOME"
 
-#: src/providers/bjb-local-provider.c:78
+#: src/bjb-window.c:99
+msgid "translator-credits"
+msgstr ""
+"Yuri Myasoedov <ymyasoedov@yandex.ru>, 2013-2015\n"
+"Stas Solovey <whats_up@tut.by>, 2013-2019\n"
+"Aleksandr Melman, 2023"
+
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Локальный"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "На этом компьютере"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Памятная заметка"
+
+#~ msgid "Window maximized"
+#~ msgstr "Окно развёрнуто"
+
+#~ msgid "Window maximized state."
+#~ msgstr "Окно в развёрнутом состоянии."
+
+#~ msgid "Window size"
+#~ msgstr "Размеры окна"
+
+#~ msgid "Window size (width and height)."
+#~ msgstr "Размеры окна (ширина и высота)."
+
+#~ msgid "Window position"
+#~ msgstr "Положение окна"
+
+#~ msgid "Window position (x and y)."
+#~ msgstr "Положение окна (x, y)."
+
+#~ msgid "Open in New Window"
+#~ msgstr "Открыть в новом окне"
+
+#~ msgid "Open in another window"
+#~ msgstr "Открыть в другом окне"
+
+#~ msgid "GNOME Notes"
+#~ msgstr "Заметки GNOME"
+
+#~ msgid "Show the application’s version"
+#~ msgstr "Показать версию приложения"
+
+#~ msgid "This note is being viewed in another window"
+#~ msgstr "Эта заметка открыта в другом окне"
+
+#, c-format
+#~ msgid "Last updated: %s"
+#~ msgstr "Обновлено: %s"
 
 #~ msgid "Select the default storage location:"
 #~ msgstr "Выберите место хранения по умолчанию:"
