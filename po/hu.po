@@ -1,16 +1,16 @@
 # Hungarian translation for gnome-notes.
-# Copyright (C) 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Free Software Foundation, Inc.
+# Copyright (C) 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2026 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-notes package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2013.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2026.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-notes master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2023-04-28 08:20+0000\n"
-"PO-Revision-Date: 2023-07-27 01:56+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-03-05 02:13+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 25.08.1\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:402 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Jegyzetek"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "Jegyzetfüzet a GNOME-hoz"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -39,7 +39,7 @@ msgstr ""
 "egyszerű listák leírásához. Tároljon annyi jegyzetet, amennyit csak "
 "szeretne, és ossza meg őket e-mailben."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -47,32 +47,32 @@ msgstr ""
 "A jegyzeteket tárolhatja helyben a számítógépén, vagy szinkronizálhat az "
 "olyan online szolgáltatásokkal mint az ownCloud."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Szerkesztés nézet"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Kijelölés nézet"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Lista nézet"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr "jegyzet;emlékeztető;jegyzetfüzet;ragadós;cetli;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Írjon jegyzeteket, címkézzen fájlokat!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Jegyzetkezelő"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Új jegyzet létrehozása"
 
@@ -120,42 +120,18 @@ msgstr ""
 "Ez tárolja a legutóbb megnyitott elem jegyzetútvonalát, így az megnyitható "
 "indításkor."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Teljes méretű ablak"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Az ablak maximalizált állapota."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Ablakméret"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Ablak mérete (szélesség és magasság)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Ablakpozíció"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Ablakpozíció (x és y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "A jegyzetszerkesztő által használt szövegméret."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr ""
 "A következő három méret érhető el: kicsi, közepes (alapértelmezett) és nagy."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:243
-#: data/resources/bjb-window.ui:334 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Jegyzettömbök"
 
@@ -167,89 +143,86 @@ msgstr "Új jegyzettömb…"
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:338
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Nincs jegyzet kiválasztva"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:224
-#: src/bjb-window.c:303
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Összes jegyzet"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Menü megnyitása"
 
-#: data/resources/bjb-window.ui:89
-msgid "More options"
-msgstr "További beállítások"
-
-#: data/resources/bjb-window.ui:121 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Jegyzetek importálása"
 
-#: data/resources/bjb-window.ui:136
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Szövegméretek"
 
-#: data/resources/bjb-window.ui:145
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "_Nagy"
 
-#: data/resources/bjb-window.ui:154
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "Kö_zepes"
 
-#: data/resources/bjb-window.ui:163
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Kicsi"
 
-#: data/resources/bjb-window.ui:179 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: data/resources/bjb-window.ui:187
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "Gyorsbillentyűk"
 
-#: data/resources/bjb-window.ui:195
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Súgó"
 
-#: data/resources/bjb-window.ui:203
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "A Jegyzetek névjegye"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:268 src/bjb-window.c:313
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "Jegyzet helyének kiválasztása"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "Kuka"
 
-#: data/resources/bjb-window.ui:295
-msgid "Open in New Window"
-msgstr "Megnyitás új ablakban"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Névtelen"
 
-#: data/resources/bjb-window.ui:311
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "További beállítások"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "Visszavonás"
 
-#: data/resources/bjb-window.ui:319
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "Újra"
 
-#: data/resources/bjb-window.ui:342
-msgid "Email this Note"
-msgstr "Jegyzet küldése e-mailben"
+#: data/resources/bjb-window.ui:86
+#| msgid "Email this Note"
+msgid "Email this Note…"
+msgstr "Jegyzet küldése e-mailben…"
 
-#: data/resources/bjb-window.ui:350 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "Áthelyezés a Kukába"
-
-#: data/resources/bjb-window.ui:394
-#| msgid "Select import location"
-msgid "Select Note Location"
-msgstr "Jegyzet helyének kiválasztása"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -419,15 +392,11 @@ msgstr "Jegyzet színe"
 msgid "Share note"
 msgstr "Jegyzet megosztása"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "Megnyitás másik ablakban"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Visszaállítás"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Végleges törlés"
 
@@ -439,7 +408,7 @@ msgstr "Jegyzet megjelenése"
 msgid "Use System Font"
 msgstr "Rendszer betűkészletének használata"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "Jegyzet betűkészlete"
 
@@ -447,99 +416,73 @@ msgstr "Jegyzet betűkészlete"
 msgid "Default Color"
 msgstr "Alapértelmezett szín"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:110
-msgid "Untitled"
-msgstr "Névtelen"
+#: data/resources/settings-dialog.ui:97
+msgid "Note Color"
+msgstr "Jegyzet színe"
 
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "GNOME jegyzetek"
-
-#: src/bjb-application.c:172
+#: src/bjb-application.c:94
 msgid "Show verbose logs"
 msgstr "Bővített naplók megjelenítése"
 
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Az alkalmazás verziószámának megjelenítése"
-
-#: src/bjb-application.c:176
+#: src/bjb-application.c:96
 msgid "Create a new note"
 msgstr "Új jegyzet létrehozása"
 
-#: src/bjb-application.c:184
+#: src/bjb-application.c:102
 msgid "[FILE…]"
 msgstr "[FÁJL…]"
 
-#: src/bjb-application.c:185
+#: src/bjb-application.c:103
 msgid "Take notes and export them everywhere."
 msgstr "Jegyzetek készítése és azok exportálása mindenhová."
 
-#: src/bjb-application.c:403
+#: src/bjb-note-list.c:114
+msgid "Add Notes"
+msgstr "Jegyzetek hozzáadása"
+
+#: src/bjb-note-list.c:115
+msgid "Use the + button to add a note"
+msgstr "Használja a + gombot egy jegyzet hozzáadásához"
+
+#: src/bjb-note-list.c:120
+msgid "No Results"
+msgstr "Nincs találat"
+
+#: src/bjb-note-list.c:121
+msgid "Try a different search"
+msgstr "Próbáljon mást keresni"
+
+#: src/bjb-utils.c:52
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: src/bjb-utils.c:69
+msgid "Yesterday"
+msgstr "Tegnap"
+
+#: src/bjb-utils.c:75
+msgid "This month"
+msgstr "Ebben a hónapban"
+
+#: src/bjb-window.c:93
 msgid "Simple notebook for GNOME"
 msgstr "Egyszerű jegyzetfüzet a GNOME-hoz"
 
-#: src/bjb-application.c:409
+#: src/bjb-window.c:99
 msgid "translator-credits"
 msgstr ""
 "Havris György <gh at c2 dot hu>\n"
 "Meskó Balázs <mesko dot balazs at fsf dot hu>\n"
 "Úr Balázs <ur dot balazs at fsf dot hu>"
 
-#: src/bjb-color-button.c:140
-msgid "Note Color"
-msgstr "Jegyzet színe"
-
-#: src/bjb-note-list.c:113
-msgid "Add Notes"
-msgstr "Jegyzetek hozzáadása"
-
-#: src/bjb-note-list.c:114
-msgid "Use the + button to add a note"
-msgstr "Használja a + gombot egy jegyzet hozzáadásához"
-
-#: src/bjb-note-list.c:119
-msgid "No Results"
-msgstr "Nincs találat"
-
-#: src/bjb-note-list.c:120
-msgid "Try a different search"
-msgstr "Próbáljon mást keresni"
-
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "Ez a jegyzet egy másik ablakban van megnyitva"
-
-#: src/bjb-utils.c:51
-msgid "Unknown"
-msgstr "Ismeretlen"
-
-#: src/bjb-utils.c:68
-msgid "Yesterday"
-msgstr "Tegnap"
-
-#: src/bjb-utils.c:74
-msgid "This month"
-msgstr "Ebben a hónapban"
-
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:583
-#, c-format
-msgid "Last updated: %s"
-msgstr "Utoljára frissítve: %s"
-
-#: src/providers/bjb-local-provider.c:78
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Helyi"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "Ezen a számítógépen"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Emlékeztető jegyzet"
