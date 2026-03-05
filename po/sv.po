@@ -1,7 +1,7 @@
-# Swedish translations for gnome-notes package
-# Svenska översättningar för paketet gnome-notes.
-# Copyright © 2014-2025 gnome-notes's COPYRIGHT HOLDER
-# This file is distributed under the same license as the gnome-notes package.
+# Swedish translations for bijiben package
+# Svenska översättningar för paketet bijiben.
+# Copyright © 2014-2025 bijiben's COPYRIGHT HOLDER
+# This file is distributed under the same license as the bijiben package.
 # Marcus Lundblad <ml@update.uu.se>, 2014.
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025.
 # Josef Andersson <josef.andersson@fripost.org>, 2017.
@@ -9,9 +9,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-notes master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2025-12-10 17:10+0000\n"
+"Project-Id-Version: bijiben\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
 "PO-Revision-Date: 2025-12-21 22:44+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -493,49 +493,3 @@ msgstr "På denna dator"
 #: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Memoanteckning"
-
-#~ msgid "Window maximized"
-#~ msgstr "Fönster maximerat"
-
-#~ msgid "Window maximized state."
-#~ msgstr "Tillstånd för maximerat fönster."
-
-#~ msgid "Window size"
-#~ msgstr "Fönsterstorlek"
-
-#~ msgid "Window size (width and height)."
-#~ msgstr "Fönsterstorlek (bredd och höjd)."
-
-#~ msgid "Window position"
-#~ msgstr "Fönsterposition"
-
-#~ msgid "Window position (x and y)."
-#~ msgstr "Fönsterposition (x och y)."
-
-#~ msgid "Open in New Window"
-#~ msgstr "Öppna i nytt fönster"
-
-#~ msgid "Open in another window"
-#~ msgstr "Öppna i ett annat fönster"
-
-#~ msgid "GNOME Notes"
-#~ msgstr "GNOME Anteckningar"
-
-#~ msgid "Show the application’s version"
-#~ msgstr "Visa programversion"
-
-#~ msgid "This note is being viewed in another window"
-#~ msgstr "Denna anteckning visas i ett annat fönster"
-
-#, c-format
-#~ msgid "Last updated: %s"
-#~ msgstr "Senast uppdaterad: %s"
-
-#~ msgid "Select the default storage location:"
-#~ msgstr "Välj standardplatsen för lagring:"
-
-#~ msgid "Primary Book"
-#~ msgstr "Huvudbok"
-
-#~ msgid "Local storage"
-#~ msgstr "Lokal lagring"
