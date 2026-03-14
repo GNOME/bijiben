@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bijiben master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2023-04-28 08:20+0000\n"
-"PO-Revision-Date: 2023-09-04 21:50+0600\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-03-14 13:49+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.9\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:402 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Естеліктер"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "GNOME үшін естеліктер қолданбасы"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -37,7 +37,7 @@ msgstr ""
 "жылдам әрі ыңғайлы жолы. Өзіңіз қалайтын естеліктер санын сақтап, олармен "
 "эл. пошта арқылы бөлісіңіз."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -45,34 +45,34 @@ msgstr ""
 "Естеліктерді жергілікті компьютерде сақтауға, немесе ownCloud сияқты онлайн "
 "қызметтермен синхрондауға болады."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Түзету көрінісі"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Таңдау көрінісі"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Тізім көрінісі"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr ""
 "notes;reminder;notebook;sticky notes;естеліктер;еске түсіру;блокнот;жабысқақ "
 "естеліктер;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Естеліктерді жариялау, файлдарға тегтерді беру!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Естеліктерді сақтау"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Жаңа естелікті жасау"
 
@@ -118,41 +118,17 @@ msgstr ""
 "Бұл соңғы ашылған естелік жолын сақтайды, солай ол іске қосылған кезде "
 "ашылады."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Терезе максималды етілген"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Терезенің максималды күйі."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Терезе өлшемі"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Терезе өлшемі (ені мен биіктігі)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Терезе орны"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Терезе орны (x және y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "Мәтіндік түзеткіші қолданатын қаріп өлшемі."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr "Мәтінің үш өлшемі қолжетерлік: кішкентай, орташа (негізгі) және үлкен."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:243
-#: data/resources/bjb-window.ui:334 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Блокноттар"
 
@@ -164,88 +140,85 @@ msgstr "Жаңа блокнот…"
 msgid "Add"
 msgstr "Қосу"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:338
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Бірде-бір естелік таңдалмады"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:224
-#: src/bjb-window.c:303
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Барлық естеліктер"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Мәзірді ашу"
 
-#: data/resources/bjb-window.ui:89
-msgid "More options"
-msgstr "Көбірек опциялар"
-
-#: data/resources/bjb-window.ui:121 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Естеліктерді импорттау"
 
-#: data/resources/bjb-window.ui:136
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Мәтін өлшемдері"
 
-#: data/resources/bjb-window.ui:145
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "Ү_лкен"
 
-#: data/resources/bjb-window.ui:154
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "О_рташа"
 
-#: data/resources/bjb-window.ui:163
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Кішкентай"
 
-#: data/resources/bjb-window.ui:179 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Баптаулар"
 
-#: data/resources/bjb-window.ui:187
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "Пернетақта жарлықтары"
 
-#: data/resources/bjb-window.ui:195
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Көмек"
 
-#: data/resources/bjb-window.ui:203
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "Естеліктер қолданбасы туралы"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:268 src/bjb-window.c:313
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "Естелік орнын таңдау"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "Қоқыс шелегі"
 
-#: data/resources/bjb-window.ui:295
-msgid "Open in New Window"
-msgstr "Жаңа терезеде ашу"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Атаусыз"
 
-#: data/resources/bjb-window.ui:311
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "Көбірек опциялар"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "Болдырмау"
 
-#: data/resources/bjb-window.ui:319
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "Қайталау"
 
-#: data/resources/bjb-window.ui:342
-msgid "Email this Note"
-msgstr "Бұл естелікті эл. поштамен жіберу"
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "Бұл естелікті эл. поштамен жіберу…"
 
-#: data/resources/bjb-window.ui:350 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "Қоқыс шелегіне тастау"
-
-#: data/resources/bjb-window.ui:394
-msgid "Select Note Location"
-msgstr "Естелік орнын таңдау"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -415,15 +388,11 @@ msgstr "Естелік түсі"
 msgid "Share note"
 msgstr "Естелікпен бөлісу"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "Басқа терезеде ашу"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Қалпына келтіру"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Толығымен өшіру"
 
@@ -435,7 +404,7 @@ msgstr "Естеліктер сыртқы түрі"
 msgid "Use System Font"
 msgstr "Жүйелік қаріпті қолдану"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "Естелік қарібі"
 
@@ -443,99 +412,110 @@ msgstr "Естелік қарібі"
 msgid "Default Color"
 msgstr "Негізгі түс"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:110
-msgid "Untitled"
-msgstr "Атаусыз"
-
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "GNOME естеліктері"
-
-#: src/bjb-application.c:172
-msgid "Show verbose logs"
-msgstr "Толықтай ақпараты бар журналдарды көрсету"
-
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Қолданба нұсқасын көрсету"
-
-#: src/bjb-application.c:176
-msgid "Create a new note"
-msgstr "Жаңа жазбаны жасау"
-
-#: src/bjb-application.c:184
-msgid "[FILE…]"
-msgstr "[ФАЙЛ…]"
-
-#: src/bjb-application.c:185
-msgid "Take notes and export them everywhere."
-msgstr "Естеліктерді жасап, оларды экспорттаңыз."
-
-#: src/bjb-application.c:403
-msgid "Simple notebook for GNOME"
-msgstr "GNOME үшін қарапайым блокнот"
-
-#: src/bjb-application.c:409
-msgid "translator-credits"
-msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
-
-#: src/bjb-color-button.c:140
+#: data/resources/settings-dialog.ui:97
 msgid "Note Color"
 msgstr "Естелік түсі"
 
-#: src/bjb-note-list.c:113
+#: src/bjb-application.c:94
+msgid "Show verbose logs"
+msgstr "Толықтай ақпараты бар журналдарды көрсету"
+
+#: src/bjb-application.c:96
+msgid "Create a new note"
+msgstr "Жаңа жазбаны жасау"
+
+#: src/bjb-application.c:102
+msgid "[FILE…]"
+msgstr "[ФАЙЛ…]"
+
+#: src/bjb-application.c:103
+msgid "Take notes and export them everywhere."
+msgstr "Естеліктерді жасап, оларды экспорттаңыз."
+
+#: src/bjb-note-list.c:114
 msgid "Add Notes"
 msgstr "Естеліктерді қосу"
 
-#: src/bjb-note-list.c:114
+#: src/bjb-note-list.c:115
 msgid "Use the + button to add a note"
-msgstr "Естелікті жасау + батырмасын басыңыз."
+msgstr "Естелікті жасау + батырмасын басыңыз"
 
-#: src/bjb-note-list.c:119
+#: src/bjb-note-list.c:120
 msgid "No Results"
 msgstr "Нәтижелер жоқ"
 
-#: src/bjb-note-list.c:120
+#: src/bjb-note-list.c:121
 msgid "Try a different search"
 msgstr "Басқа сөздерді іздеп көріңіз"
 
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "Бұл естелік басқа терезеде қаралуда"
-
-#: src/bjb-utils.c:51
+#: src/bjb-utils.c:52
 msgid "Unknown"
 msgstr "Белгісіз"
 
-#: src/bjb-utils.c:68
+#: src/bjb-utils.c:69
 msgid "Yesterday"
 msgstr "Кеше"
 
-#: src/bjb-utils.c:74
+#: src/bjb-utils.c:75
 msgid "This month"
 msgstr "Бұл айда"
 
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:583
-#, c-format
-msgid "Last updated: %s"
-msgstr "Соңғы жаңартылған: %s"
+#: src/bjb-window.c:93
+msgid "Simple notebook for GNOME"
+msgstr "GNOME үшін қарапайым блокнот"
 
-#: src/providers/bjb-local-provider.c:78
+#: src/bjb-window.c:99
+msgid "translator-credits"
+msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
+
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Жергілікті"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "Бұл компьютерде"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Естелік"
+
+#~ msgid "Window maximized"
+#~ msgstr "Терезе максималды етілген"
+
+#~ msgid "Window maximized state."
+#~ msgstr "Терезенің максималды күйі."
+
+#~ msgid "Window size"
+#~ msgstr "Терезе өлшемі"
+
+#~ msgid "Window size (width and height)."
+#~ msgstr "Терезе өлшемі (ені мен биіктігі)."
+
+#~ msgid "Window position"
+#~ msgstr "Терезе орны"
+
+#~ msgid "Window position (x and y)."
+#~ msgstr "Терезе орны (x және y)."
+
+#~ msgid "Open in New Window"
+#~ msgstr "Жаңа терезеде ашу"
+
+#~ msgid "Open in another window"
+#~ msgstr "Басқа терезеде ашу"
+
+#~ msgid "GNOME Notes"
+#~ msgstr "GNOME естеліктері"
+
+#~ msgid "Show the application’s version"
+#~ msgstr "Қолданба нұсқасын көрсету"
+
+#~ msgid "This note is being viewed in another window"
+#~ msgstr "Бұл естелік басқа терезеде қаралуда"
+
+#, c-format
+#~ msgid "Last updated: %s"
+#~ msgstr "Соңғы жаңартылған: %s"
 
 #~ msgid "No notes"
 #~ msgstr "Естеліктер жоқ"
