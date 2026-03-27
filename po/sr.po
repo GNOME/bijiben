@@ -4,14 +4,15 @@
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2017.
 # Марко М. Костић <marko.m.kostic@gmail.com>, 2020.
 # aceydot <aceydot@tuta.io>, 2025.
+# Марко Костић <marko.m.kostic@gmail.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bijiben master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2025-10-17 08:34+0000\n"
-"PO-Revision-Date: 2025-10-17 23:23+0200\n"
-"Last-Translator: aceydot <aceydot@tuta.io>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-03-27 12:30+0100\n"
+"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/appdata/org.gnome.Notes.metainfo.xml.in:6
 #: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
@@ -146,7 +147,7 @@ msgstr "Нова бележница…"
 msgid "Add"
 msgstr "Додај"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:327
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Белешка није изабрана"
 
@@ -219,8 +220,8 @@ msgid "Redo"
 msgstr "Поврати"
 
 #: data/resources/bjb-window.ui:86
-msgid "Email this Note"
-msgstr "Пошаљите ел. поштом ову белешку"
+msgid "Email this Note…"
+msgstr "Пошаљите ел. поштом ову белешку…"
 
 #: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
@@ -422,19 +423,19 @@ msgstr "Основна боја"
 msgid "Note Color"
 msgstr "Боја белешке"
 
-#: src/bjb-application.c:92
+#: src/bjb-application.c:94
 msgid "Show verbose logs"
 msgstr "Прикажи детаљни дневник"
 
-#: src/bjb-application.c:94
+#: src/bjb-application.c:96
 msgid "Create a new note"
 msgstr "Прави нову белешку"
 
-#: src/bjb-application.c:100
+#: src/bjb-application.c:102
 msgid "[FILE…]"
 msgstr "[ДАТОТЕКА...]"
 
-#: src/bjb-application.c:101
+#: src/bjb-application.c:103
 msgid "Take notes and export them everywhere."
 msgstr "Хватајте белешке и извозите их свуда."
 
@@ -454,15 +455,15 @@ msgstr "Нема резултата"
 msgid "Try a different search"
 msgstr "Покушајте другачију претрагу"
 
-#: src/bjb-utils.c:51
+#: src/bjb-utils.c:52
 msgid "Unknown"
 msgstr "Непознато"
 
-#: src/bjb-utils.c:68
+#: src/bjb-utils.c:69
 msgid "Yesterday"
 msgstr "Јуче"
 
-#: src/bjb-utils.c:74
+#: src/bjb-utils.c:75
 msgid "This month"
 msgstr "Овог месеца"
 
@@ -476,17 +477,17 @@ msgstr ""
 "  Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "  Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "\n"
-"http://prevod.org — превод на српски језик."
+"https://гном.срб — превод на српски језик"
 
-#: src/providers/bjb-local-provider.c:73
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Месно"
 
-#: src/providers/bjb-local-provider.c:86
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "На овом компјутеру"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Белешка"
 
