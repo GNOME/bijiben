@@ -7,14 +7,14 @@
 # Tim Sabsch <tim@sabsch.com>, 2018-2019, 2022.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2017-2018, 2020-2021.
 # Philipp Kiemle <philipp.kiemle@gmail.com>, 2021, 2023.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-notes master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2023-04-28 08:20+0000\n"
-"PO-Revision-Date: 2023-10-07 20:31+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-05-05 22:00+0200\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -22,19 +22,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.9\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:402 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Notizen"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "Notizen für GNOME"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -43,7 +43,7 @@ msgstr ""
 "erstellen. Speichern Sie beliebig viele Notizen und geben Sie sie per E-Mail "
 "frei."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -51,34 +51,34 @@ msgstr ""
 "Sie können Ihre Notizen lokal auf Ihrem Rechner speichern oder mit "
 "Onlinediensten wie ownCloud abgleichen."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Bearbeitungsansicht"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Auswahlansicht"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Listenansicht"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr ""
-"notes;reminder;notebook;sticky notes;Notizen;Erinnerungen;Notizbuch;"
-"Haftnotizen;"
+"notes;reminder;notebook;sticky "
+"notes;Notizen;Erinnerungen;Notizbuch;Haftnotizen;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Schreiben Sie Notizen, etikettieren Sie Dateien!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Notizanwendung"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Eine neue Notiz erstellen"
 
@@ -124,42 +124,18 @@ msgstr ""
 "Speichert die Notizpfade des zuletzt geöffneten Elements, sodass es bei "
 "Programmstart geöffnet werden kann."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Fenster maximiert"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Fenstermaximierungsstatus."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Fenstergröße"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Fenstergröße (Breite und Höhe)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Fensterposition"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Fensterposition (X und Y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "Vom Notizen-Editor verwendete Schriftgröße."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr ""
 "Drei Schriftgrößen sind verfügbar: klein, mittel (vorgegeben) und groß."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:243
-#: data/resources/bjb-window.ui:334 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Notizbücher"
 
@@ -171,88 +147,85 @@ msgstr "Neues Notizbuch …"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:338
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Keine Notiz ausgewählt"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:224
-#: src/bjb-window.c:303
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Alle Notizen"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Menü öffnen"
 
-#: data/resources/bjb-window.ui:89
-msgid "More options"
-msgstr "Mehr Optionen"
-
-#: data/resources/bjb-window.ui:121 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Notizen importieren"
 
-#: data/resources/bjb-window.ui:136
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Schriftgrößen"
 
-#: data/resources/bjb-window.ui:145
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "_Groß"
 
-#: data/resources/bjb-window.ui:154
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "_Mittel"
 
-#: data/resources/bjb-window.ui:163
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Klein"
 
-#: data/resources/bjb-window.ui:179 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: data/resources/bjb-window.ui:187
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
-msgstr "Tastenkombinationen"
+msgstr "Tastenkürzel"
 
-#: data/resources/bjb-window.ui:195
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Hilfe"
 
-#: data/resources/bjb-window.ui:203
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "Info zu Notizen"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:268 src/bjb-window.c:313
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "Wählen Sie den Ort für die Notiz"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: data/resources/bjb-window.ui:295
-msgid "Open in New Window"
-msgstr "In neuem Fenster öffnen"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Unbenannt"
 
-#: data/resources/bjb-window.ui:311
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "Mehr Optionen"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: data/resources/bjb-window.ui:319
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "Wiederholen"
 
-#: data/resources/bjb-window.ui:342
-msgid "Email this Note"
-msgstr "Diese Notiz per E-Mail versenden"
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "Diese Notiz per E-Mail versenden …"
 
-#: data/resources/bjb-window.ui:350 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "In den Papierkorb verschieben"
-
-#: data/resources/bjb-window.ui:394
-msgid "Select Note Location"
-msgstr "Wählen Sie den Ort für die Notiz"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -329,7 +302,7 @@ msgstr "Menü öffnen"
 #: data/resources/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
-msgstr "Tastenkombinationen"
+msgstr "Tastenkürzel"
 
 #: data/resources/help-overlay.ui:71
 msgctxt "shortcut window"
@@ -422,15 +395,11 @@ msgstr "Farbe der Notizen"
 msgid "Share note"
 msgstr "Notiz teilen"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "In einem anderen Fenster öffnen"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Wiederherstellen"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Dauerhaft löschen"
 
@@ -442,7 +411,7 @@ msgstr "Aussehen einer Notiz"
 msgid "Use System Font"
 msgstr "Systemschrift verwenden"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "Schriftart der Notizen"
 
@@ -450,39 +419,59 @@ msgstr "Schriftart der Notizen"
 msgid "Default Color"
 msgstr "Voreingestellte Farbe"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:110
-msgid "Untitled"
-msgstr "Unbenannt"
+#: data/resources/settings-dialog.ui:97
+msgid "Note Color"
+msgstr "Farbe der Notizen"
 
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "GNOME Notizen"
-
-#: src/bjb-application.c:172
+#: src/bjb-application.c:94
 msgid "Show verbose logs"
 msgstr "Ausführliche Meldungen anzeigen"
 
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Die Version der Anwendung zeigen"
-
-#: src/bjb-application.c:176
+#: src/bjb-application.c:96
 msgid "Create a new note"
 msgstr "Eine neue Notiz erstellen"
 
-#: src/bjb-application.c:184
+#: src/bjb-application.c:102
 msgid "[FILE…]"
 msgstr "[DATEI …]"
 
-#: src/bjb-application.c:185
+#: src/bjb-application.c:103
 msgid "Take notes and export them everywhere."
 msgstr "Speichern Sie Notizen und exportieren Sie sie überall."
 
-#: src/bjb-application.c:403
+#: src/bjb-note-list.c:114
+msgid "Add Notes"
+msgstr "Notizen hinzufügen"
+
+#: src/bjb-note-list.c:115
+msgid "Use the + button to add a note"
+msgstr "Verwenden Sie den »+«-Knopf, um eine Notiz hinzuzufügen"
+
+#: src/bjb-note-list.c:120
+msgid "No Results"
+msgstr "Keine Ergebnisse"
+
+#: src/bjb-note-list.c:121
+msgid "Try a different search"
+msgstr "Versuchen Sie eine andere Suchanfrage"
+
+#: src/bjb-utils.c:52
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: src/bjb-utils.c:69
+msgid "Yesterday"
+msgstr "Gestern"
+
+#: src/bjb-utils.c:75
+msgid "This month"
+msgstr "Diesen Monat"
+
+#: src/bjb-window.c:93
 msgid "Simple notebook for GNOME"
 msgstr "Ein einfaches Notizbuch für GNOME"
 
-#: src/bjb-application.c:409
+#: src/bjb-window.c:99
 msgid "translator-credits"
 msgstr ""
 "Christian Kirbach <Christian.Kirbach@gmail.com>\n"
@@ -491,63 +480,54 @@ msgstr ""
 "Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Jürgen Benvenuti <gastornis@posteo.org>"
 
-#: src/bjb-color-button.c:140
-msgid "Note Color"
-msgstr "Farbe der Notizen"
-
-#: src/bjb-note-list.c:113
-msgid "Add Notes"
-msgstr "Notizen hinzufügen"
-
-#: src/bjb-note-list.c:114
-msgid "Use the + button to add a note"
-msgstr "Verwenden Sie den »+«-Knopf, um eine Notiz hinzuzufügen"
-
-#: src/bjb-note-list.c:119
-msgid "No Results"
-msgstr "Keine Ergebnisse"
-
-#: src/bjb-note-list.c:120
-msgid "Try a different search"
-msgstr "Versuchen Sie eine andere Suchanfrage"
-
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "Diese Notiz wird in einem anderen Fenster betrachtet"
-
-#: src/bjb-utils.c:51
-msgid "Unknown"
-msgstr "Unbekannt"
-
-#: src/bjb-utils.c:68
-msgid "Yesterday"
-msgstr "Gestern"
-
-#: src/bjb-utils.c:74
-msgid "This month"
-msgstr "Diesen Monat"
-
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:583
-#, c-format
-msgid "Last updated: %s"
-msgstr "Zuletzt aktualisiert: %s"
-
-#: src/providers/bjb-local-provider.c:78
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Lokal"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "Auf diesem Rechner"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Erinnerungsnotiz"
+
+#~ msgid "Window maximized"
+#~ msgstr "Fenster maximiert"
+
+#~ msgid "Window maximized state."
+#~ msgstr "Fenstermaximierungsstatus."
+
+#~ msgid "Window size"
+#~ msgstr "Fenstergröße"
+
+#~ msgid "Window size (width and height)."
+#~ msgstr "Fenstergröße (Breite und Höhe)."
+
+#~ msgid "Window position"
+#~ msgstr "Fensterposition"
+
+#~ msgid "Window position (x and y)."
+#~ msgstr "Fensterposition (X und Y)."
+
+#~ msgid "Open in New Window"
+#~ msgstr "In neuem Fenster öffnen"
+
+#~ msgid "Open in another window"
+#~ msgstr "In einem anderen Fenster öffnen"
+
+#~ msgid "GNOME Notes"
+#~ msgstr "GNOME Notizen"
+
+#~ msgid "Show the application’s version"
+#~ msgstr "Die Version der Anwendung zeigen"
+
+#~ msgid "This note is being viewed in another window"
+#~ msgstr "Diese Notiz wird in einem anderen Fenster betrachtet"
+
+#, c-format
+#~ msgid "Last updated: %s"
+#~ msgstr "Zuletzt aktualisiert: %s"
 
 #~ msgid "Select the default storage location:"
 #~ msgstr "Wählen Sie den vorgegebenen Ort zum Speichern:"
