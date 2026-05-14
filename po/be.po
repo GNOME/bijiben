@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-notes.master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2024-03-15 10:28+0000\n"
-"PO-Revision-Date: 2024-08-24 06:24+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-05-14 15:23+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be_BY\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.8\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:396 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Нататкі"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "Нататкі для GNOME"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -38,7 +38,7 @@ msgstr ""
 "Захоўвайце столькі нататак, колькі жадаеце, і дзяліцеся імі праз электронную "
 "пошту."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -46,32 +46,32 @@ msgstr ""
 "Вы можаце захоўваць нататкі на вашым камп'ютары ці сінхранізаваць іх з "
 "сеціўнымі службамі накшталт ownCloud."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Рэдагаванне"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Вылучэнне"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Спіс"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr "запісы;напамін;нататнік;ліпкія нататкі;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Размяшчайце запісы, адзначайце файлы!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Сродак занатоўвання"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Стварыць новую нататку"
 
@@ -116,43 +116,19 @@ msgstr ""
 "Тут захоўваецца шлях да апошніх адкрытых нататак, каб мець магчымасць "
 "адкрыць іх пры запуску."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Разгортванне акна"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Стан акна – разгорнута."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Памер акна"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Памер акна (шырыня і вышыня)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Становішча акна"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Становішча акна (x, y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "Памер тэксту ў рэдактары нататак."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr ""
 "Даступна тры памеры тэксту: small (малы), medium (сярэдні, прадвызначаны) і "
 "large (вялікі)."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:247
-#: data/resources/bjb-window.ui:338 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Нататнікі"
 
@@ -164,88 +140,85 @@ msgstr "Новы нататнік…"
 msgid "Add"
 msgstr "Дадаць"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:340
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Нататка не выбрана"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:228
-#: src/bjb-window.c:279
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Усе нататкі"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Адкрыць меню"
 
-#: data/resources/bjb-window.ui:93
-msgid "More options"
-msgstr "Больш параметраў"
-
-#: data/resources/bjb-window.ui:125 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Імпарт нататак"
 
-#: data/resources/bjb-window.ui:140
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Памер тэксту"
 
-#: data/resources/bjb-window.ui:149
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "_Вялікі"
 
-#: data/resources/bjb-window.ui:158
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "_Сярэдні"
 
-#: data/resources/bjb-window.ui:167
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Малы"
 
-#: data/resources/bjb-window.ui:183 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Налады"
 
-#: data/resources/bjb-window.ui:191
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "Спалучэнні клавіш"
 
-#: data/resources/bjb-window.ui:199
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Даведка"
 
-#: data/resources/bjb-window.ui:207
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "Пра Нататкі"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:272 src/bjb-window.c:289
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "Выберыце размяшчэнне нататкі"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "Сметніца"
 
-#: data/resources/bjb-window.ui:299
-msgid "Open in New Window"
-msgstr "Адкрыць у новым акне"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Без назвы"
 
-#: data/resources/bjb-window.ui:315
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "Больш параметраў"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "Адрабіць"
 
-#: data/resources/bjb-window.ui:323
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "Паўтарыць дзеянне"
 
-#: data/resources/bjb-window.ui:346
-msgid "Email this Note"
-msgstr "Даслаць гэтую нататку па эл. пошце"
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "Адправіць нататку па эл. пошце"
 
-#: data/resources/bjb-window.ui:354 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "Перамясціць у сметніцу"
-
-#: data/resources/bjb-window.ui:398
-msgid "Select Note Location"
-msgstr "Выберыце размяшчэнне нататкі"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -415,15 +388,11 @@ msgstr "Колер нататкі"
 msgid "Share note"
 msgstr "Падзяліцца нататкай"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "Адкрыць у іншым акне"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Аднавіць"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Выдаліць назаўсёды"
 
@@ -435,7 +404,7 @@ msgstr "Выгляд нататак"
 msgid "Use System Font"
 msgstr "Выкарыстоўваць сістэмны шрыфт"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "Шрыфт нататкі"
 
@@ -443,101 +412,112 @@ msgstr "Шрыфт нататкі"
 msgid "Default Color"
 msgstr "Прадвызначаны колер"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:111
-msgid "Untitled"
-msgstr "Без назвы"
+#: data/resources/settings-dialog.ui:97
+msgid "Note Color"
+msgstr "Колер нататкі"
 
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "Нататкі GNOME"
-
-#: src/bjb-application.c:172
+#: src/bjb-application.c:94
 msgid "Show verbose logs"
 msgstr "Паказаць падрабязны журнал"
 
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Паказаць версію праграмы"
-
-#: src/bjb-application.c:176
+#: src/bjb-application.c:96
 msgid "Create a new note"
 msgstr "Стварыць новую нататку"
 
-#: src/bjb-application.c:184
+#: src/bjb-application.c:102
 msgid "[FILE…]"
 msgstr "[ФАЙЛ…]"
 
-#: src/bjb-application.c:185
+#: src/bjb-application.c:103
 msgid "Take notes and export them everywhere."
 msgstr "Узяць нататкі і экспартаваць іх куды-небудзь."
 
-#: src/bjb-application.c:397
+#: src/bjb-note-list.c:114
+msgid "Add Notes"
+msgstr "Дадаць нататкі"
+
+#: src/bjb-note-list.c:115
+msgid "Use the + button to add a note"
+msgstr "Націсніце кнопку +, каб дадаць нататку"
+
+#: src/bjb-note-list.c:120
+msgid "No Results"
+msgstr "Нічога не знойдзена"
+
+#: src/bjb-note-list.c:121
+msgid "Try a different search"
+msgstr "Паспрабуйце змяніць пошукавы запыт"
+
+#: src/bjb-utils.c:52
+msgid "Unknown"
+msgstr "Невядома"
+
+#: src/bjb-utils.c:69
+msgid "Yesterday"
+msgstr "Учора"
+
+#: src/bjb-utils.c:75
+msgid "This month"
+msgstr "У гэтым месяцы"
+
+#: src/bjb-window.c:93
 msgid "Simple notebook for GNOME"
 msgstr "Просты нататнік для GNOME"
 
-#: src/bjb-application.c:403
+#: src/bjb-window.c:99
 msgid "translator-credits"
 msgstr ""
 "Uladzimir Manulenka <vlma@tut.by>\n"
 "Юрась Шумовіч <shumovichy@gmail.com>"
 
-#: src/bjb-color-button.c:140
-msgid "Note Color"
-msgstr "Колер нататкі"
-
-#: src/bjb-note-list.c:113
-msgid "Add Notes"
-msgstr "Дадаць нататкі"
-
-#: src/bjb-note-list.c:114
-msgid "Use the + button to add a note"
-msgstr "Націсніце кнопку +, каб дадаць нататку"
-
-#: src/bjb-note-list.c:119
-msgid "No Results"
-msgstr "Нічога не знойдзена"
-
-#: src/bjb-note-list.c:120
-msgid "Try a different search"
-msgstr "Паспрабуйце змяніць пошукавы запыт"
-
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "Гэтая нататка адкрыта ў іншым акне"
-
-#: src/bjb-utils.c:51
-msgid "Unknown"
-msgstr "Невядома"
-
-#: src/bjb-utils.c:68
-msgid "Yesterday"
-msgstr "Учора"
-
-#: src/bjb-utils.c:74
-msgid "This month"
-msgstr "У гэтым месяцы"
-
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:559
-#, c-format
-msgid "Last updated: %s"
-msgstr "Апошняе абнаўленне: %s"
-
-#: src/providers/bjb-local-provider.c:78
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Лакальны"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "На гэтым камп'ютары"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Напамін"
+
+#~ msgid "Window maximized"
+#~ msgstr "Разгортванне акна"
+
+#~ msgid "Window maximized state."
+#~ msgstr "Стан акна – разгорнута."
+
+#~ msgid "Window size"
+#~ msgstr "Памер акна"
+
+#~ msgid "Window size (width and height)."
+#~ msgstr "Памер акна (шырыня і вышыня)."
+
+#~ msgid "Window position"
+#~ msgstr "Становішча акна"
+
+#~ msgid "Window position (x and y)."
+#~ msgstr "Становішча акна (x, y)."
+
+#~ msgid "Open in New Window"
+#~ msgstr "Адкрыць у новым акне"
+
+#~ msgid "Open in another window"
+#~ msgstr "Адкрыць у іншым акне"
+
+#~ msgid "GNOME Notes"
+#~ msgstr "Нататкі GNOME"
+
+#~ msgid "Show the application’s version"
+#~ msgstr "Паказаць версію праграмы"
+
+#~ msgid "This note is being viewed in another window"
+#~ msgstr "Гэтая нататка адкрыта ў іншым акне"
+
+#, c-format
+#~ msgid "Last updated: %s"
+#~ msgstr "Апошняе абнаўленне: %s"
 
 #~ msgid "Select the default storage location:"
 #~ msgstr "Выберыце прадвызначанае месца захоўвання:"
