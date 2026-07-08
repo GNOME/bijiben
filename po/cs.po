@@ -2,33 +2,34 @@
 # Copyright (C) 2013 bijiben's COPYRIGHT HOLDER
 # This file is distributed under the same license as the bijiben package.
 # Marek Černocký <marek@manet.cz>, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# Patrik Sivek <sivekpatrik@gmail.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bijiben master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2023-09-08 14:57+0000\n"
-"PO-Revision-Date: 2024-03-15 11:24+0100\n"
-"Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
-"Language-Team: čeština <gnome-cs-list@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-07-09 01:18+0200\n"
+"Last-Translator: Patrik Sivek <sivekpatrik@gmail.com>\n"
+"Language-Team: Czech\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Gtranslator 50.0\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:402 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Poznámky"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "Poznámky pro GNOME"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -37,7 +38,7 @@ msgstr ""
 "krátké bodové myšlenky. Zapište si tolik poznámek, kolik chcete a sdílejte "
 "je přes e-mail."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -45,33 +46,33 @@ msgstr ""
 "Své poznámky si můžete uchovávat samostatně na svém počítači, nebo je "
 "synchronizovat se službami on-line, jako je ownCloud."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Ukázka úprav"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Ukázka výběru"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Ukázka seznamu"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr ""
 "poznámky;tahák;blbníček;zapomnětníček;připomenutí;sešit;lepicí poznámky;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Vylepujte si poznámky, štítkujte soubory!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Poznámky"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Vytvořit novou poznámku"
 
@@ -120,41 +121,17 @@ msgstr ""
 "Uchovává cestu k naposledy otevřeným položkám, takže je možné je otevřít při "
 "spuštění."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Okno maximalizováno"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Maximalizovaný stav okna."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Velikost okna"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Velikost okna (šířka a výška)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Poloha okna"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Poloha okna (X a Y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "Velikost textu používaná editorem poznámek."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr "K dispozici jsou tři velikosti textu: malý, střední (výchozí) a velký."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:247
-#: data/resources/bjb-window.ui:338 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Sešity"
 
@@ -166,88 +143,85 @@ msgstr "nový sešit…"
 msgid "Add"
 msgstr "Přidat"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:340
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Žádná poznámka nevybrána"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:228
-#: src/bjb-window.c:312
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Všechny poznámky"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Otevřít nabídku"
 
-#: data/resources/bjb-window.ui:93
-msgid "More options"
-msgstr "Další volby"
-
-#: data/resources/bjb-window.ui:125 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Import poznámek"
 
-#: data/resources/bjb-window.ui:140
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Velikosti textu"
 
-#: data/resources/bjb-window.ui:149
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "Ve_lký"
 
-#: data/resources/bjb-window.ui:158
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "_Střední"
 
-#: data/resources/bjb-window.ui:167
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Malý"
 
-#: data/resources/bjb-window.ui:183 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Předvolby"
 
-#: data/resources/bjb-window.ui:191
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
-#: data/resources/bjb-window.ui:199
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Nápověda"
 
-#: data/resources/bjb-window.ui:207
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "O aplikaci Poznámky"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:272 src/bjb-window.c:322
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "Vyberte umístění poznámek"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "Koš"
 
-#: data/resources/bjb-window.ui:299
-msgid "Open in New Window"
-msgstr "Otevřít v novém okně"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Bez názvu"
 
-#: data/resources/bjb-window.ui:315
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "Další volby"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "Zpět"
 
-#: data/resources/bjb-window.ui:323
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "Znovu"
 
-#: data/resources/bjb-window.ui:346
-msgid "Email this Note"
-msgstr "Poslat tuto poznámku e-mailem"
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "Poslat tuto poznámku e-mailem…"
 
-#: data/resources/bjb-window.ui:354 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "Přesunout do koše"
-
-#: data/resources/bjb-window.ui:398
-msgid "Select Note Location"
-msgstr "Vyberte umístění poznámek"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -417,15 +391,11 @@ msgstr "Barva poznámky"
 msgid "Share note"
 msgstr "Sdílet poznámku"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "Otevřít v jiném okně"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Obnovit"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Smazat trvale"
 
@@ -437,7 +407,7 @@ msgstr "Vzhled poznámek"
 msgid "Use System Font"
 msgstr "Používat systémový font"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "Font poznámek"
 
@@ -445,99 +415,110 @@ msgstr "Font poznámek"
 msgid "Default Color"
 msgstr "Výchozí barva"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:111
-msgid "Untitled"
-msgstr "Bez názvu"
-
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "Poznámky GNOME"
-
-#: src/bjb-application.c:172
-msgid "Show verbose logs"
-msgstr "Zobrazovat podrobné zprávy"
-
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Zobrazit verzi aplikace"
-
-#: src/bjb-application.c:176
-msgid "Create a new note"
-msgstr "Vytvořit novou poznámku"
-
-#: src/bjb-application.c:184
-msgid "[FILE…]"
-msgstr "[SOUBOR…]"
-
-#: src/bjb-application.c:185
-msgid "Take notes and export them everywhere."
-msgstr "Pořídit poznámku a exportovat ji na všechna místa."
-
-#: src/bjb-application.c:403
-msgid "Simple notebook for GNOME"
-msgstr "Jednoduchý poznámkový sešit pro GNOME"
-
-#: src/bjb-application.c:409
-msgid "translator-credits"
-msgstr "Marek Černocký, <marek@manet.cz>"
-
-#: src/bjb-color-button.c:140
+#: data/resources/settings-dialog.ui:97
 msgid "Note Color"
 msgstr "Barva poznámky"
 
-#: src/bjb-note-list.c:113
+#: src/bjb-application.c:94
+msgid "Show verbose logs"
+msgstr "Zobrazovat podrobné zprávy"
+
+#: src/bjb-application.c:96
+msgid "Create a new note"
+msgstr "Vytvořit novou poznámku"
+
+#: src/bjb-application.c:102
+msgid "[FILE…]"
+msgstr "[SOUBOR…]"
+
+#: src/bjb-application.c:103
+msgid "Take notes and export them everywhere."
+msgstr "Pořídit poznámku a exportovat ji na všechna místa."
+
+#: src/bjb-note-list.c:114
 msgid "Add Notes"
 msgstr "Přidávání poznámek"
 
-#: src/bjb-note-list.c:114
+#: src/bjb-note-list.c:115
 msgid "Use the + button to add a note"
 msgstr "Použijte tlačítko + k přidání poznámku"
 
-#: src/bjb-note-list.c:119
+#: src/bjb-note-list.c:120
 msgid "No Results"
 msgstr "Žádné výsledky"
 
-#: src/bjb-note-list.c:120
+#: src/bjb-note-list.c:121
 msgid "Try a different search"
 msgstr "Zkuste hledat něco jiného"
 
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "Tato poznámka je právě zobrazená v jiném okně"
-
-#: src/bjb-utils.c:51
+#: src/bjb-utils.c:52
 msgid "Unknown"
 msgstr "neznámo kdy"
 
-#: src/bjb-utils.c:68
+#: src/bjb-utils.c:69
 msgid "Yesterday"
 msgstr "včera"
 
-#: src/bjb-utils.c:74
+#: src/bjb-utils.c:75
 msgid "This month"
 msgstr "tento měsíc"
 
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:595
-#, c-format
-msgid "Last updated: %s"
-msgstr "Naposledy aktualizováno: %s"
+#: src/bjb-window.c:93
+msgid "Simple notebook for GNOME"
+msgstr "Jednoduchý poznámkový sešit pro GNOME"
 
-#: src/providers/bjb-local-provider.c:78
+#: src/bjb-window.c:99
+msgid "translator-credits"
+msgstr "Marek Černocký, <marek@manet.cz>"
+
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Místní"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "Na tomto počítači"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Připomínka"
+
+#~ msgid "Window maximized"
+#~ msgstr "Okno maximalizováno"
+
+#~ msgid "Window maximized state."
+#~ msgstr "Maximalizovaný stav okna."
+
+#~ msgid "Window size"
+#~ msgstr "Velikost okna"
+
+#~ msgid "Window size (width and height)."
+#~ msgstr "Velikost okna (šířka a výška)."
+
+#~ msgid "Window position"
+#~ msgstr "Poloha okna"
+
+#~ msgid "Window position (x and y)."
+#~ msgstr "Poloha okna (X a Y)."
+
+#~ msgid "Open in New Window"
+#~ msgstr "Otevřít v novém okně"
+
+#~ msgid "Open in another window"
+#~ msgstr "Otevřít v jiném okně"
+
+#~ msgid "GNOME Notes"
+#~ msgstr "Poznámky GNOME"
+
+#~ msgid "Show the application’s version"
+#~ msgstr "Zobrazit verzi aplikace"
+
+#~ msgid "This note is being viewed in another window"
+#~ msgstr "Tato poznámka je právě zobrazená v jiném okně"
+
+#, c-format
+#~ msgid "Last updated: %s"
+#~ msgstr "Naposledy aktualizováno: %s"
 
 #~ msgid "Select the default storage location:"
 #~ msgstr "Vyberte výchozí místo pro ukládání:"
