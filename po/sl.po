@@ -7,19 +7,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bijiben master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2025-12-10 17:10+0000\n"
-"PO-Revision-Date: 2025-12-10 21:34+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-08-10 16:49+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/appdata/org.gnome.Notes.metainfo.xml.in:6
 #: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
@@ -59,12 +59,18 @@ msgstr "Izbor pogleda"
 msgid "List view"
 msgstr "Seznamski pogled"
 
+#. developer_name tag deprecated with Appstream 1.0
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:73
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:75
+msgid "Pierre-Yves Luyten"
+msgstr "Pierre-Yves Luyten"
+
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr ""
-"sporočilca;sporočila;opomniki;seznami;zapiski,papirčki;note;notes;postit;"
-"post-it;reminder;sticky;"
+"sporočilca;sporočila;opomniki;seznami;zapiski,papirčki;note;notes;postit;post-"
+"it;reminder;sticky;"
 
 #: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
