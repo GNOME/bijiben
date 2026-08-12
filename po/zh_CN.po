@@ -6,14 +6,14 @@
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015, 2018.
 # sh29791383 <sh29791383@gmail.com>, 2018.
 # Dingzhong Chen <wsxy162@gmail.com>, 2018, 2019.
-# lumingzh <lumingzh@qq.com>, 2022-2025.
+# lumingzh <lumingzh@qq.com>, 2022-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-notes master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2025-12-10 17:10+0000\n"
-"PO-Revision-Date: 2025-12-11 08:11+0800\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2025-11-10 11:01+0000\n"
+"PO-Revision-Date: 2026-08-12 08:42+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 49.0\n"
+"X-Generator: Gtranslator 50.0\n"
 
 #: data/appdata/org.gnome.Notes.metainfo.xml.in:6
 #: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
@@ -58,6 +58,12 @@ msgstr "选择视图"
 #: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "列表视图"
+
+#. developer_name tag deprecated with Appstream 1.0
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:73
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:75
+msgid "Pierre-Yves Luyten"
+msgstr "Pierre-Yves Luyten"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Notes.desktop.in:4
@@ -195,7 +201,7 @@ msgstr "废纸篓"
 
 #: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
 msgid "Untitled"
-msgstr "未命名"
+msgstr "无标题"
 
 #: data/resources/bjb-window.ui:43
 msgid "More options"
@@ -460,7 +466,7 @@ msgstr "本月"
 
 #: src/bjb-window.c:93
 msgid "Simple notebook for GNOME"
-msgstr "GNOME 下的简易便笺本"
+msgstr "GNOME 的简易便笺本"
 
 #: src/bjb-window.c:99
 msgid "translator-credits"
@@ -468,7 +474,7 @@ msgstr ""
 "tuhaihe <1132321739qq@gmail.com>, 2013, 2020\n"
 "Tong Hui <tonghuix@gmail.com>, 2014\n"
 "Mingcong Bai <jeffbai@aosc.xyz>, 2018\n"
-"lumingzh <lumingzh@qq.com>, 2023"
+"lumingzh <lumingzh@qq.com>, 2023-2026"
 
 #: src/providers/bjb-local-provider.c:72
 msgid "Local"
