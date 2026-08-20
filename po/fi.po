@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bijiben master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-notes/issues\n"
-"POT-Creation-Date: 2023-04-28 08:20+0000\n"
-"PO-Revision-Date: 2023-08-27 20:53+0300\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/bijiben/issues\n"
+"POT-Creation-Date: 2026-08-12 02:20+0000\n"
+"PO-Revision-Date: 2026-08-20 16:14+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <gnome-fi-laatu@lists.sourceforge.net>\n"
 "Language: fi\n"
@@ -19,19 +19,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.9\n"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:6
-#: data/org.gnome.Notes.desktop.in:3 data/org.gnome.Notes.xml.in:4
-#: src/bjb-application.c:402 src/bjb-window.c:46
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:6
+#: data/org.gnome.Notes.desktop.in:2 data/org.gnome.Notes.xml.in:4
+#: data/resources/bjb-window.ui:4 src/bjb-window.c:42 src/bjb-window.c:91
 msgid "Notes"
 msgstr "Muistilaput"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:7
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:7
 msgid "Notes for GNOME"
 msgstr "Muistilaput Gnomelle"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:9
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:9
 msgid ""
 "A quick and easy way to make freeform notes or jot down simple lists. Store "
 "as many notes as you like and share them by email."
@@ -39,7 +39,7 @@ msgstr ""
 "Nopea ja helppo tapa tehdä muistiinpanoja tai muistiinpanolistoja. Talleta "
 "niin monta muistiinpanoa kuin haluat ja jaa ne sähköpostitse."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:12
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:12
 msgid ""
 "You can store your notes locally on your computer or sync with online "
 "services like ownCloud."
@@ -47,32 +47,32 @@ msgstr ""
 "Voit tallettaa muistiinpanot paikallisesti tietokoneellesi tai synkronoida "
 "ne verkkopalvelujen, kuten ownCloudin, kanssa."
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:28
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:28
 msgid "Edit view"
 msgstr "Muokkausnäkymä"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:32
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:32
 msgid "Select view"
 msgstr "Valintanäkymä"
 
-#: data/appdata/org.gnome.Notes.appdata.xml.in:36
+#: data/appdata/org.gnome.Notes.metainfo.xml.in:36
 msgid "List view"
 msgstr "Luettelonäkymä"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Notes.desktop.in:5
+#: data/org.gnome.Notes.desktop.in:4
 msgid "notes;reminder;notebook;sticky notes;"
 msgstr "notes;reminder;notebook;sticky notes;muistilaput;"
 
-#: data/org.gnome.Notes.desktop.in:6
+#: data/org.gnome.Notes.desktop.in:5
 msgid "Post notes, tag files!"
 msgstr "Tee muistilappuja, lisää tunnisteita tiedostoille!"
 
-#: data/org.gnome.Notes.desktop.in:7
+#: data/org.gnome.Notes.desktop.in:6
 msgid "Note-taker"
 msgstr "Muistio"
 
-#: data/org.gnome.Notes.desktop.in:19
+#: data/org.gnome.Notes.desktop.in:18
 msgid "Create New Note"
 msgstr "Luo uusi muistilappu"
 
@@ -119,42 +119,18 @@ msgstr ""
 "Tämä tallettaa viimeksi avattuna olleen kohteen muistilappupolun, jotta se "
 "voidaan avata seuraavan käynnistyksen yhteydessä."
 
-#: data/org.gnome.Notes.gschema.xml:34
-msgid "Window maximized"
-msgstr "Ikkuna suurennettu"
-
-#: data/org.gnome.Notes.gschema.xml:35
-msgid "Window maximized state."
-msgstr "Ikkunan suurentamisen tila."
-
-#: data/org.gnome.Notes.gschema.xml:39
-msgid "Window size"
-msgstr "Ikkunan koko"
-
-#: data/org.gnome.Notes.gschema.xml:40
-msgid "Window size (width and height)."
-msgstr "Ikkunan koko (leveys ja korkeus)."
-
-#: data/org.gnome.Notes.gschema.xml:44
-msgid "Window position"
-msgstr "Ikkunan sijainti"
-
-#: data/org.gnome.Notes.gschema.xml:45
-msgid "Window position (x and y)."
-msgstr "Ikkunan sijainti (x ja y)."
-
-#: data/org.gnome.Notes.gschema.xml:48
+#: data/org.gnome.Notes.gschema.xml:33
 msgid "Text size used by note editor."
 msgstr "Muokkaimessa käytettävä tekstikoko."
 
-#: data/org.gnome.Notes.gschema.xml:49
+#: data/org.gnome.Notes.gschema.xml:34
 msgid ""
 "There are three text sizes available: small, medium (default) and large."
 msgstr ""
 "Tarjolla on kolme eri tekstikokoa: pieni, tavallinen (oletus) ja suuri."
 
-#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-window.ui:243
-#: data/resources/bjb-window.ui:334 data/resources/selection-toolbar.ui:34
+#: data/resources/bjb-notebooks-dialog.ui:5 data/resources/bjb-side-view.ui:170
+#: data/resources/bjb-window.ui:82 data/resources/selection-toolbar.ui:34
 msgid "Notebooks"
 msgstr "Muistikirjat"
 
@@ -166,88 +142,85 @@ msgstr "Uusi muistikirja…"
 msgid "Add"
 msgstr "Lisää"
 
-#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:338
+#: data/resources/bjb-note-view.ui:15 src/bjb-note-view.c:330
 msgid "No note selected"
 msgstr "Muistilappua ei ole valittu"
 
-#. bjb_controller_set_group (self->controller, BIJI_LIVING_ITEMS);
-#: data/resources/bjb-window.ui:29 data/resources/bjb-window.ui:224
-#: src/bjb-window.c:303
+#: data/resources/bjb-side-view.ui:24 data/resources/bjb-side-view.ui:151
 msgid "All Notes"
 msgstr "Kaikki muistilaput"
 
-#: data/resources/bjb-window.ui:43
+#: data/resources/bjb-side-view.ui:30
 msgid "Open menu"
 msgstr "Avaa valikko"
 
-#: data/resources/bjb-window.ui:89
-msgid "More options"
-msgstr "Lisää valintoja"
-
-#: data/resources/bjb-window.ui:121 data/resources/import-dialog.ui:5
+#: data/resources/bjb-side-view.ui:55 data/resources/import-dialog.ui:5
 msgid "Import Notes"
 msgstr "Tuo muistilappuja"
 
-#: data/resources/bjb-window.ui:136
+#: data/resources/bjb-side-view.ui:61
 msgid "Text Sizes"
 msgstr "Tekstikoot"
 
-#: data/resources/bjb-window.ui:145
+#: data/resources/bjb-side-view.ui:63
 msgid "_Large"
 msgstr "_Suuri"
 
-#: data/resources/bjb-window.ui:154
+#: data/resources/bjb-side-view.ui:69
 msgid "_Medium"
 msgstr "_Tavallinen"
 
-#: data/resources/bjb-window.ui:163
+#: data/resources/bjb-side-view.ui:75
 msgid "_Small"
 msgstr "_Pieni"
 
-#: data/resources/bjb-window.ui:179 data/resources/settings-dialog.ui:7
+#: data/resources/bjb-side-view.ui:84 data/resources/settings-dialog.ui:7
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: data/resources/bjb-window.ui:187
+#: data/resources/bjb-side-view.ui:88
 msgid "Keyboard Shortcuts"
 msgstr "Pikanäppäimet"
 
-#: data/resources/bjb-window.ui:195
+#: data/resources/bjb-side-view.ui:92
 msgid "Help"
 msgstr "Ohje"
 
-#: data/resources/bjb-window.ui:203
+#: data/resources/bjb-side-view.ui:96
 msgid "About Notes"
 msgstr "Tietoja - Muistilaput"
 
-#. bjb_controller_set_group (self->controller, BIJI_ARCHIVED_ITEMS);
-#: data/resources/bjb-window.ui:268 src/bjb-window.c:313
+#: data/resources/bjb-side-view.ui:118
+msgid "Select Note Location"
+msgstr "Valitse muistilapun sijainti"
+
+#: data/resources/bjb-side-view.ui:196
 msgid "Trash"
 msgstr "Roskakori"
 
-#: data/resources/bjb-window.ui:295
-msgid "Open in New Window"
-msgstr "Avaa uudessa ikkunassa"
+#: data/resources/bjb-window.ui:38 src/bijiben-shell-search-provider.c:225
+msgid "Untitled"
+msgstr "Nimetön"
 
-#: data/resources/bjb-window.ui:311
+#: data/resources/bjb-window.ui:43
+msgid "More options"
+msgstr "Lisää valintoja"
+
+#: data/resources/bjb-window.ui:71
 msgid "Undo"
 msgstr "Kumoa"
 
-#: data/resources/bjb-window.ui:319
+#: data/resources/bjb-window.ui:75
 msgid "Redo"
 msgstr "Tee uudelleen"
 
-#: data/resources/bjb-window.ui:342
-msgid "Email this Note"
-msgstr "Lähetä tämä muistilappu sähköpostilla"
+#: data/resources/bjb-window.ui:86
+msgid "Email this Note…"
+msgstr "Lähetä tämä muistilappu sähköpostitse…"
 
-#: data/resources/bjb-window.ui:350 data/resources/selection-toolbar.ui:96
+#: data/resources/bjb-window.ui:90 data/resources/selection-toolbar.ui:78
 msgid "Move to Trash"
 msgstr "Siirrä roskakoriin"
-
-#: data/resources/bjb-window.ui:394
-msgid "Select Note Location"
-msgstr "Valitse muistilapun sijainti"
 
 #: data/resources/editor-toolbar.ui:20
 msgid "Bold"
@@ -417,15 +390,11 @@ msgstr "Muistilapun väri"
 msgid "Share note"
 msgstr "Jaa muistilappu"
 
-#: data/resources/selection-toolbar.ui:78
-msgid "Open in another window"
-msgstr "Avaa toisessa ikkunassa"
-
-#: data/resources/selection-toolbar.ui:119
+#: data/resources/selection-toolbar.ui:101
 msgid "Restore"
 msgstr "Palauta"
 
-#: data/resources/selection-toolbar.ui:127
+#: data/resources/selection-toolbar.ui:109
 msgid "Permanently Delete"
 msgstr "Poista pysyvästi"
 
@@ -437,7 +406,7 @@ msgstr "Muistilapun ulkoasu"
 msgid "Use System Font"
 msgstr "Käytä järjestelmän fonttia"
 
-#: data/resources/settings-dialog.ui:43
+#: data/resources/settings-dialog.ui:43 data/resources/settings-dialog.ui:79
 msgid "Note Font"
 msgstr "Muistilapun fontti"
 
@@ -445,101 +414,112 @@ msgstr "Muistilapun fontti"
 msgid "Default Color"
 msgstr "Oletusväri"
 
-#: src/bijiben-shell-search-provider.c:225 src/bjb-window.c:110
-msgid "Untitled"
-msgstr "Nimetön"
+#: data/resources/settings-dialog.ui:97
+msgid "Note Color"
+msgstr "Muistilapun väri"
 
-#: src/bjb-application.c:146
-msgid "GNOME Notes"
-msgstr "Gnomen muistilaput"
-
-#: src/bjb-application.c:172
+#: src/bjb-application.c:94
 msgid "Show verbose logs"
 msgstr "Näytä runsaat lokit"
 
-#: src/bjb-application.c:174
-msgid "Show the application’s version"
-msgstr "Näytä sovelluksen versio"
-
-#: src/bjb-application.c:176
+#: src/bjb-application.c:96
 msgid "Create a new note"
 msgstr "Luo uusi muistilappu"
 
-#: src/bjb-application.c:184
+#: src/bjb-application.c:102
 msgid "[FILE…]"
 msgstr "[TIEDOSTO…]"
 
-#: src/bjb-application.c:185
+#: src/bjb-application.c:103
 msgid "Take notes and export them everywhere."
 msgstr "Tee muistilappuja ja vie niitä muihin sovelluksiin."
 
-#: src/bjb-application.c:403
+#: src/bjb-note-list.c:114
+msgid "Add Notes"
+msgstr "Lisää muistilappuja"
+
+#: src/bjb-note-list.c:115
+msgid "Use the + button to add a note"
+msgstr "Napsauta +-painiketta luodaksesi muistilapun"
+
+#: src/bjb-note-list.c:120
+msgid "No Results"
+msgstr "Ei tuloksia"
+
+#: src/bjb-note-list.c:121
+msgid "Try a different search"
+msgstr "Yritä eri hakuehdoilla"
+
+#: src/bjb-utils.c:52
+msgid "Unknown"
+msgstr "Tuntematon"
+
+#: src/bjb-utils.c:69
+msgid "Yesterday"
+msgstr "Eilen"
+
+#: src/bjb-utils.c:75
+msgid "This month"
+msgstr "Viime kuussa"
+
+#: src/bjb-window.c:93
 msgid "Simple notebook for GNOME"
 msgstr "Yksinkertainen muistio Gnomelle"
 
-#: src/bjb-application.c:409
+#: src/bjb-window.c:99
 msgid "translator-credits"
 msgstr ""
 "Jiri Grönroos, 2013-2023\n"
 "Juhani Numminen, 2014"
 
-#: src/bjb-color-button.c:140
-msgid "Note Color"
-msgstr "Muistilapun väri"
-
-#: src/bjb-note-list.c:113
-msgid "Add Notes"
-msgstr "Lisää muistilappuja"
-
-#: src/bjb-note-list.c:114
-msgid "Use the + button to add a note"
-msgstr "Napsauta +-painiketta luodaksesi muistilapun"
-
-#: src/bjb-note-list.c:119
-msgid "No Results"
-msgstr "Ei tuloksia"
-
-#: src/bjb-note-list.c:120
-msgid "Try a different search"
-msgstr "Yritä eri hakuehdoilla"
-
-#: src/bjb-note-view.c:146
-msgid "This note is being viewed in another window"
-msgstr "Tämä muistilappu on avoinna toisessa ikkunassa"
-
-#: src/bjb-utils.c:51
-msgid "Unknown"
-msgstr "Tuntematon"
-
-#: src/bjb-utils.c:68
-msgid "Yesterday"
-msgstr "Eilen"
-
-#: src/bjb-utils.c:74
-msgid "This month"
-msgstr "Viime kuussa"
-
-#. Translators: %s is the note last recency description.
-#. * Last updated is placed as in left to right language
-#. * right to left languages might move %s
-#. *         '%s Last Updated'
-#.
-#: src/bjb-window.c:583
-#, c-format
-msgid "Last updated: %s"
-msgstr "Viimeksi päivitetty: %s"
-
-#: src/providers/bjb-local-provider.c:78
+#: src/providers/bjb-local-provider.c:72
 msgid "Local"
 msgstr "Paikallinen"
 
-#: src/providers/bjb-local-provider.c:91
+#: src/providers/bjb-local-provider.c:85
 msgid "On This Computer"
 msgstr "Tällä tietokoneella"
 
-#: src/providers/bjb-memo-provider.c:90
+#: src/providers/bjb-memo-provider.c:85
 msgid "Memo Note"
 msgstr "Muistikirjan muistilappu"
+
+#~ msgid "Window maximized"
+#~ msgstr "Ikkuna suurennettu"
+
+#~ msgid "Window maximized state."
+#~ msgstr "Ikkunan suurentamisen tila."
+
+#~ msgid "Window size"
+#~ msgstr "Ikkunan koko"
+
+#~ msgid "Window size (width and height)."
+#~ msgstr "Ikkunan koko (leveys ja korkeus)."
+
+#~ msgid "Window position"
+#~ msgstr "Ikkunan sijainti"
+
+#~ msgid "Window position (x and y)."
+#~ msgstr "Ikkunan sijainti (x ja y)."
+
+#~ msgid "Open in New Window"
+#~ msgstr "Avaa uudessa ikkunassa"
+
+#~ msgid "Open in another window"
+#~ msgstr "Avaa toisessa ikkunassa"
+
+#~ msgid "GNOME Notes"
+#~ msgstr "Gnomen muistilaput"
+
+#~ msgid "Show the application’s version"
+#~ msgstr "Näytä sovelluksen versio"
+
+#~ msgid "This note is being viewed in another window"
+#~ msgstr "Tämä muistilappu on avoinna toisessa ikkunassa"
+
+#, c-format
+#~ msgid "Last updated: %s"
+#~ msgstr "Viimeksi päivitetty: %s"
 
 #~ msgid "Select the default storage location:"
 #~ msgstr "Valitse tallennustilan oletussijainti:"
